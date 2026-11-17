@@ -1220,6 +1220,719 @@
       "question": "How does QUIC replace TCP in HTTP/3?",
       "reponse_reference": "L'information n'est pas dans le cours.",
       "slides": []
+    },
+    {
+      "id": "cloud_virtualisation_esprit_en__q01",
+      "course_id": "cloud_virtualisation_esprit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "According to NIST SP 800-44 Version 2, what is virtualization?",
+      "reponse_reference": "The use of an abstraction layer to simulate computing hardware so that multiple operating systems can run on a single computer.",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "id": "cloud_virtualisation_esprit_en__q02",
+      "course_id": "cloud_virtualisation_esprit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What are the four means by which virtualization simulates the interface to a physical object?",
+      "reponse_reference": "Multiplexing, aggregation, emulation, and multiplexing combined with emulation.",
+      "slides": [
+        7
+      ]
+    },
+    {
+      "id": "cloud_virtualisation_esprit_en__q03",
+      "course_id": "cloud_virtualisation_esprit_en",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Give an example of aggregation in virtualization and explain why it counts as aggregation.",
+      "reponse_reference": "Several physical disks grouped into a single RAID disk: multiple physical objects are combined into one virtual object, for better performance or redundancy.",
+      "slides": [
+        7
+      ]
+    },
+    {
+      "id": "cloud_virtualisation_esprit_en__q04",
+      "course_id": "cloud_virtualisation_esprit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "Which four characteristics make virtualization ideal for cloud computing?",
+      "reponse_reference": "Partitioning, isolation, encapsulation and hardware independence.",
+      "slides": [
+        16
+      ]
+    },
+    {
+      "id": "cloud_virtualisation_esprit_en__q05",
+      "course_id": "cloud_virtualisation_esprit_en",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why does encapsulation make virtual machines easy to deploy, migrate and back up?",
+      "reponse_reference": "Because a virtual machine can be represented and stored as a single file, which makes it highly portable and easy to manage, so deployment, migration and backups are simplified.",
+      "slides": [
+        16
+      ]
+    },
+    {
+      "id": "cloud_virtualisation_esprit_en__q06",
+      "course_id": "cloud_virtualisation_esprit_en",
+      "auteur": "both",
+      "type": "figure",
+      "langue": "en",
+      "question": "In the 'Virtualization layers' diagram, which virtualization technology corresponds to the Computing Hardware layer, and which one to the Operating Systems layer?",
+      "reponse_reference": "The hypervisor (VMware, Xen) virtualizes the computing hardware layer, and the virtual machine corresponds to the operating systems layer.",
+      "slides": [
+        13
+      ]
+    },
+    {
+      "id": "cloud_virtualisation_esprit_en__q07",
+      "course_id": "cloud_virtualisation_esprit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "Which scheduling algorithms can load balancers use to decide where requests are sent?",
+      "reponse_reference": "Round Robin, Weighted Round Robin, Fastest Response Time, Least Connections, Weighted Least Connections, and custom assignments (e.g. geographical proximity or application-specific metrics).",
+      "slides": [
+        27
+      ]
+    },
+    {
+      "id": "cloud_virtualisation_esprit_en__q08",
+      "course_id": "cloud_virtualisation_esprit_en",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why is a hypervisor (VMM) considered less vulnerable than a traditional operating system?",
+      "reponse_reference": "A VMM is simpler and more precisely specified than an OS and exposes far fewer privileged functions, unlike an OS with millions of lines of code. Its smaller attack surface means fewer entry points for attackers.",
+      "slides": [
+        31
+      ]
+    },
+    {
+      "id": "cloud_virtualisation_esprit_en__q09",
+      "course_id": "cloud_virtualisation_esprit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What is live migration, and for which datacenter functions is it used?",
+      "reponse_reference": "Moving a virtual machine from one physical host to another while it stays powered up, without noticeable effect for the end user. It is used for load-balancing workloads, fault tolerance (moving VMs away from failing hardware) and power saving (consolidating workloads on fewer hosts).",
+      "slides": [
+        34
+      ]
+    },
+    {
+      "id": "cloud_virtualisation_esprit_en__q10",
+      "course_id": "cloud_virtualisation_esprit_en",
+      "auteur": "both",
+      "type": "hors_cours",
+      "langue": "en",
+      "question": "What is the hourly price of an AWS EC2 t3.micro instance?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "cloud_management_esprit_en__q01",
+      "course_id": "cloud_management_esprit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "Which five cloud characteristics does Chapter 5 announce on its title slide?",
+      "reponse_reference": "On-demand self-service, broad network access, resource pooling, rapid elasticity and measured service.",
+      "slides": [
+        1
+      ]
+    },
+    {
+      "id": "cloud_management_esprit_en__q02",
+      "course_id": "cloud_management_esprit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "Which traditional framework have network management systems historically been structured around?",
+      "reponse_reference": "The FCAPS model, an acronym defining five key functional areas of network management.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "cloud_management_esprit_en__q03",
+      "course_id": "cloud_management_esprit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What are the four 'cloudy' characteristics that cloud management services should have?",
+      "reponse_reference": "Pay-as-you-go billing, extreme scalability, ubiquitous accessibility, and use of cloud networking standards.",
+      "slides": [
+        15
+      ]
+    },
+    {
+      "id": "cloud_management_esprit_en__q04",
+      "course_id": "cloud_management_esprit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What are the fundamental challenges of cloud management?",
+      "reponse_reference": "Scale, multiple levels of abstraction (IaaS, PaaS, SaaS), federation across several cloud providers, and dynamism.",
+      "slides": [
+        19
+      ]
+    },
+    {
+      "id": "cloud_management_esprit_en__q05",
+      "course_id": "cloud_management_esprit_en",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why do traditional centralized management systems not work at cloud scale?",
+      "reponse_reference": "They are built on centralized architectures designed for a contained set of resources, and do not scale to the potentially millions of virtual machines, containers and services of a large cloud, which creates bottlenecks and inefficiency.",
+      "slides": [
+        20
+      ]
+    },
+    {
+      "id": "cloud_management_esprit_en__q06",
+      "course_id": "cloud_management_esprit_en",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "What problem arises from having separate management systems for the IaaS, PaaS and SaaS layers?",
+      "reponse_reference": "It leads to siloed, subsystem-level solutions: data and controls are not shared between layers, causing inefficiencies and redundancies.",
+      "slides": [
+        21
+      ]
+    },
+    {
+      "id": "cloud_management_esprit_en__q07",
+      "course_id": "cloud_management_esprit_en",
+      "auteur": "both",
+      "type": "figure",
+      "langue": "en",
+      "question": "In the 'Market Dynamics' diagram, which management layer is described as 'too diverse & no standard', with very few vendors building there?",
+      "reponse_reference": "Physical Infrastructure Management. The three upper layers (service request, application and workload, virtual infrastructure management) have strong standards, high ROI on development, and solutions built by many vendors.",
+      "slides": [
+        16
+      ]
+    },
+    {
+      "id": "cloud_management_esprit_en__q08",
+      "course_id": "cloud_management_esprit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What do MTBF and MTTR mean in cloud reliability monitoring?",
+      "reponse_reference": "MTBF (Mean Time Between Failures) is the average operational time between breakdowns; MTTR (Mean Time to Repair) is the average time to recover from a failure.",
+      "slides": [
+        25
+      ]
+    },
+    {
+      "id": "cloud_management_esprit_en__q09",
+      "course_id": "cloud_management_esprit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "Which AWS service does the course present for collecting metrics, monitoring log files and setting alarms?",
+      "reponse_reference": "Amazon CloudWatch.",
+      "slides": [
+        29
+      ]
+    },
+    {
+      "id": "cloud_management_esprit_en__q10",
+      "course_id": "cloud_management_esprit_en",
+      "auteur": "both",
+      "type": "hors_cours",
+      "langue": "en",
+      "question": "What was Microsoft Azure's cloud market share in 2025?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "ml_introduction_mit_en__q01",
+      "course_id": "ml_introduction_mit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What early definition of machine learning by Arthur Samuel (1959) is given in the lecture?",
+      "reponse_reference": "Field of study that gives computers the ability to learn without being explicitly programmed.",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "id": "ml_introduction_mit_en__q02",
+      "course_id": "ml_introduction_mit_en",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "What is the difference between memorization and generalization as ways of learning?",
+      "reponse_reference": "Memorization accumulates individual facts (declarative knowledge) and is limited by the time to observe and the memory to store facts. Generalization deduces new facts from old ones (imperative knowledge); it is limited by the accuracy of the deduction and is essentially predictive, assuming the past predicts the future.",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "id": "ml_introduction_mit_en__q03",
+      "course_id": "ml_introduction_mit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "How does the lecture define supervised and unsupervised learning?",
+      "reponse_reference": "Supervised: given a set of feature/label pairs, find a rule that predicts the label of a previously unseen input. Unsupervised: given feature vectors without labels, group them into natural clusters.",
+      "slides": [
+        8
+      ]
+    },
+    {
+      "id": "ml_introduction_mit_en__q04",
+      "course_id": "ml_introduction_mit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What are the steps of the clustering approach when we know there are k groups but not their labels?",
+      "reponse_reference": "Pick k samples as exemplars, put each remaining sample in the group with the closest exemplar, take the median example of each cluster as the new exemplar, and repeat until there is no change.",
+      "slides": [
+        11,
+        43
+      ]
+    },
+    {
+      "id": "ml_introduction_mit_en__q05",
+      "course_id": "ml_introduction_mit_en",
+      "auteur": "both",
+      "type": "figure",
+      "langue": "en",
+      "question": "In the table of Euclidean distances between animals, what is the distance between the rattlesnake and the boa constrictor, and between the rattlesnake and the dart frog?",
+      "reponse_reference": "1.414 between the rattlesnake and the boa constrictor, and 4.243 between the rattlesnake and the dart frog: the two snakes are much closer to each other than to the dart frog.",
+      "slides": [
+        37
+      ]
+    },
+    {
+      "id": "ml_introduction_mit_en__q06",
+      "course_id": "ml_introduction_mit_en",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why is the alligator closer to the dart frog than to the snakes when the number of legs is an integer feature, and how is this fixed?",
+      "reponse_reference": "The 'legs' feature ranges from 0 to 4 while the other features are 0 or 1, so this dimension is disproportionately large. Using binary features (legs encoded as 0 or 1) makes the alligator closer to the snakes than to the dart frog: feature engineering matters.",
+      "slides": [
+        39,
+        40
+      ]
+    },
+    {
+      "id": "ml_introduction_mit_en__q07",
+      "course_id": "ml_introduction_mit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "In the Minkowski metric, which values of p give the Manhattan and the Euclidean distances?",
+      "reponse_reference": "p = 1 gives the Manhattan distance and p = 2 the Euclidean distance.",
+      "slides": [
+        35
+      ]
+    },
+    {
+      "id": "ml_introduction_mit_en__q08",
+      "course_id": "ml_introduction_mit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "How is accuracy computed from true/false positives and negatives?",
+      "reponse_reference": "accuracy = (TP + TN) / (TP + TN + FP + FN).",
+      "slides": [
+        51
+      ]
+    },
+    {
+      "id": "ml_introduction_mit_en__q09",
+      "course_id": "ml_introduction_mit_en",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "The complex model reaches an accuracy of 0.833 on the training data but only 0.6 on the test data. What does this show?",
+      "reponse_reference": "The complex model overfits: it fits the training data well (TP = 12, FP = 5, TN = 13, FN = 0) but generalizes poorly to unseen test data (TP = 14, FP = 4, TN = 4, FN = 8).",
+      "slides": [
+        52,
+        53
+      ]
+    },
+    {
+      "id": "ml_introduction_mit_en__q10",
+      "course_id": "ml_introduction_mit_en",
+      "auteur": "both",
+      "type": "hors_cours",
+      "langue": "en",
+      "question": "Which learning rate was used to train GPT-4?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "ml_nlp_sante_mit_en__q01",
+      "course_id": "ml_nlp_sante_mit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "Which topics are listed in the outline of the lecture?",
+      "reponse_reference": "Value of the data in clinical text, hyper-simplified linguistics, term spotting with handling of negation and uncertainty, ML to expand terms, pre-neural ML to identify entities and relations, language models, and neural methods.",
+      "slides": [
+        2
+      ]
+    },
+    {
+      "id": "ml_nlp_sante_mit_en__q02",
+      "course_id": "ml_nlp_sante_mit_en",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why is clinical narrative text valuable for machine learning in healthcare?",
+      "reponse_reference": "Because the bulk of valuable patient data (demographics, conditions and diseases, procedures and tests, measurement results, times) is found in narrative text such as clinical notes, not only in coded data.",
+      "slides": [
+        3
+      ]
+    },
+    {
+      "id": "ml_nlp_sante_mit_en__q03",
+      "course_id": "ml_nlp_sante_mit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "In the rheumatoid arthritis cohort study, which narrative documents were processed by HITEx?",
+      "reponse_reference": "Health care provider notes, radiology reports, pathology reports, discharge summaries and operative reports.",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "id": "ml_nlp_sante_mit_en__q04",
+      "course_id": "ml_nlp_sante_mit_en",
+      "auteur": "both",
+      "type": "figure",
+      "langue": "en",
+      "question": "According to the model performance table, what average PPV, sensitivity and AUC did the published algorithm obtain across the three sites?",
+      "reponse_reference": "PPV 90%, sensitivity 65% and AUC 95%.",
+      "slides": [
+        9
+      ]
+    },
+    {
+      "id": "ml_nlp_sante_mit_en__q05",
+      "course_id": "ml_nlp_sante_mit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "Which pattern does NegEx use to detect negated findings?",
+      "reponse_reference": "<negation phrase> *{0,5} <UMLS term>: a negation phrase followed by at most 5 words and then a UMLS term.",
+      "slides": [
+        20
+      ]
+    },
+    {
+      "id": "ml_nlp_sante_mit_en__q06",
+      "course_id": "ml_nlp_sante_mit_en",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why is negation in clinical text simpler than the general problem of negation in NLP?",
+      "reponse_reference": "Because negation applies mostly to noun phrases indicating diseases, tests, drugs and findings.",
+      "slides": [
+        20
+      ]
+    },
+    {
+      "id": "ml_nlp_sante_mit_en__q07",
+      "course_id": "ml_nlp_sante_mit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "On all sentences, what specificity did the baseline and NegEx obtain?",
+      "reponse_reference": "Baseline: 85.27%; NegEx: 94.51%.",
+      "slides": [
+        21
+      ]
+    },
+    {
+      "id": "ml_nlp_sante_mit_en__q08",
+      "course_id": "ml_nlp_sante_mit_en",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "How many source vocabularies and distinct concepts does the UMLS Metathesaurus (2018ab version) include?",
+      "reponse_reference": "161 source vocabularies and 3,773,462 distinct concepts, each represented by a concept unique identifier (CUI).",
+      "slides": [
+        23
+      ]
+    },
+    {
+      "id": "ml_nlp_sante_mit_en__q09",
+      "course_id": "ml_nlp_sante_mit_en",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "What are the two types of clinical NLP tasks described in the lecture, and how do they differ?",
+      "reponse_reference": "'Every word counts' tasks (de-identification, extraction of all entities, time, certainty, causation and association) versus 'aggregate judgment' tasks (e.g. the smoking challenge, cohort selection), where most of the text may be irrelevant to the result.",
+      "slides": [
+        13
+      ]
+    },
+    {
+      "id": "ml_nlp_sante_mit_en__q10",
+      "course_id": "ml_nlp_sante_mit_en",
+      "auteur": "both",
+      "type": "hors_cours",
+      "langue": "en",
+      "question": "What score does GPT-4 obtain on the USMLE medical licensing exam?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "ml_recherche_lineaire_esprit_fr__q01",
+      "course_id": "ml_recherche_lineaire_esprit_fr",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quels sont les deux objectifs souvent contradictoires du choix du pas ?",
+      "reponse_reference": "Trouver le meilleur pas possible et faire le moins de calculs possible.",
+      "slides": [
+        3
+      ]
+    },
+    {
+      "id": "ml_recherche_lineaire_esprit_fr__q02",
+      "course_id": "ml_recherche_lineaire_esprit_fr",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Comment définit-on la fonction de mérite φk ?",
+      "reponse_reference": "φk(ρ) = J(xk + ρ dk) pour ρ ≥ 0 : c'est J le long de la demi-droite partant de xk dans la direction dk. Sa dérivée est φ′k(ρ) = ⟨∇J(xk + ρ dk), dk⟩.",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "id": "ml_recherche_lineaire_esprit_fr__q03",
+      "course_id": "ml_recherche_lineaire_esprit_fr",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Pourquoi l'algorithme de rebroussement simple s'arrête-t-il toujours, et pourquoi ne suffit-il pas à garantir la convergence ?",
+      "reponse_reference": "Comme φ′k(0) < 0, J décroît pour un pas assez petit : la division par 2 s'arrête après un nombre fini d'étapes. Mais la seule condition « J diminue » ne garantit pas la convergence de la méthode de descente.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "ml_recherche_lineaire_esprit_fr__q04",
+      "course_id": "ml_recherche_lineaire_esprit_fr",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Dans l'exemple J(x) = x²/2 avec des pas trop grands, pourquoi la suite ne converge-t-elle pas alors que J décroît ?",
+      "reponse_reference": "Les pas sont trop grands et font sauter par-dessus le minimum : xk = (−1)^k (1 + 1/2^k), donc |xk| décroît et J décroît, mais la suite a deux valeurs d'adhérence, 1 et −1, qui ne sont pas des minimiseurs. La notion de direction de descente est locale.",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "id": "ml_recherche_lineaire_esprit_fr__q05",
+      "course_id": "ml_recherche_lineaire_esprit_fr",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelle est la condition d'Armijo ?",
+      "reponse_reference": "J(xk + ρ dk) ≤ J(xk) + ε ρ ⟨∇J(xk), dk⟩ avec 0 < ε < 1, soit φk(ρ) ≤ φk(0) + ε ρ φ′k(0). En pratique ε est petit, typiquement 10⁻⁴.",
+      "slides": [
+        7
+      ]
+    },
+    {
+      "id": "ml_recherche_lineaire_esprit_fr__q06",
+      "course_id": "ml_recherche_lineaire_esprit_fr",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Pour J(x, y) = x² + y⁴ au point (1, 1) avec dk = −∇J, quel pas d'Armijo obtient-on par rebroussement avec ρ(0) = 1 et ε = 0,9 ?",
+      "reponse_reference": "ρArmijo = 1/64 = 0,015625, après 6 divisions par 2.",
+      "slides": [
+        11
+      ]
+    },
+    {
+      "id": "ml_recherche_lineaire_esprit_fr__q07",
+      "course_id": "ml_recherche_lineaire_esprit_fr",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelles sont les deux conditions de Wolfe ?",
+      "reponse_reference": "(W1) condition d'Armijo : J(xk + ρ dk) ≤ J(xk) + ε1 ρ ⟨∇J(xk), dk⟩ ; (W2) condition de courbure : ⟨∇J(xk + ρ dk), dk⟩ ≥ ε2 ⟨∇J(xk), dk⟩, avec 0 < ε1 < ε2 < 1 (valeurs usuelles ε1 = 10⁻⁴ et ε2 = 0,9).",
+      "slides": [
+        13
+      ]
+    },
+    {
+      "id": "ml_recherche_lineaire_esprit_fr__q08",
+      "course_id": "ml_recherche_lineaire_esprit_fr",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Pourquoi la condition d'Armijo seule ne suffit-elle pas, et quel est le rôle de la condition de courbure ?",
+      "reponse_reference": "Armijo rejette les pas trop grands mais accepte des pas arbitrairement petits : dans l'exemple (A2), xk → 1, qui n'est pas un minimiseur. La condition de courbure (W2) exige que la pente φ′k ait suffisamment augmenté, ce qui rejette les pas trop petits.",
+      "slides": [
+        12,
+        13
+      ]
+    },
+    {
+      "id": "ml_recherche_lineaire_esprit_fr__q09",
+      "course_id": "ml_recherche_lineaire_esprit_fr",
+      "auteur": "both",
+      "type": "figure",
+      "langue": "fr",
+      "question": "D'après le tableau bilan, quels sont le coût et le défaut de la recherche linéaire de Wolfe ?",
+      "reponse_reference": "Un coût modéré ; son défaut est qu'elle demande ∇J en xk + ρ dk.",
+      "slides": [
+        17
+      ]
+    },
+    {
+      "id": "ml_recherche_lineaire_esprit_fr__q10",
+      "course_id": "ml_recherche_lineaire_esprit_fr",
+      "auteur": "both",
+      "type": "hors_cours",
+      "langue": "fr",
+      "question": "Quel est le taux d'apprentissage par défaut de l'optimiseur Adam dans PyTorch ?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "bd_introduction_cotedazur_fr__q01",
+      "course_id": "bd_introduction_cotedazur_fr",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Qu'est-ce qu'un SGBD ?",
+      "reponse_reference": "Un Système de Gestion de Base de Données : un logiciel qui permet de gérer une base de données partagée par plusieurs utilisateurs.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "bd_introduction_cotedazur_fr__q02",
+      "course_id": "bd_introduction_cotedazur_fr",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Qui a proposé le modèle relationnel, et en quelle année ?",
+      "reponse_reference": "Edgar Codd (IBM), en 1970 ; il a reçu le prix Turing en 1981.",
+      "slides": [
+        8
+      ]
+    },
+    {
+      "id": "bd_introduction_cotedazur_fr__q03",
+      "course_id": "bd_introduction_cotedazur_fr",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Pourquoi la relation qui décrit chaque espèce par une phrase comme « procaryotes unicellulaires » est-elle un mauvais exemple ?",
+      "reponse_reference": "Parce qu'elle ne respecte pas l'atomicité : un domaine doit contenir des valeurs atomiques (indivisibles), alors qu'ici une seule valeur regroupe plusieurs informations.",
+      "slides": [
+        11
+      ]
+    },
+    {
+      "id": "bd_introduction_cotedazur_fr__q04",
+      "course_id": "bd_introduction_cotedazur_fr",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelle est la différence entre les types VARCHAR(n), CHAR(n) et TEXT ?",
+      "reponse_reference": "VARCHAR(n) : chaîne d'au plus n caractères (taille variable) ; CHAR(n) : chaîne d'exactement n caractères (taille fixe, ex. immatriculation) ; TEXT : chaîne de taille non limitée, pour les textes très longs.",
+      "slides": [
+        15
+      ]
+    },
+    {
+      "id": "bd_introduction_cotedazur_fr__q05",
+      "course_id": "bd_introduction_cotedazur_fr",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Qu'est-ce qu'une super-clé, une clé candidate et une clé primaire ?",
+      "reponse_reference": "Une super-clé est un sous-ensemble d'attributs sur lequel deux n-uplets diffèrent toujours ; une clé candidate est une super-clé minimale ; la clé primaire est la clé candidate choisie parmi les clés candidates.",
+      "slides": [
+        20
+      ]
+    },
+    {
+      "id": "bd_introduction_cotedazur_fr__q06",
+      "course_id": "bd_introduction_cotedazur_fr",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Dans la relation DOCUMENT(Id, Langue, Description), pourquoi la clé primaire est-elle le couple (Id, Langue) ?",
+      "reponse_reference": "Parce qu'un même Id (par exemple rapport1) apparaît dans plusieurs langues : Id seul ne distingue pas les n-uplets. Il faut le couple (Id, Langue), qui forme une clé primaire composée.",
+      "slides": [
+        22
+      ]
+    },
+    {
+      "id": "bd_introduction_cotedazur_fr__q07",
+      "course_id": "bd_introduction_cotedazur_fr",
+      "auteur": "both",
+      "type": "figure",
+      "langue": "fr",
+      "question": "D'après les tables PERSONNE, RÔLE, RÉALISATION et FILM de l'exemple, qui a réalisé le film The Big Lebowski ?",
+      "reponse_reference": "Joel Coen : dans RÉALISATION, le film 1005 (The Big Lebowski) est associé au réalisateur n° 3, qui est Joel Coen dans PERSONNE.",
+      "slides": [
+        25
+      ]
+    },
+    {
+      "id": "bd_introduction_cotedazur_fr__q08",
+      "course_id": "bd_introduction_cotedazur_fr",
+      "auteur": "both",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelle est la différence entre la sélection et la projection en algèbre relationnelle ?",
+      "reponse_reference": "La sélection (σ) garde les n-uplets (lignes) qui vérifient une condition ; la projection (π) garde certaines colonnes (attributs) et élimine les n-uplets en double.",
+      "slides": [
+        29,
+        32
+      ]
+    },
+    {
+      "id": "bd_introduction_cotedazur_fr__q09",
+      "course_id": "bd_introduction_cotedazur_fr",
+      "auteur": "both",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Pourquoi le film Parasite n'apparaît-il pas dans la jointure naturelle de FILM et RÔLE, et comment le faire apparaître ?",
+      "reponse_reference": "Aucun rôle de Parasite n'est renseigné dans RÔLE, donc il n'a pas de n-uplet correspondant. La jointure externe gauche FILM ⟕ RÔLE garde aussi les films sans rôle correspondant.",
+      "slides": [
+        47
+      ]
+    },
+    {
+      "id": "bd_introduction_cotedazur_fr__q10",
+      "course_id": "bd_introduction_cotedazur_fr",
+      "auteur": "both",
+      "type": "hors_cours",
+      "langue": "fr",
+      "question": "Quelle est la syntaxe SQL pour créer un index sur une colonne ?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
     }
   ]
 }
