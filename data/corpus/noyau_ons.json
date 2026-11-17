@@ -1,0 +1,16 @@
+{
+  "description": "Noyau C1 d'Ons : 10 cours retenus pour les tests d'ingestion (H1-H3), le RAG (B1-B2) et le jeu d'évaluation C2. Les autres cours de inventaire_ons.csv restent en réserve.",
+  "criteres": "5 FR / 5 EN, PDF et PPTX, 15 à 60 slides, riches en figures et formules, 4 domaines, 9 sources différentes",
+  "cours": [
+    {"course_id": "maths_vecteurs_gaussiens_brownien_esprit_fr", "fichier": "fr/maths/maths_vecteurs_gaussiens_brownien_esprit_fr.pdf"},
+    {"course_id": "maths_probabilites_labri_fr", "fichier": "fr/maths/maths_probabilites_labri_fr.pdf"},
+    {"course_id": "ml_gradient_stochastique_esprit_fr", "fichier": "fr/ml/ml_gradient_stochastique_esprit_fr.pdf"},
+    {"course_id": "dl_reseaux_convolutifs_cnam_fr", "fichier": "fr/dl/dl_reseaux_convolutifs_cnam_fr.pdf"},
+    {"course_id": "reseaux_transport_grenoble_fr", "fichier": "fr/reseaux/reseaux_transport_grenoble_fr.pdf"},
+    {"course_id": "maths_valeurs_propres_ntu_en", "fichier": "en/maths/maths_valeurs_propres_ntu_en.pptx"},
+    {"course_id": "ml_regression_uppsala_en", "fichier": "en/ml/ml_regression_uppsala_en.pdf"},
+    {"course_id": "dl_fondements_louppe_en", "fichier": "en/dl/dl_fondements_louppe_en.pdf"},
+    {"course_id": "dl_self_attention_ntu_en", "fichier": "en/dl/dl_self_attention_ntu_en.pptx"},
+    {"course_id": "reseaux_tcp_routage_liu_en", "fichier": "en/reseaux/reseaux_tcp_routage_liu_en.pdf"}
+  ]
+}
