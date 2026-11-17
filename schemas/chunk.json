@@ -1,0 +1,63 @@
+{
+  "additionalProperties": false,
+  "description": "Unité indexée par le RAG (B2) : une slide = un chunk.",
+  "properties": {
+    "id": {
+      "description": "Égal à l'id de la slide",
+      "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*__s\\d{3,}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "course_id": {
+      "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$",
+      "title": "Course Id",
+      "type": "string"
+    },
+    "numero": {
+      "minimum": 1,
+      "title": "Numero",
+      "type": "integer"
+    },
+    "titre": {
+      "default": "",
+      "title": "Titre",
+      "type": "string"
+    },
+    "contenu": {
+      "description": "texte + notes + description_figures, concaténés",
+      "title": "Contenu",
+      "type": "string"
+    },
+    "contexte_precedent": {
+      "default": "",
+      "description": "Titre/résumé de la slide N-1",
+      "title": "Contexte Precedent",
+      "type": "string"
+    },
+    "contexte_suivant": {
+      "default": "",
+      "description": "Titre/résumé de la slide N+1",
+      "title": "Contexte Suivant",
+      "type": "string"
+    },
+    "langue": {
+      "enum": [
+        "fr",
+        "en",
+        "ar",
+        "mixte"
+      ],
+      "title": "Langue",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "course_id",
+    "numero",
+    "contenu",
+    "langue"
+  ],
+  "title": "Chunk",
+  "type": "object"
+}
