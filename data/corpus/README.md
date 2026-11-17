@@ -64,14 +64,17 @@ Mêmes premières colonnes que `data/corpus_extra/inventaire.csv`, puis des colo
 
 ## Répartition du corpus d'Ons (2026-11-17)
 
-39 cours (26 PDF, 13 PPTX), tous versionnés dans Git. 4 ont une licence explicite (voir Crédits),
-7 sont des supports internes d'Esprit, les autres ont une licence inconnue (source dans l'inventaire).
+38 cours (25 PDF, 13 PPTX), tous versionnés dans Git. 4 ont une licence explicite (voir Crédits),
+6 sont des supports internes d'Esprit, les autres ont une licence inconnue (source dans l'inventaire).
 
 | Langue | maths | ml | dl | reseaux | Total |
 |---|---|---|---|---|---|
-| fr | 3 | 4 | 2 | 4 | 13 |
+| fr | 3 | 3 | 2 | 4 | 12 |
 | en | 8 | 7 | 8 | 3 | 26 |
-| **Total** | 11 | 11 | 10 | 7 | **39** |
+| **Total** | 11 | 10 | 10 | 7 | **38** |
 
 Les PPTX de NTU (Hung-yi Lee) contiennent parfois quelques mots en chinois ; ils restent classés `en`.
 Détail (titre, source, licence, nombre de slides) : `inventaire_ons.csv`.
+
+Le chapitre 4 d'Optimisation pour le ML (Esprit, recherche linéaire) a été retiré du corpus d'Ons :
+il est déjà collecté par Both (`optimisation_recherche_lineaire_ch4_fr.pdf`).
