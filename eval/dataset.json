@@ -505,8 +505,8 @@
       "auteur": "ons",
       "type": "factuelle",
       "langue": "fr",
-      "question": "Quelles sont les couches de LeNet-5 ?",
-      "reponse_reference": "Trois convolutions 5 × 5 (32 × 32 × 1 → 28 × 28 × 6, 14 × 14 × 6 → 10 × 10 × 16, 10 × 10 × 16 → 1 × 1 × 120), puis deux couches entièrement connectées (120 → 84, puis 84 → 10).",
+      "question": "Combien de couches avec paramètres compte LeNet-5, et de quels types sont-elles ?",
+      "reponse_reference": "Cinq : trois couches de convolution 5 × 5 (la première transforme une image 32 × 32 × 1 en 28 × 28 × 6), puis deux couches entièrement connectées (120 → 84, puis 84 → 10, la dernière jouant le rôle d'une régression logistique).",
       "slides": [
         38
       ]
@@ -709,10 +709,11 @@
       "auteur": "ons",
       "type": "comprehension",
       "langue": "en",
-      "question": "Does every n × n matrix have real eigenvalues? Use the rotation example.",
-      "reponse_reference": "No. A rotation (other than by 0 or 180 degrees) changes the direction of every non-zero vector, so it has no real eigenvector and no real eigenvalue.",
+      "question": "Why must the matrix A be square, and why is the zero vector excluded from the eigenvectors?",
+      "reponse_reference": "Av = λv compares Av with a multiple of v, so Av must have the same size as v: A must be square (n × n). The zero vector is excluded because A0 = λ0 holds for every λ, so it would not determine an eigenvalue.",
       "slides": [
-        10
+        5,
+        6
       ]
     },
     {
@@ -783,12 +784,13 @@
       "id": "ml_regression_uppsala_en__q01",
       "course_id": "ml_regression_uppsala_en",
       "auteur": "ons",
-      "type": "comprehension",
+      "type": "factuelle",
       "langue": "en",
-      "question": "What happens in gradient descent when the learning rate α is very small or too large?",
-      "reponse_reference": "With a very small α, each step is tiny and convergence is very slow; with an α that is too large, the steps overshoot the minimum and the algorithm may oscillate or diverge.",
+      "question": "What does the first derivative of a function tell us at a point?",
+      "reponse_reference": "It is the slope of the tangent line to the function at that point.",
       "slides": [
-        9
+        3,
+        4
       ]
     },
     {
@@ -1328,7 +1330,8 @@
       "reponse_reference": "The use of an abstraction layer to simulate computing hardware so that multiple operating systems can run on a single computer.",
       "slides": [
         6
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_virtualisation_esprit_en__q02",
@@ -1340,7 +1343,8 @@
       "reponse_reference": "Multiplexing, aggregation, emulation, and multiplexing combined with emulation.",
       "slides": [
         7
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_virtualisation_esprit_en__q03",
@@ -1352,7 +1356,8 @@
       "reponse_reference": "Several physical disks grouped into a single RAID disk: multiple physical objects are combined into one virtual object, for better performance or redundancy.",
       "slides": [
         7
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_virtualisation_esprit_en__q04",
@@ -1364,7 +1369,8 @@
       "reponse_reference": "Partitioning, isolation, encapsulation and hardware independence.",
       "slides": [
         16
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_virtualisation_esprit_en__q05",
@@ -1376,7 +1382,8 @@
       "reponse_reference": "Because a virtual machine can be represented and stored as a single file, which makes it highly portable and easy to manage, so deployment, migration and backups are simplified.",
       "slides": [
         16
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_virtualisation_esprit_en__q06",
@@ -1388,7 +1395,8 @@
       "reponse_reference": "The hypervisor (VMware, Xen) virtualizes the computing hardware layer, and the virtual machine corresponds to the operating systems layer.",
       "slides": [
         13
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_virtualisation_esprit_en__q07",
@@ -1400,7 +1408,8 @@
       "reponse_reference": "Round Robin, Weighted Round Robin, Fastest Response Time, Least Connections, Weighted Least Connections, and custom assignments (e.g. geographical proximity or application-specific metrics).",
       "slides": [
         27
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_virtualisation_esprit_en__q08",
@@ -1412,7 +1421,8 @@
       "reponse_reference": "A VMM is simpler and more precisely specified than an OS and exposes far fewer privileged functions, unlike an OS with millions of lines of code. Its smaller attack surface means fewer entry points for attackers.",
       "slides": [
         31
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_virtualisation_esprit_en__q09",
@@ -1424,7 +1434,8 @@
       "reponse_reference": "Moving a virtual machine from one physical host to another while it stays powered up, without noticeable effect for the end user. It is used for load-balancing workloads, fault tolerance (moving VMs away from failing hardware) and power saving (consolidating workloads on fewer hosts).",
       "slides": [
         34
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_virtualisation_esprit_en__q10",
@@ -1434,7 +1445,8 @@
       "langue": "en",
       "question": "What is the hourly price of an AWS EC2 t3.micro instance?",
       "reponse_reference": "L'information n'est pas dans le cours.",
-      "slides": []
+      "slides": [],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_management_esprit_en__q01",
@@ -1446,7 +1458,8 @@
       "reponse_reference": "On-demand self-service, broad network access, resource pooling, rapid elasticity and measured service.",
       "slides": [
         1
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_management_esprit_en__q02",
@@ -1458,7 +1471,8 @@
       "reponse_reference": "The FCAPS model, an acronym defining five key functional areas of network management.",
       "slides": [
         5
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_management_esprit_en__q03",
@@ -1470,7 +1484,8 @@
       "reponse_reference": "Pay-as-you-go billing, extreme scalability, ubiquitous accessibility, and use of cloud networking standards.",
       "slides": [
         15
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_management_esprit_en__q04",
@@ -1482,7 +1497,8 @@
       "reponse_reference": "Scale, multiple levels of abstraction (IaaS, PaaS, SaaS), federation across several cloud providers, and dynamism.",
       "slides": [
         19
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_management_esprit_en__q05",
@@ -1494,7 +1510,8 @@
       "reponse_reference": "They are built on centralized architectures designed for a contained set of resources, and do not scale to the potentially millions of virtual machines, containers and services of a large cloud, which creates bottlenecks and inefficiency.",
       "slides": [
         20
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_management_esprit_en__q06",
@@ -1506,7 +1523,8 @@
       "reponse_reference": "It leads to siloed, subsystem-level solutions: data and controls are not shared between layers, causing inefficiencies and redundancies.",
       "slides": [
         21
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_management_esprit_en__q07",
@@ -1518,7 +1536,8 @@
       "reponse_reference": "Physical Infrastructure Management. The three upper layers (service request, application and workload, virtual infrastructure management) have strong standards, high ROI on development, and solutions built by many vendors.",
       "slides": [
         16
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_management_esprit_en__q08",
@@ -1530,7 +1549,8 @@
       "reponse_reference": "MTBF (Mean Time Between Failures) is the average operational time between breakdowns; MTTR (Mean Time to Repair) is the average time to recover from a failure.",
       "slides": [
         25
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_management_esprit_en__q09",
@@ -1542,7 +1562,8 @@
       "reponse_reference": "Amazon CloudWatch.",
       "slides": [
         29
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "cloud_management_esprit_en__q10",
@@ -1552,7 +1573,8 @@
       "langue": "en",
       "question": "What was Microsoft Azure's cloud market share in 2025?",
       "reponse_reference": "L'information n'est pas dans le cours.",
-      "slides": []
+      "slides": [],
+      "relu_par": "ons"
     },
     {
       "id": "ml_introduction_mit_en__q01",
@@ -1564,7 +1586,8 @@
       "reponse_reference": "Field of study that gives computers the ability to learn without being explicitly programmed.",
       "slides": [
         4
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_introduction_mit_en__q02",
@@ -1576,7 +1599,8 @@
       "reponse_reference": "Memorization accumulates individual facts (declarative knowledge) and is limited by the time to observe and the memory to store facts. Generalization deduces new facts from old ones (imperative knowledge); it is limited by the accuracy of the deduction and is essentially predictive, assuming the past predicts the future.",
       "slides": [
         6
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_introduction_mit_en__q03",
@@ -1588,7 +1612,8 @@
       "reponse_reference": "Supervised: given a set of feature/label pairs, find a rule that predicts the label of a previously unseen input. Unsupervised: given feature vectors without labels, group them into natural clusters.",
       "slides": [
         8
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_introduction_mit_en__q04",
@@ -1601,7 +1626,8 @@
       "slides": [
         11,
         43
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_introduction_mit_en__q05",
@@ -1613,7 +1639,8 @@
       "reponse_reference": "1.414 between the rattlesnake and the boa constrictor, and 4.243 between the rattlesnake and the dart frog: the two snakes are much closer to each other than to the dart frog.",
       "slides": [
         37
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_introduction_mit_en__q06",
@@ -1626,7 +1653,8 @@
       "slides": [
         39,
         40
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_introduction_mit_en__q07",
@@ -1638,7 +1666,8 @@
       "reponse_reference": "p = 1 gives the Manhattan distance and p = 2 the Euclidean distance.",
       "slides": [
         35
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_introduction_mit_en__q08",
@@ -1650,7 +1679,8 @@
       "reponse_reference": "accuracy = (TP + TN) / (TP + TN + FP + FN).",
       "slides": [
         51
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_introduction_mit_en__q09",
@@ -1663,7 +1693,8 @@
       "slides": [
         52,
         53
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_introduction_mit_en__q10",
@@ -1673,7 +1704,8 @@
       "langue": "en",
       "question": "Which learning rate was used to train GPT-4?",
       "reponse_reference": "L'information n'est pas dans le cours.",
-      "slides": []
+      "slides": [],
+      "relu_par": "ons"
     },
     {
       "id": "ml_nlp_sante_mit_en__q01",
@@ -1685,7 +1717,8 @@
       "reponse_reference": "Value of the data in clinical text, hyper-simplified linguistics, term spotting with handling of negation and uncertainty, ML to expand terms, pre-neural ML to identify entities and relations, language models, and neural methods.",
       "slides": [
         2
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_nlp_sante_mit_en__q02",
@@ -1697,7 +1730,8 @@
       "reponse_reference": "Because the bulk of valuable patient data (demographics, conditions and diseases, procedures and tests, measurement results, times) is found in narrative text such as clinical notes, not only in coded data.",
       "slides": [
         3
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_nlp_sante_mit_en__q03",
@@ -1709,7 +1743,8 @@
       "reponse_reference": "Health care provider notes, radiology reports, pathology reports, discharge summaries and operative reports.",
       "slides": [
         6
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_nlp_sante_mit_en__q04",
@@ -1721,7 +1756,8 @@
       "reponse_reference": "PPV 90%, sensitivity 65% and AUC 95%.",
       "slides": [
         9
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_nlp_sante_mit_en__q05",
@@ -1733,7 +1769,8 @@
       "reponse_reference": "<negation phrase> *{0,5} <UMLS term>: a negation phrase followed by at most 5 words and then a UMLS term.",
       "slides": [
         20
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_nlp_sante_mit_en__q06",
@@ -1745,7 +1782,8 @@
       "reponse_reference": "Because negation applies mostly to noun phrases indicating diseases, tests, drugs and findings.",
       "slides": [
         20
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_nlp_sante_mit_en__q07",
@@ -1757,7 +1795,8 @@
       "reponse_reference": "Baseline: 85.27%; NegEx: 94.51%.",
       "slides": [
         21
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_nlp_sante_mit_en__q08",
@@ -1769,7 +1808,8 @@
       "reponse_reference": "161 source vocabularies and 3,773,462 distinct concepts, each represented by a concept unique identifier (CUI).",
       "slides": [
         23
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_nlp_sante_mit_en__q09",
@@ -1781,7 +1821,8 @@
       "reponse_reference": "'Every word counts' tasks (de-identification, extraction of all entities, time, certainty, causation and association) versus 'aggregate judgment' tasks (e.g. the smoking challenge, cohort selection), where most of the text may be irrelevant to the result.",
       "slides": [
         13
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_nlp_sante_mit_en__q10",
@@ -1791,7 +1832,8 @@
       "langue": "en",
       "question": "What score does GPT-4 obtain on the USMLE medical licensing exam?",
       "reponse_reference": "L'information n'est pas dans le cours.",
-      "slides": []
+      "slides": [],
+      "relu_par": "ons"
     },
     {
       "id": "ml_recherche_lineaire_esprit_fr__q01",
@@ -1803,7 +1845,8 @@
       "reponse_reference": "Trouver le meilleur pas possible et faire le moins de calculs possible.",
       "slides": [
         3
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_recherche_lineaire_esprit_fr__q02",
@@ -1815,7 +1858,8 @@
       "reponse_reference": "φk(ρ) = J(xk + ρ dk) pour ρ ≥ 0 : c'est J le long de la demi-droite partant de xk dans la direction dk. Sa dérivée est φ′k(ρ) = ⟨∇J(xk + ρ dk), dk⟩.",
       "slides": [
         4
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_recherche_lineaire_esprit_fr__q03",
@@ -1827,7 +1871,8 @@
       "reponse_reference": "Comme φ′k(0) < 0, J décroît pour un pas assez petit : la division par 2 s'arrête après un nombre fini d'étapes. Mais la seule condition « J diminue » ne garantit pas la convergence de la méthode de descente.",
       "slides": [
         5
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_recherche_lineaire_esprit_fr__q04",
@@ -1839,7 +1884,8 @@
       "reponse_reference": "Les pas sont trop grands et font sauter par-dessus le minimum : xk = (−1)^k (1 + 1/2^k), donc |xk| décroît et J décroît, mais la suite a deux valeurs d'adhérence, 1 et −1, qui ne sont pas des minimiseurs. La notion de direction de descente est locale.",
       "slides": [
         6
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_recherche_lineaire_esprit_fr__q05",
@@ -1851,7 +1897,8 @@
       "reponse_reference": "J(xk + ρ dk) ≤ J(xk) + ε ρ ⟨∇J(xk), dk⟩ avec 0 < ε < 1, soit φk(ρ) ≤ φk(0) + ε ρ φ′k(0). En pratique ε est petit, typiquement 10⁻⁴.",
       "slides": [
         7
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_recherche_lineaire_esprit_fr__q06",
@@ -1863,7 +1910,8 @@
       "reponse_reference": "ρArmijo = 1/64 = 0,015625, après 6 divisions par 2.",
       "slides": [
         11
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_recherche_lineaire_esprit_fr__q07",
@@ -1875,7 +1923,8 @@
       "reponse_reference": "(W1) condition d'Armijo : J(xk + ρ dk) ≤ J(xk) + ε1 ρ ⟨∇J(xk), dk⟩ ; (W2) condition de courbure : ⟨∇J(xk + ρ dk), dk⟩ ≥ ε2 ⟨∇J(xk), dk⟩, avec 0 < ε1 < ε2 < 1 (valeurs usuelles ε1 = 10⁻⁴ et ε2 = 0,9).",
       "slides": [
         13
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_recherche_lineaire_esprit_fr__q08",
@@ -1888,7 +1937,8 @@
       "slides": [
         12,
         13
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_recherche_lineaire_esprit_fr__q09",
@@ -1900,7 +1950,8 @@
       "reponse_reference": "Un coût modéré ; son défaut est qu'elle demande ∇J en xk + ρ dk.",
       "slides": [
         17
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "ml_recherche_lineaire_esprit_fr__q10",
@@ -1910,7 +1961,8 @@
       "langue": "fr",
       "question": "Quel est le taux d'apprentissage par défaut de l'optimiseur Adam dans PyTorch ?",
       "reponse_reference": "L'information n'est pas dans le cours.",
-      "slides": []
+      "slides": [],
+      "relu_par": "ons"
     },
     {
       "id": "bd_introduction_cotedazur_fr__q01",
@@ -1922,7 +1974,8 @@
       "reponse_reference": "Un Système de Gestion de Base de Données : un logiciel qui permet de gérer une base de données partagée par plusieurs utilisateurs.",
       "slides": [
         5
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "bd_introduction_cotedazur_fr__q02",
@@ -1934,7 +1987,8 @@
       "reponse_reference": "Edgar Codd (IBM), en 1970 ; il a reçu le prix Turing en 1981.",
       "slides": [
         8
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "bd_introduction_cotedazur_fr__q03",
@@ -1946,7 +2000,8 @@
       "reponse_reference": "Parce qu'elle ne respecte pas l'atomicité : un domaine doit contenir des valeurs atomiques (indivisibles), alors qu'ici une seule valeur regroupe plusieurs informations.",
       "slides": [
         11
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "bd_introduction_cotedazur_fr__q04",
@@ -1958,7 +2013,8 @@
       "reponse_reference": "VARCHAR(n) : chaîne d'au plus n caractères (taille variable) ; CHAR(n) : chaîne d'exactement n caractères (taille fixe, ex. immatriculation) ; TEXT : chaîne de taille non limitée, pour les textes très longs.",
       "slides": [
         15
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "bd_introduction_cotedazur_fr__q05",
@@ -1970,7 +2026,8 @@
       "reponse_reference": "Une super-clé est un sous-ensemble d'attributs sur lequel deux n-uplets diffèrent toujours ; une clé candidate est une super-clé minimale ; la clé primaire est la clé candidate choisie parmi les clés candidates.",
       "slides": [
         20
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "bd_introduction_cotedazur_fr__q06",
@@ -1982,7 +2039,8 @@
       "reponse_reference": "Parce qu'un même Id (par exemple rapport1) apparaît dans plusieurs langues : Id seul ne distingue pas les n-uplets. Il faut le couple (Id, Langue), qui forme une clé primaire composée.",
       "slides": [
         22
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "bd_introduction_cotedazur_fr__q07",
@@ -1994,7 +2052,8 @@
       "reponse_reference": "Joel Coen : dans RÉALISATION, le film 1005 (The Big Lebowski) est associé au réalisateur n° 3, qui est Joel Coen dans PERSONNE.",
       "slides": [
         25
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "bd_introduction_cotedazur_fr__q08",
@@ -2007,7 +2066,8 @@
       "slides": [
         29,
         32
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "bd_introduction_cotedazur_fr__q09",
@@ -2019,7 +2079,8 @@
       "reponse_reference": "Aucun rôle de Parasite n'est renseigné dans RÔLE, donc il n'a pas de n-uplet correspondant. La jointure externe gauche FILM ⟕ RÔLE garde aussi les films sans rôle correspondant.",
       "slides": [
         47
-      ]
+      ],
+      "relu_par": "ons"
     },
     {
       "id": "bd_introduction_cotedazur_fr__q10",
@@ -2029,7 +2090,8 @@
       "langue": "fr",
       "question": "Quelle est la syntaxe SQL pour créer un index sur une colonne ?",
       "reponse_reference": "L'information n'est pas dans le cours.",
-      "slides": []
+      "slides": [],
+      "relu_par": "ons"
     }
   ]
 }
