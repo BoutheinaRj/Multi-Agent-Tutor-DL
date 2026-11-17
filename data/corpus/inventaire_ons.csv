@@ -1,1 +1,10 @@
 fichier,titre,source,format,langue,nombre_slides,licence,collecte_par,contenu,scanne,date_collecte
+reseaux_introduction_kurose_en.pptx,Computer Networking: A Top-Down Approach (9e) - Chapter 1 Introduction,https://gaia.cs.umass.edu/kurose_ross/ppt-9e/Chapter_1_v9.0.pptx,PPTX,en,89,© J.F. Kurose & K.W. Ross - usage libre avec mention de la source,ons,figures+texte,non,2026-11-17
+_local/maths_probabilites_fr.pdf,Cours de Probabilités - Licence MIASHS 1re année (Paris 1),https://archives-web.univ-paris1.fr/samm/IMG/pdf/diapos_proba210323.pdf,PDF,fr,62,inconnue,ons,formules+figures,non,2026-11-17
+_local/ml_optimisation_intro_fr.pdf,Optimisation pour le ML - Ch. 1 Introduction et cadre général,Blackboard Esprit - Optimisation pour la ML 5DS1,PDF,fr,22,interne Esprit (ne pas diffuser),ons,formules+figures,non,2026-11-17
+_local/ml_gradient_stochastique_fr.pdf,Optimisation pour le ML - Ch. 3 Descente de gradient stochastique,Blackboard Esprit - Optimisation pour la ML 5DS1,PDF,fr,24,interne Esprit (ne pas diffuser),ons,formules+figures,non,2026-11-17
+_local/ml_recherche_lineaire_fr.pdf,Optimisation pour le ML - Ch. 4 Recherche linéaire,Blackboard Esprit - Optimisation pour la ML 5DS1,PDF,fr,17,interne Esprit (ne pas diffuser),ons,formules+figures,non,2026-11-17
+_local/ml_transformers_en.pdf,Advanced DL - Chapter 5 Transformers,Blackboard Esprit - Deep Learning Avancé 5DS1,PDF,en,34,interne Esprit (ne pas diffuser),ons,figures+texte,non,2026-11-17
+_local/ml_llm_genai_en.pdf,Advanced DL - Chapter 2 Generative AI and LLMs,Blackboard Esprit - Deep Learning Avancé 5DS1,PDF,en,58,interne Esprit (ne pas diffuser),ons,figures+texte,non,2026-11-17
+_local/ml_fine_tuning_en.pdf,Advanced DL - Chapter 7 Fine Tuning,Blackboard Esprit - Deep Learning Avancé 5DS1,PDF,en,40,interne Esprit (ne pas diffuser),ons,figures+texte,non,2026-11-17
+_local/maths_vecteurs_gaussiens_brownien_fr.pdf,Probabilité II - Ch. I Vecteurs gaussiens et mouvement brownien,Esprit - Probabilité II 5DS,PDF,fr,23,interne Esprit (ne pas diffuser),ons,formules+figures,non,2026-11-17

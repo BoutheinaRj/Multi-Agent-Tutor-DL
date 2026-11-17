@@ -39,3 +39,11 @@ Mêmes premières colonnes que `data/corpus_extra/inventaire.csv`, puis des colo
 | `contenu` | `figures`, `formules`, `texte`, combinés par `+` |
 | `scanne` | `oui` ou `non` |
 | `date_collecte` | `AAAA-MM-JJ` |
+
+## Crédits
+
+- `reseaux_introduction_kurose_en.pptx` : slides identiques à celles de J.F. Kurose et K.W. Ross,
+  *Computer Networking: A Top-Down Approach*, 9e édition, chapitre 1 (V9.0).
+  © 1996-2025 J.F. Kurose et K.W. Ross, tous droits réservés.
+  Source : https://gaia.cs.umass.edu/kurose_ross/ppt.php — diffusées par les auteurs pour un usage libre,
+  à condition de citer la source et leur copyright.
