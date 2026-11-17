@@ -6,3 +6,6 @@ pytest>=8
 pymupdf>=1.24
 python-pptx>=0.6.23
 pillow>=10
+
+# Orchestration multi-agent (O1)
+langgraph>=1.0
