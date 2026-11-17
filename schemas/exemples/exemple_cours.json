@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "id": "ml_regression_lineaire_fr",
+  "titre": "Régression linéaire",
+  "fichier_source": "data/corpus/ml_regression_lineaire_fr.pdf",
+  "format": "pdf",
+  "langue": "fr",
+  "source_url": null,
+  "nombre_slides": 2,
+  "resume": "",
+  "slides": [
+    {
+      "id": "ml_regression_lineaire_fr__s001",
+      "course_id": "ml_regression_lineaire_fr",
+      "numero": 1,
+      "titre": "Régression linéaire",
+      "texte": "Introduction à la régression linéaire simple.",
+      "notes": "",
+      "image_rendu": "slides/s001.png",
+      "images": [],
+      "description_figures": [],
+      "formules_latex": [],
+      "concepts": [],
+      "ocr": false
+    },
+    {
+      "id": "ml_regression_lineaire_fr__s002",
+      "course_id": "ml_regression_lineaire_fr",
+      "numero": 2,
+      "titre": "Fonction de coût",
+      "texte": "On minimise l'erreur quadratique moyenne.",
+      "notes": "Insister sur l'interprétation géométrique.",
+      "image_rendu": "slides/s002.png",
+      "images": ["images/s002_img1.png"],
+      "description_figures": ["Nuage de points avec une droite de régression et les résidus en pointillés."],
+      "formules_latex": ["J(\\theta) = \\frac{1}{2m} \\sum_{i=1}^{m} (h_\\theta(x^{(i)}) - y^{(i)})^2"],
+      "concepts": ["fonction de coût", "erreur quadratique moyenne"],
+      "ocr": false
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "$defs": {
+    "Message": {
+      "additionalProperties": false,
+      "description": "Un tour de conversation dans l'historique.",
+      "properties": {
+        "role": {
+          "enum": [
+            "utilisateur",
+            "tuteur"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "contenu": {
+          "title": "Contenu",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role",
+        "contenu"
+      ],
+      "title": "Message",
+      "type": "object"
+    },
+    "Source": {
+      "additionalProperties": false,
+      "description": "Source citée dans une réponse, affichée sous la forme [Slide N].",
+      "properties": {
+        "course_id": {
+          "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$",
+          "title": "Course Id",
+          "type": "string"
+        },
+        "numero": {
+          "minimum": 1,
+          "title": "Numero",
+          "type": "integer"
+        },
+        "extrait": {
+          "default": "",
+          "description": "Passage qui appuie la réponse",
+          "title": "Extrait",
+          "type": "string"
+        }
+      },
+      "required": [
+        "course_id",
+        "numero"
+      ],
+      "title": "Source",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "État partagé du graphe LangGraph (O1).",
+  "properties": {
+    "course_id": {
+      "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$",
+      "title": "Course Id",
+      "type": "string"
+    },
+    "slide_courante": {
+      "minimum": 1,
+      "title": "Slide Courante",
+      "type": "integer"
+    },
+    "niveau": {
+      "default": "intermediaire",
+      "enum": [
+        "debutant",
+        "intermediaire",
+        "avance"
+      ],
+      "title": "Niveau",
+      "type": "string"
+    },
+    "langue_reponse": {
+      "default": "fr",
+      "enum": [
+        "fr",
+        "en",
+        "ar",
+        "mixte"
+      ],
+      "title": "Langue Reponse",
+      "type": "string"
+    },
+    "historique": {
+      "items": {
+        "$ref": "#/$defs/Message"
+      },
+      "title": "Historique",
+      "type": "array"
+    },
+    "question": {
+      "default": "",
+      "title": "Question",
+      "type": "string"
+    },
+    "intention": {
+      "anyOf": [
+        {
+          "enum": [
+            "expliquer",
+            "question",
+            "quiz",
+            "ressources"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Intention"
+    },
+    "reponse": {
+      "default": "",
+      "title": "Reponse",
+      "type": "string"
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/Source"
+      },
+      "title": "Sources",
+      "type": "array"
+    },
+    "iterations_critic": {
+      "default": 0,
+      "maximum": 2,
+      "minimum": 0,
+      "title": "Iterations Critic",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "course_id",
+    "slide_courante"
+  ],
+  "title": "TutorState",
+  "type": "object"
+}

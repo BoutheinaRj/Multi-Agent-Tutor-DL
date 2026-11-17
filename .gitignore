@@ -3,3 +3,15 @@ __pycache__/
 .pytest_cache/
 *.py[cod]
 .env
+
+# --- R0 : sorties générées et données non versionnées ---
+data/processed/
+data/cache/
+data/corpus/_local/
+qdrant_storage/
+*.apkg
+*.sqlite
+*.db
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db

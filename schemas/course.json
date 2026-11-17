@@ -1,0 +1,186 @@
+{
+  "$defs": {
+    "Slide": {
+      "additionalProperties": false,
+      "description": "Une slide (ou une page PDF) après ingestion.\n\nH1 remplit le texte, les notes et les images ; H2 ajoute\n``description_figures`` et ``formules_latex`` ; H3 ajoute ``concepts``.",
+      "properties": {
+        "id": {
+          "description": "<course_id>__s<NNN>",
+          "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*__s\\d{3,}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "course_id": {
+          "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$",
+          "title": "Course Id",
+          "type": "string"
+        },
+        "numero": {
+          "description": "Numéro de la slide, à partir de 1",
+          "minimum": 1,
+          "title": "Numero",
+          "type": "integer"
+        },
+        "titre": {
+          "default": "",
+          "description": "Titre de la slide, vide si absent",
+          "title": "Titre",
+          "type": "string"
+        },
+        "texte": {
+          "default": "",
+          "description": "Texte visible (ou texte OCR)",
+          "title": "Texte",
+          "type": "string"
+        },
+        "notes": {
+          "default": "",
+          "description": "Notes du présentateur (PPTX)",
+          "title": "Notes",
+          "type": "string"
+        },
+        "image_rendu": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Rendu PNG 150 dpi de la slide, chemin relatif à data/processed/<course_id>/",
+          "title": "Image Rendu"
+        },
+        "images": {
+          "description": "Images extraites de la slide, chemins relatifs à data/processed/<course_id>/",
+          "items": {
+            "type": "string"
+          },
+          "title": "Images",
+          "type": "array"
+        },
+        "description_figures": {
+          "description": "Descriptions des figures produites par le VLM (H2)",
+          "items": {
+            "type": "string"
+          },
+          "title": "Description Figures",
+          "type": "array"
+        },
+        "formules_latex": {
+          "description": "Formules retranscrites en LaTeX, sans délimiteurs $ (H2)",
+          "items": {
+            "type": "string"
+          },
+          "title": "Formules Latex",
+          "type": "array"
+        },
+        "concepts": {
+          "description": "Concepts clés de la slide (H3)",
+          "items": {
+            "type": "string"
+          },
+          "title": "Concepts",
+          "type": "array"
+        },
+        "ocr": {
+          "default": false,
+          "description": "Vrai si le texte vient de l'OCR",
+          "title": "Ocr",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "course_id",
+        "numero"
+      ],
+      "title": "Slide",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Un cours complet, tel que produit par l'ingestion (``course.json``).",
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "id": {
+      "description": "Nom du fichier source sans extension",
+      "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "titre": {
+      "title": "Titre",
+      "type": "string"
+    },
+    "fichier_source": {
+      "description": "Chemin relatif à la racine du dépôt",
+      "title": "Fichier Source",
+      "type": "string"
+    },
+    "format": {
+      "enum": [
+        "pdf",
+        "pptx"
+      ],
+      "title": "Format",
+      "type": "string"
+    },
+    "langue": {
+      "enum": [
+        "fr",
+        "en",
+        "ar",
+        "mixte"
+      ],
+      "title": "Langue",
+      "type": "string"
+    },
+    "source_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Url"
+    },
+    "nombre_slides": {
+      "minimum": 1,
+      "title": "Nombre Slides",
+      "type": "integer"
+    },
+    "resume": {
+      "default": "",
+      "description": "Résumé global du cours (H3)",
+      "title": "Resume",
+      "type": "string"
+    },
+    "slides": {
+      "items": {
+        "$ref": "#/$defs/Slide"
+      },
+      "title": "Slides",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "titre",
+    "fichier_source",
+    "format",
+    "langue",
+    "nombre_slides",
+    "slides"
+  ],
+  "title": "Course",
+  "type": "object"
+}
