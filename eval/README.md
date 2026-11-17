@@ -23,4 +23,9 @@ Règles :
 - `hors_cours` : réponse de référence = « L'information n'est pas dans le cours. » (refus attendu, B3) ;
 - les slides citées doivent exister dans le cours.
 
-Avancement : 1 cours pilote d'Ons (`ml_gradient_stochastique_esprit_fr`, 10 questions), à relire par Both.
+Avancement :
+- **Ons : 100 questions** sur les 10 cours du noyau (`noyau_ons.json`), 50 FR / 50 EN :
+  46 factuelles, 34 de compréhension, 10 sur une figure, 10 hors cours. À relire par Both (`relu_par`).
+- Les questions « figure » s'appuient sur le texte des slides : à vérifier sur les images lors de la relecture.
+- Pour les cours EN, la réponse attendue hors cours reste la phrase de refus commune (en français).
+- **Both** : ~60 questions sur son noyau, à venir.

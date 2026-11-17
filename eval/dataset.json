@@ -9,7 +9,9 @@
       "langue": "fr",
       "question": "Quelle est la différence entre une itération et une époque ?",
       "reponse_reference": "Une itération est une mise à jour des paramètres ; une époque est un passage complet sur les N données.",
-      "slides": [3]
+      "slides": [
+        3
+      ]
     },
     {
       "id": "ml_gradient_stochastique_esprit_fr__q02",
@@ -19,7 +21,10 @@
       "langue": "fr",
       "question": "Pourquoi utiliser la descente de gradient stochastique plutôt que la descente classique sur un grand jeu de données ?",
       "reponse_reference": "La descente classique calcule à chaque itération une somme sur toutes les données, ce qui devient très coûteux en temps et en mémoire avec des milliers ou millions de données. La version stochastique utilise une seule donnée (ou un petit échantillon) tirée au hasard : pendant une époque, on fait N mises à jour pour le même coût qu'un seul gradient complet.",
-      "slides": [3, 5]
+      "slides": [
+        3,
+        5
+      ]
     },
     {
       "id": "ml_gradient_stochastique_esprit_fr__q03",
@@ -29,7 +34,9 @@
       "langue": "fr",
       "question": "Quelle est la formule de mise à jour de la descente de gradient stochastique avec parcours cyclique des données ?",
       "reponse_reference": "X_{k+1} = X_k − ρ ∇E_{(k mod N)+1}(X_k), où k mod N est le reste de la division de k par N.",
-      "slides": [6]
+      "slides": [
+        6
+      ]
     },
     {
       "id": "ml_gradient_stochastique_esprit_fr__q04",
@@ -39,7 +46,10 @@
       "langue": "fr",
       "question": "Pourquoi, avec un pas constant, la descente de gradient stochastique oscille-t-elle autour du minimiseur au lieu de s'y arrêter ?",
       "reponse_reference": "Au minimiseur X*, le gradient total est nul (∇E(X*) = 0), mais les gradients locaux ∇E_i(X*) ne le sont en général pas. Chaque pas stochastique déplace donc encore le point : avec un pas constant, la méthode oscille dans une zone autour de X*.",
-      "slides": [7, 23]
+      "slides": [
+        7,
+        23
+      ]
     },
     {
       "id": "ml_gradient_stochastique_esprit_fr__q05",
@@ -49,7 +59,9 @@
       "langue": "fr",
       "question": "En quel sens le gradient stochastique est-il un estimateur sans biais du gradient ?",
       "reponse_reference": "Si l'indice I est tiré uniformément dans {1, …, N}, l'espérance de ∇E_I(X) vaut (1/N) ∇E(X) : en moyenne, un pas stochastique est un pas de descente classique sur E (à l'échelle 1/N près).",
-      "slides": [7]
+      "slides": [
+        7
+      ]
     },
     {
       "id": "ml_gradient_stochastique_esprit_fr__q06",
@@ -59,7 +71,10 @@
       "langue": "fr",
       "question": "Dans l'exercice de la parabole, quel est le point (a, b) obtenu après une époque, en partant de (1, 1) avec ρ = 0,01 ?",
       "reponse_reference": "Après 4 itérations (une époque), on obtient environ (a, b) = (−0,406 ; 0,583).",
-      "slides": [10, 11]
+      "slides": [
+        10,
+        11
+      ]
     },
     {
       "id": "ml_gradient_stochastique_esprit_fr__q07",
@@ -69,7 +84,9 @@
       "langue": "fr",
       "question": "Que donne la descente par lots quand la taille du lot K vaut 1, puis quand elle vaut N ?",
       "reponse_reference": "Avec K = 1, c'est la descente de gradient stochastique ; avec K = N, c'est la descente de gradient classique.",
-      "slides": [13]
+      "slides": [
+        13
+      ]
     },
     {
       "id": "ml_gradient_stochastique_esprit_fr__q08",
@@ -79,7 +96,9 @@
       "langue": "fr",
       "question": "D'après la courbe de l'erreur totale en fonction du nombre d'époques, comment la taille du lot K influence-t-elle l'erreur ?",
       "reponse_reference": "Au bout de 10 époques, l'erreur est à peu près la même quelle que soit la taille K. Au début, en revanche, l'erreur fluctue à la hausse ou à la baisse d'une itération à l'autre pour K = 1 (stochastique), alors qu'elle est plus régulière pour les lots plus grands.",
-      "slides": [22]
+      "slides": [
+        22
+      ]
     },
     {
       "id": "ml_gradient_stochastique_esprit_fr__q09",
@@ -89,7 +108,9 @@
       "langue": "fr",
       "question": "Quelles conditions doit vérifier un pas décroissant ρ_k pour que la méthode converge vers le minimiseur ?",
       "reponse_reference": "La somme des ρ_k doit être infinie et la somme des ρ_k² finie, par exemple ρ_k = ρ_0 / (k + 1).",
-      "slides": [23]
+      "slides": [
+        23
+      ]
     },
     {
       "id": "ml_gradient_stochastique_esprit_fr__q10",
@@ -98,6 +119,1105 @@
       "type": "hors_cours",
       "langue": "fr",
       "question": "Comment fonctionne l'optimiseur Adam et quelles valeurs utiliser pour β1 et β2 ?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "maths_vecteurs_gaussiens_brownien_esprit_fr__q01",
+      "course_id": "maths_vecteurs_gaussiens_brownien_esprit_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quand dit-on qu'un vecteur aléatoire X = (X1, …, Xd) est un vecteur gaussien ?",
+      "reponse_reference": "Quand, pour tout a ∈ R^d, la variable réelle a·X est gaussienne : toute combinaison linéaire des coordonnées de X est gaussienne.",
+      "slides": [
+        3
+      ]
+    },
+    {
+      "id": "maths_vecteurs_gaussiens_brownien_esprit_fr__q02",
+      "course_id": "maths_vecteurs_gaussiens_brownien_esprit_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelle est la fonction caractéristique d'un vecteur gaussien de moyenne m et de matrice de covariance Γ ?",
+      "reponse_reference": "E(e^{iu·X}) = exp(i u·m − ½ uᵀΓu). Elle ne dépend que de (m, Γ) : on note X ~ N(m, Γ).",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "id": "maths_vecteurs_gaussiens_brownien_esprit_fr__q03",
+      "course_id": "maths_vecteurs_gaussiens_brownien_esprit_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Suffit-il que X1 et X2 soient deux variables gaussiennes réelles pour que (X1, X2) soit un vecteur gaussien ?",
+      "reponse_reference": "Non. Ce n'est vrai en général que dans le cas particulier où X1 et X2 sont indépendantes.",
+      "slides": [
+        7
+      ]
+    },
+    {
+      "id": "maths_vecteurs_gaussiens_brownien_esprit_fr__q04",
+      "course_id": "maths_vecteurs_gaussiens_brownien_esprit_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Pourquoi Y = a + MX est-il un vecteur gaussien lorsque X est gaussien ?",
+      "reponse_reference": "Toute combinaison linéaire de Y est une combinaison linéaire de X à une constante près : b·Y = b·a + (Mᵀb)·X. Comme X est gaussien, b·Y est gaussienne, donc Y est gaussien.",
+      "slides": [
+        8
+      ]
+    },
+    {
+      "id": "maths_vecteurs_gaussiens_brownien_esprit_fr__q05",
+      "course_id": "maths_vecteurs_gaussiens_brownien_esprit_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "À quelle condition les coordonnées d'un vecteur gaussien sont-elles indépendantes ?",
+      "reponse_reference": "Si et seulement si sa matrice de variance-covariance Γ est diagonale.",
+      "slides": [
+        9
+      ]
+    },
+    {
+      "id": "maths_vecteurs_gaussiens_brownien_esprit_fr__q06",
+      "course_id": "maths_vecteurs_gaussiens_brownien_esprit_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelles sont les quatre propriétés qui définissent un mouvement brownien standard ?",
+      "reponse_reference": "B0 = 0 ; pour s ≤ t, Bt − Bs suit une loi gaussienne centrée de variance t − s (accroissements stationnaires) ; les accroissements sur des intervalles disjoints sont indépendants ; les trajectoires sont continues presque sûrement.",
+      "slides": [
+        17
+      ]
+    },
+    {
+      "id": "maths_vecteurs_gaussiens_brownien_esprit_fr__q07",
+      "course_id": "maths_vecteurs_gaussiens_brownien_esprit_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Comment obtient-on le modèle de Black-Scholes pour le cours d'une action ?",
+      "reponse_reference": "Si le cours St est continu, strictement positif, à accroissements relatifs indépendants et stationnaires, alors Xt = ln(St) est continu à accroissements indépendants et stationnaires. Le théorème donne Xt − X0 = rt + σBt, d'où St = S0 exp(σBt + rt).",
+      "slides": [
+        18,
+        19
+      ]
+    },
+    {
+      "id": "maths_vecteurs_gaussiens_brownien_esprit_fr__q08",
+      "course_id": "maths_vecteurs_gaussiens_brownien_esprit_fr",
+      "auteur": "ons",
+      "type": "figure",
+      "langue": "fr",
+      "question": "Que montre l'illustration sur la régularité des trajectoires du mouvement brownien ?",
+      "reponse_reference": "Que les trajectoires sont très irrégulières : en dehors d'un ensemble de probabilité nulle, elles ne sont différentiables en aucun point.",
+      "slides": [
+        20,
+        21
+      ]
+    },
+    {
+      "id": "maths_vecteurs_gaussiens_brownien_esprit_fr__q09",
+      "course_id": "maths_vecteurs_gaussiens_brownien_esprit_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quel processus gaussien est un mouvement brownien d'après le dernier théorème du chapitre ?",
+      "reponse_reference": "Un processus gaussien centré, continu, tel que Cov(Bs, Bt) = min(s, t) pour tous s, t ≥ 0.",
+      "slides": [
+        23
+      ]
+    },
+    {
+      "id": "maths_vecteurs_gaussiens_brownien_esprit_fr__q10",
+      "course_id": "maths_vecteurs_gaussiens_brownien_esprit_fr",
+      "auteur": "ons",
+      "type": "hors_cours",
+      "langue": "fr",
+      "question": "Que dit le lemme d'Itô et comment l'utilise-t-on pour calculer d(Bt²) ?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "maths_probabilites_labri_fr__q01",
+      "course_id": "maths_probabilites_labri_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Qu'est-ce qu'un espace probabilisé discret ?",
+      "reponse_reference": "Un couple (Ω, Pr) où Ω est un ensemble non vide au plus dénombrable et Pr une application de Ω dans [0, 1] telle que la somme des Pr(ω) vaut 1.",
+      "slides": [
+        8
+      ]
+    },
+    {
+      "id": "maths_probabilites_labri_fr__q02",
+      "course_id": "maths_probabilites_labri_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelle est la probabilité d'obtenir un double avec deux dés équilibrés, puis avec les deux dés pipés du cours ?",
+      "reponse_reference": "1/6 avec les dés équilibrés (6 × 1/36) et 3/16 avec les dés pipés (distribution Pr22).",
+      "slides": [
+        11
+      ]
+    },
+    {
+      "id": "maths_probabilites_labri_fr__q03",
+      "course_id": "maths_probabilites_labri_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Pourquoi l'espérance de la somme S des deux dés vaut-elle 7 aussi bien pour les dés équilibrés que pour les dés pipés ?",
+      "reponse_reference": "Chaque dé a une espérance de 3,5 dans les deux cas, et l'espérance est linéaire : E(S) = E(X) + E(Y) = 3,5 + 3,5 = 7.",
+      "slides": [
+        15,
+        16
+      ]
+    },
+    {
+      "id": "maths_probabilites_labri_fr__q04",
+      "course_id": "maths_probabilites_labri_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Que vaut E(XY) lorsque X et Y sont deux variables aléatoires indépendantes admettant une espérance ?",
+      "reponse_reference": "E(XY) = E(X)E(Y).",
+      "slides": [
+        17
+      ]
+    },
+    {
+      "id": "maths_probabilites_labri_fr__q05",
+      "course_id": "maths_probabilites_labri_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Deux classes ont la même moyenne de 10 au même devoir. Comment la variance permet-elle de les distinguer ?",
+      "reponse_reference": "La variance mesure la dispersion : elle vaut 2 dans la première classe (notes de 8 à 12, très centrées) et 50 dans la seconde (notes de 0 à 20, très espacées).",
+      "slides": [
+        20,
+        21
+      ]
+    },
+    {
+      "id": "maths_probabilites_labri_fr__q06",
+      "course_id": "maths_probabilites_labri_fr",
+      "auteur": "ons",
+      "type": "figure",
+      "langue": "fr",
+      "question": "Que montre la représentation visuelle des notes des deux classes ?",
+      "reponse_reference": "Les notes de la première classe sont regroupées autour de la moyenne 10, celles de la seconde sont très étalées : même espérance, dispersions (variances 2 et 50) très différentes.",
+      "slides": [
+        20,
+        21,
+        22
+      ]
+    },
+    {
+      "id": "maths_probabilites_labri_fr__q07",
+      "course_id": "maths_probabilites_labri_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelles sont l'espérance et la variance d'une loi binomiale de paramètres n et p ?",
+      "reponse_reference": "E(X) = np et Var(X) = npq avec q = 1 − p ; X est la somme de n variables de Bernoulli indépendantes de paramètre p.",
+      "slides": [
+        25
+      ]
+    },
+    {
+      "id": "maths_probabilites_labri_fr__q08",
+      "course_id": "maths_probabilites_labri_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelle est la loi géométrique de paramètre p et quelle est son espérance ?",
+      "reponse_reference": "X est le nombre d'épreuves jusqu'au premier succès : Pr(X = k) = q^{k−1} p pour k ≥ 1 ; E(X) = 1/p et Var(X) = q/p².",
+      "slides": [
+        28
+      ]
+    },
+    {
+      "id": "maths_probabilites_labri_fr__q09",
+      "course_id": "maths_probabilites_labri_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Dans quel cas peut-on approcher une loi binomiale par une loi de Poisson ?",
+      "reponse_reference": "Pour un événement de faible probabilité dans une grande population : si Xn suit une loi binomiale (n, pn) avec n·pn → λ > 0, alors Pr(Xn = k) → e^{−λ} λ^k / k!.",
+      "slides": [
+        31,
+        35
+      ]
+    },
+    {
+      "id": "maths_probabilites_labri_fr__q10",
+      "course_id": "maths_probabilites_labri_fr",
+      "auteur": "ons",
+      "type": "hors_cours",
+      "langue": "fr",
+      "question": "Comment construit-on un intervalle de confiance pour une moyenne avec la loi de Student ?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "dl_reseaux_convolutifs_cnam_fr__q01",
+      "course_id": "dl_reseaux_convolutifs_cnam_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Combien de paramètres compte la couche cachée d'un perceptron sur des images 28 × 28 avec 500 neurones ?",
+      "reponse_reference": "28 × 28 × 500 + 500 = 392 500 paramètres (environ 1,5 Mo).",
+      "slides": [
+        3
+      ]
+    },
+    {
+      "id": "dl_reseaux_convolutifs_cnam_fr__q02",
+      "course_id": "dl_reseaux_convolutifs_cnam_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Pourquoi un perceptron entièrement connecté ignore-t-il la structure spatiale d'une image ?",
+      "reponse_reference": "Toutes les entrées sont connectées à tous les neurones : l'entrée est vue comme un vecteur dont l'ordre des dimensions est arbitraire. On obtient les mêmes performances sur MNIST et sur ses versions aux pixels mélangés.",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "id": "dl_reseaux_convolutifs_cnam_fr__q03",
+      "course_id": "dl_reseaux_convolutifs_cnam_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelle est la différence entre corrélation croisée et convolution ?",
+      "reponse_reference": "La corrélation croisée est une convolution sans la symétrie centrale du masque de poids du filtre.",
+      "slides": [
+        14
+      ]
+    },
+    {
+      "id": "dl_reseaux_convolutifs_cnam_fr__q04",
+      "course_id": "dl_reseaux_convolutifs_cnam_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelles sont les deux options pour traiter les bords de l'image lors d'une convolution ?",
+      "reponse_reference": "La convolution « valide », qui ne calcule pas la sortie sur les bords (la sortie est plus petite), et la convolution « identique » ou « complète », qui ajoute un remplissage (padding : zéros, recopie, symétrie…).",
+      "slides": [
+        17
+      ]
+    },
+    {
+      "id": "dl_reseaux_convolutifs_cnam_fr__q05",
+      "course_id": "dl_reseaux_convolutifs_cnam_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Combien de paramètres a une couche convolutive à Cin canaux d'entrée, Cout canaux de sortie et des filtres kw × kh ?",
+      "reponse_reference": "Cout × Cin × kw × kh poids pour les filtres, plus Cout biais.",
+      "slides": [
+        26
+      ]
+    },
+    {
+      "id": "dl_reseaux_convolutifs_cnam_fr__q06",
+      "course_id": "dl_reseaux_convolutifs_cnam_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Quelle est la différence entre équivariance et invariance à la translation, et quelles opérations les apportent ?",
+      "reponse_reference": "Équivariance : f(g(x)) = g(f(x)), c'est le cas de la convolution pour une translation. Invariance : f(g(x)) = f(x), c'est le cas du max-pooling pour une petite translation, tant qu'elle ne fait pas apparaître un nouveau maximum ni ne sort le maximum de la région.",
+      "slides": [
+        23
+      ]
+    },
+    {
+      "id": "dl_reseaux_convolutifs_cnam_fr__q07",
+      "course_id": "dl_reseaux_convolutifs_cnam_fr",
+      "auteur": "ons",
+      "type": "figure",
+      "langue": "fr",
+      "question": "Dans l'illustration d'une image 5 × 5 convoluée par un filtre 3 × 3 avec un padding de 1 et un pas de 2, quelle est la taille de la sortie ?",
+      "reponse_reference": "3 × 3 : avec un padding de 1, l'image devient 7 × 7, et un filtre 3 × 3 décalé de 2 pixels tient en 3 positions par dimension.",
+      "slides": [
+        18
+      ]
+    },
+    {
+      "id": "dl_reseaux_convolutifs_cnam_fr__q08",
+      "course_id": "dl_reseaux_convolutifs_cnam_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Pourquoi empiler deux convolutions 3 × 3 plutôt qu'une seule convolution 5 × 5 ?",
+      "reponse_reference": "Deux convolutions 3 × 3 ont le même champ réceptif qu'une convolution 5 × 5. L'empilement combine des activations de plus en plus complexes tout en augmentant le champ réceptif : connectivité locale à chaque couche, mais globale sur le réseau.",
+      "slides": [
+        34
+      ]
+    },
+    {
+      "id": "dl_reseaux_convolutifs_cnam_fr__q09",
+      "course_id": "dl_reseaux_convolutifs_cnam_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelles sont les couches de LeNet-5 ?",
+      "reponse_reference": "Trois convolutions 5 × 5 (32 × 32 × 1 → 28 × 28 × 6, 14 × 14 × 6 → 10 × 10 × 16, 10 × 10 × 16 → 1 × 1 × 120), puis deux couches entièrement connectées (120 → 84, puis 84 → 10).",
+      "slides": [
+        38
+      ]
+    },
+    {
+      "id": "dl_reseaux_convolutifs_cnam_fr__q10",
+      "course_id": "dl_reseaux_convolutifs_cnam_fr",
+      "auteur": "ons",
+      "type": "hors_cours",
+      "langue": "fr",
+      "question": "Comment fonctionnent les connexions résiduelles de ResNet ?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "reseaux_transport_grenoble_fr__q01",
+      "course_id": "reseaux_transport_grenoble_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quels sont les deux protocoles de transport d'Internet et leur différence principale ?",
+      "reponse_reference": "UDP (User Datagram Protocol), sans connexion et sans qualité de service, et TCP (Transport Control Protocol), avec connexion : ouverture et fermeture, fragmentation, contrôle de flux et récupération des erreurs.",
+      "slides": [
+        3
+      ]
+    },
+    {
+      "id": "reseaux_transport_grenoble_fr__q02",
+      "course_id": "reseaux_transport_grenoble_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Pourquoi le téléphone sur Internet utilise-t-il UDP (avec RTP) plutôt que TCP ?",
+      "reponse_reference": "Avec TCP, les paquets perdus puis réémis arrivent trop tard pour une application temps réel, alors qu'un taux d'erreur non nul est acceptable. On utilise donc UDP, avec RTP au-dessus pour numéroter et estampiller les paquets.",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "id": "reseaux_transport_grenoble_fr__q03",
+      "course_id": "reseaux_transport_grenoble_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quels champs contient l'entête UDP ?",
+      "reponse_reference": "Port source, port destination, longueur et détection d'erreur (checksum, optionnelle).",
+      "slides": [
+        7
+      ]
+    },
+    {
+      "id": "reseaux_transport_grenoble_fr__q04",
+      "course_id": "reseaux_transport_grenoble_fr",
+      "auteur": "ons",
+      "type": "figure",
+      "langue": "fr",
+      "question": "Comment se déroule l'ouverture d'une connexion TCP sur le schéma client/serveur ?",
+      "reponse_reference": "En trois phases : le client envoie une demande de connexion (SYN=1, ACK=0), le serveur en écoute accepte (SYN=1, ACK=1), puis le client acquitte (ACK).",
+      "slides": [
+        10
+      ]
+    },
+    {
+      "id": "reseaux_transport_grenoble_fr__q05",
+      "course_id": "reseaux_transport_grenoble_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Pourquoi l'ouverture de connexion TCP demande-t-elle trois paquets ?",
+      "reponse_reference": "Pour éviter toute ambiguïté avec des demandes de connexion dupliquées (doublons, réémissions) : les numéros de séquence initiaux permettent de distinguer les demandes, et le flag Reset traite les incohérences.",
+      "slides": [
+        12
+      ]
+    },
+    {
+      "id": "reseaux_transport_grenoble_fr__q06",
+      "course_id": "reseaux_transport_grenoble_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Quelle est la différence entre la fermeture par close et par shutdown ?",
+      "reponse_reference": "close est une fermeture brutale : on ne se soucie pas de l'état de l'autre côté. shutdown gère la connexion comme deux demi-connexions : on peut fermer en émission et continuer à recevoir si l'autre n'a pas fini d'émettre.",
+      "slides": [
+        14,
+        16
+      ]
+    },
+    {
+      "id": "reseaux_transport_grenoble_fr__q07",
+      "course_id": "reseaux_transport_grenoble_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Que contient le numéro d'acquittement d'un paquet TCP ?",
+      "reponse_reference": "Le numéro de séquence + 1 du dernier octet bien arrivé dans l'autre sens.",
+      "slides": [
+        18
+      ]
+    },
+    {
+      "id": "reseaux_transport_grenoble_fr__q08",
+      "course_id": "reseaux_transport_grenoble_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "À quoi sert le champ Fenêtre (WIN) et que se passe-t-il quand il vaut 0 ?",
+      "reponse_reference": "Il indique le nombre d'octets que l'émetteur peut envoyer après le numéro d'acquittement. À 0, le tampon du récepteur est plein et l'émetteur est bloqué jusqu'à ce que l'application lise des données.",
+      "slides": [
+        22
+      ]
+    },
+    {
+      "id": "reseaux_transport_grenoble_fr__q09",
+      "course_id": "reseaux_transport_grenoble_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Qu'est-ce que le cas de la « fenêtre stupide » et comment l'éviter ?",
+      "reponse_reference": "Si le récepteur débloque l'émetteur dès qu'un seul octet est libéré, on envoie des paquets d'un seul octet et on charge inutilement le réseau. On attend une libération importante du tampon (la moitié du tampon ou la taille maximale d'un segment).",
+      "slides": [
+        24
+      ]
+    },
+    {
+      "id": "reseaux_transport_grenoble_fr__q10",
+      "course_id": "reseaux_transport_grenoble_fr",
+      "auteur": "ons",
+      "type": "hors_cours",
+      "langue": "fr",
+      "question": "Comment fonctionne l'algorithme de contrôle de congestion TCP CUBIC ?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "maths_valeurs_propres_ntu_en__q01",
+      "course_id": "maths_valeurs_propres_ntu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What are an eigenvalue and an eigenvector of a matrix A?",
+      "reponse_reference": "A non-zero vector v is an eigenvector of a square matrix A, with eigenvalue λ, if Av = λv. The zero vector is excluded.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "maths_valeurs_propres_ntu_en__q02",
+      "course_id": "maths_valeurs_propres_ntu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "In the shear transform example, what is the eigenvalue of the eigenvector shown?",
+      "reponse_reference": "Its eigenvalue is 1: the vector along the shear direction is not changed by the transform.",
+      "slides": [
+        7
+      ]
+    },
+    {
+      "id": "maths_valeurs_propres_ntu_en__q03",
+      "course_id": "maths_valeurs_propres_ntu_en",
+      "auteur": "ons",
+      "type": "figure",
+      "langue": "en",
+      "question": "In the figure of the reflection about the line y = (1/2)x, what are the eigenvectors and their eigenvalues?",
+      "reponse_reference": "b1, on the line y = (1/2)x, is an eigenvector with eigenvalue 1; b2, perpendicular to the line, is an eigenvector with eigenvalue −1.",
+      "slides": [
+        8
+      ]
+    },
+    {
+      "id": "maths_valeurs_propres_ntu_en__q04",
+      "course_id": "maths_valeurs_propres_ntu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "Which vectors are eigenvectors of an expansion or a compression, and with which eigenvalues?",
+      "reponse_reference": "All non-zero vectors are eigenvectors; the eigenvalue is 2 for the expansion and 0.5 for the compression of the example.",
+      "slides": [
+        9
+      ]
+    },
+    {
+      "id": "maths_valeurs_propres_ntu_en__q05",
+      "course_id": "maths_valeurs_propres_ntu_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Does every n × n matrix have real eigenvalues? Use the rotation example.",
+      "reponse_reference": "No. A rotation (other than by 0 or 180 degrees) changes the direction of every non-zero vector, so it has no real eigenvector and no real eigenvalue.",
+      "slides": [
+        10
+      ]
+    },
+    {
+      "id": "maths_valeurs_propres_ntu_en__q06",
+      "course_id": "maths_valeurs_propres_ntu_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "How many eigenvalues can an eigenvector have, and how many eigenvectors can an eigenvalue have?",
+      "reponse_reference": "An eigenvector corresponds to a unique eigenvalue, while an eigenvalue has infinitely many eigenvectors (any non-zero multiple of an eigenvector, for instance).",
+      "slides": [
+        12
+      ]
+    },
+    {
+      "id": "maths_valeurs_propres_ntu_en__q07",
+      "course_id": "maths_valeurs_propres_ntu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What is the eigenspace of A for an eigenvalue λ?",
+      "reponse_reference": "The set of solutions of (A − λI_n)v = 0, i.e. the null space of A − λI_n: the eigenvectors for λ together with the zero vector.",
+      "slides": [
+        13
+      ]
+    },
+    {
+      "id": "maths_valeurs_propres_ntu_en__q08",
+      "course_id": "maths_valeurs_propres_ntu_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "How can you check whether a scalar λ is an eigenvalue of A?",
+      "reponse_reference": "Compute the null space of A − λI_n: λ is an eigenvalue if and only if this null space has dimension greater than 0. If the dimension is 0, λ is not an eigenvalue.",
+      "slides": [
+        15,
+        16
+      ]
+    },
+    {
+      "id": "maths_valeurs_propres_ntu_en__q09",
+      "course_id": "maths_valeurs_propres_ntu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "How do you find a basis of the eigenspace of B for the eigenvalue 3?",
+      "reponse_reference": "Find the solution set of (B − 3I_3)x = 0, using the RREF of B − 3I_3; the basic solutions form a basis of the eigenspace.",
+      "slides": [
+        17
+      ]
+    },
+    {
+      "id": "maths_valeurs_propres_ntu_en__q10",
+      "course_id": "maths_valeurs_propres_ntu_en",
+      "auteur": "ons",
+      "type": "hors_cours",
+      "langue": "en",
+      "question": "How do you compute the singular value decomposition (SVD) of a rectangular matrix?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "ml_regression_uppsala_en__q01",
+      "course_id": "ml_regression_uppsala_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "What happens in gradient descent when the learning rate α is very small or too large?",
+      "reponse_reference": "With a very small α, each step is tiny and convergence is very slow; with an α that is too large, the steps overshoot the minimum and the algorithm may oscillate or diverge.",
+      "slides": [
+        9
+      ]
+    },
+    {
+      "id": "ml_regression_uppsala_en__q02",
+      "course_id": "ml_regression_uppsala_en",
+      "auteur": "ons",
+      "type": "figure",
+      "langue": "en",
+      "question": "What do the two functions plotted in the minima figure illustrate?",
+      "reponse_reference": "The function on the left has a single minimum, while the one on the right has multiple local minima: gradient descent is only guaranteed to find the global minimum when there is only one, and may get stuck in a local minimum otherwise.",
+      "slides": [
+        10,
+        11
+      ]
+    },
+    {
+      "id": "ml_regression_uppsala_en__q03",
+      "course_id": "ml_regression_uppsala_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "Which cost function is used for linear regression in the lecture, and which of the two example hypotheses fits better?",
+      "reponse_reference": "J(θ0, θ1) = 1/(2m) Σ (h(x(i)) − y(i))². J(1.0, 3.0) = 33.54 and J(1.5, 2.0) = 2.43, so θ0 = 1.5, θ1 = 2.0 fits better.",
+      "slides": [
+        17
+      ]
+    },
+    {
+      "id": "ml_regression_uppsala_en__q04",
+      "course_id": "ml_regression_uppsala_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What are the simultaneous gradient descent update rules for θ0 and θ1 in linear regression?",
+      "reponse_reference": "θ0 ← θ0 − α (1/m) Σ (h(x(i)) − y(i)) and θ1 ← θ1 − α (1/m) Σ (h(x(i)) − y(i)) x(i).",
+      "slides": [
+        27
+      ]
+    },
+    {
+      "id": "ml_regression_uppsala_en__q05",
+      "course_id": "ml_regression_uppsala_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why does gradient descent find the solution of linear regression with a suitable learning rate?",
+      "reponse_reference": "Because the error function is quadratic and has only one minimum, so there is no local minimum to get stuck in.",
+      "slides": [
+        27,
+        41
+      ]
+    },
+    {
+      "id": "ml_regression_uppsala_en__q06",
+      "course_id": "ml_regression_uppsala_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "When is gradient descent preferable to the exact solution of linear regression?",
+      "reponse_reference": "The exact method solves linear equations obtained by setting the partial derivatives to zero; with large data sets and many features this linear algebra can be computationally expensive, and gradient descent is often quicker.",
+      "slides": [
+        29,
+        32
+      ]
+    },
+    {
+      "id": "ml_regression_uppsala_en__q07",
+      "course_id": "ml_regression_uppsala_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why should features such as body weight and blood magnesium be scaled?",
+      "reponse_reference": "Body weight ranges from 50 to 120 kg while magnesium ranges from 0.70 to 0.95 nmol/L, so weight dominates the data. Scaling gives all features a similar range and mean, which helps the algorithm.",
+      "slides": [
+        33
+      ]
+    },
+    {
+      "id": "ml_regression_uppsala_en__q08",
+      "course_id": "ml_regression_uppsala_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "How can linear regression fit the polynomial θ0 + θ1x + θ2x²?",
+      "reponse_reference": "By transforming the data: x → (1, x, x²), then fitting a linear model in θ = (θ0, θ1, θ2).",
+      "slides": [
+        36
+      ]
+    },
+    {
+      "id": "ml_regression_uppsala_en__q09",
+      "course_id": "ml_regression_uppsala_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "How does the lecture modify the cost function to avoid over-fitting?",
+      "reponse_reference": "It adds a regularisation term that keeps the parameters small: J(θ) = 1/(2m) Σ (h(x(i)) − y(i))² + λ Σ θi².",
+      "slides": [
+        40
+      ]
+    },
+    {
+      "id": "ml_regression_uppsala_en__q10",
+      "course_id": "ml_regression_uppsala_en",
+      "auteur": "ons",
+      "type": "hors_cours",
+      "langue": "en",
+      "question": "How does a decision tree choose the feature on which to split?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "dl_fondements_louppe_en__q01",
+      "course_id": "dl_fondements_louppe_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "In supervised learning, how is the training data assumed to be generated?",
+      "reponse_reference": "As N pairs (xi, yi) drawn independently from an unknown joint distribution pX,Y.",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "id": "dl_fondements_louppe_en__q02",
+      "course_id": "dl_fondements_louppe_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "Which loss functions does the lecture give as examples?",
+      "reponse_reference": "The zero-one loss ℓ(y, f(x)) = 1[y ≠ f(x)] for classification and the squared error ℓ(y, f(x)) = (y − f(x))² for regression.",
+      "slides": [
+        9
+      ]
+    },
+    {
+      "id": "dl_fondements_louppe_en__q03",
+      "course_id": "dl_fondements_louppe_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why do we minimise the empirical risk instead of the expected risk?",
+      "reponse_reference": "The expected risk R(f) = E[ℓ(y, f(x))] depends on the unknown distribution pX,Y. We only have a training set d, so we minimise the empirical risk, the average loss over d; its minimiser converges to the best model in F as N → ∞.",
+      "slides": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "id": "dl_fondements_louppe_en__q04",
+      "course_id": "dl_fondements_louppe_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What is the closed-form solution of the polynomial regression example?",
+      "reponse_reference": "w*_d = (XᵀX)⁻¹ Xᵀ y, where X is the matrix of powers x_i^0 … x_i^3 of the training inputs.",
+      "slides": [
+        16,
+        17
+      ]
+    },
+    {
+      "id": "dl_fondements_louppe_en__q05",
+      "course_id": "dl_fondements_louppe_en",
+      "auteur": "ons",
+      "type": "figure",
+      "langue": "en",
+      "question": "In the under-fitting and over-fitting example, what goes wrong with a model that is too simple and with one that is too complex?",
+      "reponse_reference": "A too simple model (a line) cannot capture the underlying function and under-fits; a too complex one (a polynomial of very high degree) fits the noise of the training data and over-fits.",
+      "slides": [
+        24,
+        25
+      ]
+    },
+    {
+      "id": "dl_fondements_louppe_en__q06",
+      "course_id": "dl_fondements_louppe_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What is the Bayes optimal model?",
+      "reponse_reference": "The model f_B that minimises the risk over all functions from X to Y; its risk R_B is the lowest achievable risk.",
+      "slides": [
+        33
+      ]
+    },
+    {
+      "id": "dl_fondements_louppe_en__q07",
+      "course_id": "dl_fondements_louppe_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why is the training error not a good estimate of the generalisation error, and what should be used instead?",
+      "reponse_reference": "The empirical risk on the training data is an optimistic estimate of the expected risk of the learned model. It should be estimated on an independent test set d_test, which is the proper evaluation protocol.",
+      "slides": [
+        35,
+        37,
+        39
+      ]
+    },
+    {
+      "id": "dl_fondements_louppe_en__q08",
+      "course_id": "dl_fondements_louppe_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What are the three terms of the bias-variance decomposition of the expected error at a point x?",
+      "reponse_reference": "noise(x), the risk of the Bayes model; bias²(x), the squared difference between the Bayes prediction and the average prediction; and var(x), the variance of the prediction over training sets.",
+      "slides": [
+        42,
+        49
+      ]
+    },
+    {
+      "id": "dl_fondements_louppe_en__q09",
+      "course_id": "dl_fondements_louppe_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "What is the bias-variance trade-off?",
+      "reponse_reference": "Increasing the capacity of the hypothesis space reduces the bias but increases the variance of the learned model, and vice versa; the best capacity balances the two.",
+      "slides": [
+        49,
+        50
+      ]
+    },
+    {
+      "id": "dl_fondements_louppe_en__q10",
+      "course_id": "dl_fondements_louppe_en",
+      "auteur": "ons",
+      "type": "hors_cours",
+      "langue": "en",
+      "question": "Which optimizer and learning-rate warmup should be used to train a transformer?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "dl_self_attention_ntu_en__q01",
+      "course_id": "dl_self_attention_ntu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "Which kinds of inputs can be seen as a set of vectors?",
+      "reponse_reference": "Sentences (each word as a one-hot vector or a word embedding), speech (one vector per 25 ms frame, shifted by 10 ms), and graphs (each node as a vector, e.g. social networks or molecules).",
+      "slides": [
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "id": "dl_self_attention_ntu_en__q02",
+      "course_id": "dl_self_attention_ntu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What are the three possible types of output for a sequence of vectors?",
+      "reponse_reference": "Each vector has a label (e.g. POS tagging); the whole sequence has one label (e.g. sentiment analysis); or the model decides the number of labels itself (seq2seq, e.g. translation).",
+      "slides": [
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "id": "dl_self_attention_ntu_en__q03",
+      "course_id": "dl_self_attention_ntu_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why is a fully connected network with a window not enough for sequence labeling?",
+      "reponse_reference": "A fully connected layer only sees the window around each vector; covering the whole sequence would need a window as long as the sequence, which is impractical. Self-attention considers the whole sequence instead.",
+      "slides": [
+        10,
+        11
+      ]
+    },
+    {
+      "id": "dl_self_attention_ntu_en__q04",
+      "course_id": "dl_self_attention_ntu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "How is the relevance between two vectors computed in self-attention?",
+      "reponse_reference": "A query and a key give an attention score, typically with a dot product (an additive version also exists); the scores are then normalised with a soft-max.",
+      "slides": [
+        15,
+        16,
+        17
+      ]
+    },
+    {
+      "id": "dl_self_attention_ntu_en__q05",
+      "course_id": "dl_self_attention_ntu_en",
+      "auteur": "ons",
+      "type": "figure",
+      "langue": "en",
+      "question": "In the figure \"Extract information based on attention scores\", how is the output vector obtained?",
+      "reponse_reference": "As a weighted sum of the value vectors, weighted by the attention scores: the vectors most relevant to the query contribute most.",
+      "slides": [
+        18
+      ]
+    },
+    {
+      "id": "dl_self_attention_ntu_en__q06",
+      "course_id": "dl_self_attention_ntu_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why can self-attention be computed efficiently?",
+      "reponse_reference": "All outputs are computed in parallel: the whole operation is a sequence of matrix multiplications (queries, keys, values and the attention matrix), which GPUs accelerate.",
+      "slides": [
+        19,
+        25
+      ]
+    },
+    {
+      "id": "dl_self_attention_ntu_en__q07",
+      "course_id": "dl_self_attention_ntu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What is the purpose of multi-head self-attention?",
+      "reponse_reference": "Each head captures a different type of relevance between the vectors.",
+      "slides": [
+        26,
+        27
+      ]
+    },
+    {
+      "id": "dl_self_attention_ntu_en__q08",
+      "course_id": "dl_self_attention_ntu_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why is positional encoding needed in self-attention?",
+      "reponse_reference": "Self-attention has no notion of position: a positional vector is added to each input vector so that the model knows where each vector is in the sequence.",
+      "slides": [
+        29
+      ]
+    },
+    {
+      "id": "dl_self_attention_ntu_en__q09",
+      "course_id": "dl_self_attention_ntu_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "How does the lecture compare self-attention and CNNs?",
+      "reponse_reference": "A CNN is a simplified self-attention that only attends within a receptive field, and self-attention is a CNN with a learnable receptive field. CNNs work better with less data, self-attention with more data.",
+      "slides": [
+        35,
+        37
+      ]
+    },
+    {
+      "id": "dl_self_attention_ntu_en__q10",
+      "course_id": "dl_self_attention_ntu_en",
+      "auteur": "ons",
+      "type": "hors_cours",
+      "langue": "en",
+      "question": "How is BERT pre-trained with masked language modeling?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    },
+    {
+      "id": "reseaux_tcp_routage_liu_en__q01",
+      "course_id": "reseaux_tcp_routage_liu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What does a laptop obtain from DHCP when it connects to the campus network?",
+      "reponse_reference": "Its own IP address, the IP address of its first-hop router, and the name and IP address of the DNS server.",
+      "slides": [
+        7,
+        8
+      ]
+    },
+    {
+      "id": "reseaux_tcp_routage_liu_en__q02",
+      "course_id": "reseaux_tcp_routage_liu_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Why is ARP needed before the DNS query can be sent?",
+      "reponse_reference": "To send the frame containing the DNS query to the router, the client needs the MAC address of the router interface; an ARP query is broadcast and the router replies with its MAC address.",
+      "slides": [
+        9
+      ]
+    },
+    {
+      "id": "reseaux_tcp_routage_liu_en__q03",
+      "course_id": "reseaux_tcp_routage_liu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "What are the three steps of the TCP handshake before the HTTP request?",
+      "reponse_reference": "The client sends a SYN, the web server responds with a SYNACK, and the client sends an ACK; the connection is then established.",
+      "slides": [
+        13,
+        15
+      ]
+    },
+    {
+      "id": "reseaux_tcp_routage_liu_en__q04",
+      "course_id": "reseaux_tcp_routage_liu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "How does TCP Tahoe update its window W?",
+      "reponse_reference": "For every ACK: if W < ssthresh, W++ (slow start), else W += 1/W (congestion avoidance). For every loss: ssthresh = W/2 and W = 1.",
+      "slides": [
+        17
+      ]
+    },
+    {
+      "id": "reseaux_tcp_routage_liu_en__q05",
+      "course_id": "reseaux_tcp_routage_liu_en",
+      "auteur": "ons",
+      "type": "figure",
+      "langue": "en",
+      "question": "In the congestion avoidance example, how does cwnd evolve over the round trip times?",
+      "reponse_reference": "In slow start, cwnd doubles each RTT: 1, 2, 4, 8. Once cwnd reaches ssthresh = 8, it grows linearly (9, …) in congestion avoidance.",
+      "slides": [
+        18
+      ]
+    },
+    {
+      "id": "reseaux_tcp_routage_liu_en__q06",
+      "course_id": "reseaux_tcp_routage_liu_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "How does TCP Reno react differently to 3 duplicate ACKs and to a timeout?",
+      "reponse_reference": "On 3 duplicate ACKs it uses fast retransmit and fast recovery, avoiding slow start; on a timeout it retransmits the last segment and goes back to slow start.",
+      "slides": [
+        19,
+        20
+      ]
+    },
+    {
+      "id": "reseaux_tcp_routage_liu_en__q07",
+      "course_id": "reseaux_tcp_routage_liu_en",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "en",
+      "question": "Compare the four ways of fetching a web page with several objects over HTTP.",
+      "reponse_reference": "HTTP/1.0 uses one TCP connection per request, serially; parallel TCP connections make it faster; persistent HTTP reuses one connection for several transfers, amortising TCP overhead; HTTP/1.1 pipelining sends requests asynchronously on a persistent connection.",
+      "slides": [
+        22,
+        23,
+        24,
+        25
+      ]
+    },
+    {
+      "id": "reseaux_tcp_routage_liu_en__q08",
+      "course_id": "reseaux_tcp_routage_liu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "Which algorithms are RIP and OSPF based on?",
+      "reponse_reference": "RIP is a distance vector protocol based on Bellman-Ford; OSPF is a link state protocol based on Dijkstra.",
+      "slides": [
+        28
+      ]
+    },
+    {
+      "id": "reseaux_tcp_routage_liu_en__q09",
+      "course_id": "reseaux_tcp_routage_liu_en",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "en",
+      "question": "Which addresses are not covered in the example CIDR routing table?",
+      "reponse_reference": "The block 207.46.96.0/19 (third byte from 96 to 127): there is a hole in the routing table.",
+      "slides": [
+        30
+      ]
+    },
+    {
+      "id": "reseaux_tcp_routage_liu_en__q10",
+      "course_id": "reseaux_tcp_routage_liu_en",
+      "auteur": "ons",
+      "type": "hors_cours",
+      "langue": "en",
+      "question": "How does QUIC replace TCP in HTTP/3?",
       "reponse_reference": "L'information n'est pas dans le cours.",
       "slides": []
     }
