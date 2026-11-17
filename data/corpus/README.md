@@ -63,12 +63,14 @@ Mêmes premières colonnes que `data/corpus_extra/inventaire.csv`, puis des colo
 
 ## Répartition du corpus d'Ons (2026-11-17)
 
-27 cours, dont 4 versionnés dans Git et 23 dans `_local/` (non versionnés : supports Esprit internes ou licence inconnue).
+39 cours (26 PDF, 13 PPTX), dont 4 versionnés dans Git et 35 dans `_local/`
+(non versionnés : supports Esprit internes ou licence inconnue).
 
 | Langue | maths | ml | dl | reseaux | Total |
 |---|---|---|---|---|---|
 | fr | 3 | 4 | 2 | 4 | 13 |
-| en | 0 | 5 | 6 | 3 | 14 |
-| **Total** | 3 | 9 | 8 | 7 | **27** |
+| en | 8 | 7 | 8 | 3 | 26 |
+| **Total** | 11 | 11 | 10 | 7 | **39** |
 
+Les PPTX de NTU (Hung-yi Lee) contiennent parfois quelques mots en chinois ; ils restent classés `en`.
 Détail (titre, source, licence, nombre de slides) : `inventaire_ons.csv`.
