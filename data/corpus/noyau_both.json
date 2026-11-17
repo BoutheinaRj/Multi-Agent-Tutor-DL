@@ -1,0 +1,30 @@
+{
+  "description": "Noyau C1 de Both : 6 cours riches en texte retenus pour le jeu d'évaluation C2 (et les tests RAG). Les 3 autres cours de inventaire_both.csv (2 scans de 8 pages, 1 cours de 64 slides) restent en réserve.",
+  "criteres": "4 EN / 2 FR, PDF et PPTX, 15 à 60 slides, riches en texte, 3 domaines (cloud, ml, bd)",
+  "cours": [
+    {
+      "course_id": "cloud_virtualisation_esprit_en",
+      "fichier": "en/cloud/cloud_virtualisation_esprit_en.pptx"
+    },
+    {
+      "course_id": "cloud_management_esprit_en",
+      "fichier": "en/cloud/cloud_management_esprit_en.pptx"
+    },
+    {
+      "course_id": "ml_introduction_mit_en",
+      "fichier": "en/ml/ml_introduction_mit_en.pdf"
+    },
+    {
+      "course_id": "ml_nlp_sante_mit_en",
+      "fichier": "en/ml/ml_nlp_sante_mit_en.pdf"
+    },
+    {
+      "course_id": "ml_recherche_lineaire_esprit_fr",
+      "fichier": "fr/ml/ml_recherche_lineaire_esprit_fr.pdf"
+    },
+    {
+      "course_id": "bd_introduction_cotedazur_fr",
+      "fichier": "fr/bd/bd_introduction_cotedazur_fr.pdf"
+    }
+  ]
+}
