@@ -1,0 +1,105 @@
+{
+  "version": "1.0",
+  "questions": [
+    {
+      "id": "ml_gradient_stochastique_esprit_fr__q01",
+      "course_id": "ml_gradient_stochastique_esprit_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelle est la différence entre une itération et une époque ?",
+      "reponse_reference": "Une itération est une mise à jour des paramètres ; une époque est un passage complet sur les N données.",
+      "slides": [3]
+    },
+    {
+      "id": "ml_gradient_stochastique_esprit_fr__q02",
+      "course_id": "ml_gradient_stochastique_esprit_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Pourquoi utiliser la descente de gradient stochastique plutôt que la descente classique sur un grand jeu de données ?",
+      "reponse_reference": "La descente classique calcule à chaque itération une somme sur toutes les données, ce qui devient très coûteux en temps et en mémoire avec des milliers ou millions de données. La version stochastique utilise une seule donnée (ou un petit échantillon) tirée au hasard : pendant une époque, on fait N mises à jour pour le même coût qu'un seul gradient complet.",
+      "slides": [3, 5]
+    },
+    {
+      "id": "ml_gradient_stochastique_esprit_fr__q03",
+      "course_id": "ml_gradient_stochastique_esprit_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelle est la formule de mise à jour de la descente de gradient stochastique avec parcours cyclique des données ?",
+      "reponse_reference": "X_{k+1} = X_k − ρ ∇E_{(k mod N)+1}(X_k), où k mod N est le reste de la division de k par N.",
+      "slides": [6]
+    },
+    {
+      "id": "ml_gradient_stochastique_esprit_fr__q04",
+      "course_id": "ml_gradient_stochastique_esprit_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Pourquoi, avec un pas constant, la descente de gradient stochastique oscille-t-elle autour du minimiseur au lieu de s'y arrêter ?",
+      "reponse_reference": "Au minimiseur X*, le gradient total est nul (∇E(X*) = 0), mais les gradients locaux ∇E_i(X*) ne le sont en général pas. Chaque pas stochastique déplace donc encore le point : avec un pas constant, la méthode oscille dans une zone autour de X*.",
+      "slides": [7, 23]
+    },
+    {
+      "id": "ml_gradient_stochastique_esprit_fr__q05",
+      "course_id": "ml_gradient_stochastique_esprit_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "En quel sens le gradient stochastique est-il un estimateur sans biais du gradient ?",
+      "reponse_reference": "Si l'indice I est tiré uniformément dans {1, …, N}, l'espérance de ∇E_I(X) vaut (1/N) ∇E(X) : en moyenne, un pas stochastique est un pas de descente classique sur E (à l'échelle 1/N près).",
+      "slides": [7]
+    },
+    {
+      "id": "ml_gradient_stochastique_esprit_fr__q06",
+      "course_id": "ml_gradient_stochastique_esprit_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Dans l'exercice de la parabole, quel est le point (a, b) obtenu après une époque, en partant de (1, 1) avec ρ = 0,01 ?",
+      "reponse_reference": "Après 4 itérations (une époque), on obtient environ (a, b) = (−0,406 ; 0,583).",
+      "slides": [10, 11]
+    },
+    {
+      "id": "ml_gradient_stochastique_esprit_fr__q07",
+      "course_id": "ml_gradient_stochastique_esprit_fr",
+      "auteur": "ons",
+      "type": "comprehension",
+      "langue": "fr",
+      "question": "Que donne la descente par lots quand la taille du lot K vaut 1, puis quand elle vaut N ?",
+      "reponse_reference": "Avec K = 1, c'est la descente de gradient stochastique ; avec K = N, c'est la descente de gradient classique.",
+      "slides": [13]
+    },
+    {
+      "id": "ml_gradient_stochastique_esprit_fr__q08",
+      "course_id": "ml_gradient_stochastique_esprit_fr",
+      "auteur": "ons",
+      "type": "figure",
+      "langue": "fr",
+      "question": "D'après la courbe de l'erreur totale en fonction du nombre d'époques, comment la taille du lot K influence-t-elle l'erreur ?",
+      "reponse_reference": "Au bout de 10 époques, l'erreur est à peu près la même quelle que soit la taille K. Au début, en revanche, l'erreur fluctue à la hausse ou à la baisse d'une itération à l'autre pour K = 1 (stochastique), alors qu'elle est plus régulière pour les lots plus grands.",
+      "slides": [22]
+    },
+    {
+      "id": "ml_gradient_stochastique_esprit_fr__q09",
+      "course_id": "ml_gradient_stochastique_esprit_fr",
+      "auteur": "ons",
+      "type": "factuelle",
+      "langue": "fr",
+      "question": "Quelles conditions doit vérifier un pas décroissant ρ_k pour que la méthode converge vers le minimiseur ?",
+      "reponse_reference": "La somme des ρ_k doit être infinie et la somme des ρ_k² finie, par exemple ρ_k = ρ_0 / (k + 1).",
+      "slides": [23]
+    },
+    {
+      "id": "ml_gradient_stochastique_esprit_fr__q10",
+      "course_id": "ml_gradient_stochastique_esprit_fr",
+      "auteur": "ons",
+      "type": "hors_cours",
+      "langue": "fr",
+      "question": "Comment fonctionne l'optimiseur Adam et quelles valeurs utiliser pour β1 et β2 ?",
+      "reponse_reference": "L'information n'est pas dans le cours.",
+      "slides": []
+    }
+  ]
+}
