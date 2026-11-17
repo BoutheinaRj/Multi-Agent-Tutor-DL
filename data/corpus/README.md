@@ -25,9 +25,10 @@ Corpus complémentaire d'autres matières : `data/corpus_extra/` (Ghofrane, G2).
    - Both : les autres matières textuelles (`histoire_`, `droit_`, `bio_`…) et `scan_` pour un PDF scanné.
 3. **Un inventaire par personne** : `inventaire_ons.csv` et `inventaire_both.csv`. Chacune ne modifie que le sien.
    Ce README n'est modifié que par Ons.
-4. **Ce qui ne va pas dans Git** : fichiers de plus de 20 Mo, et cours sans licence qui autorise la redistribution
-   (supports internes, etc.). Ils vont dans `data/corpus/_local/<langue>/<domaine>/` (ignoré par Git),
-   avec seulement leur ligne dans l'inventaire.
+4. **Taille** : pas de fichier de plus de 20 Mo dans Git. Tous les cours d'Ons sont versionnés (décision d'Ons,
+   2026-11-17), y compris les supports internes d'Esprit et les cours dont la licence est inconnue ;
+   la source et l'auteur de chacun sont indiqués dans l'inventaire. `data/corpus/_local/` reste ignoré par Git
+   pour les fichiers qu'on ne veut pas publier.
 5. Commits préfixés `[C1]`, par exemple `[C1] ajout ml_reseaux_neurones_fr`.
 
 ## Format des inventaires
@@ -36,7 +37,7 @@ Mêmes premières colonnes que `data/corpus_extra/inventaire.csv`, puis des colo
 
 | Colonne | Valeurs |
 |---|---|
-| `fichier` | nom du fichier (`_local/...` s'il n'est pas versionné) |
+| `fichier` | chemin relatif à `data/corpus/` (`<langue>/<domaine>/<fichier>`) |
 | `titre` | titre du cours |
 | `source` | URL d'origine |
 | `format` | `PDF` ou `PPTX` |
@@ -63,8 +64,8 @@ Mêmes premières colonnes que `data/corpus_extra/inventaire.csv`, puis des colo
 
 ## Répartition du corpus d'Ons (2026-11-17)
 
-39 cours (26 PDF, 13 PPTX), dont 4 versionnés dans Git et 35 dans `_local/`
-(non versionnés : supports Esprit internes ou licence inconnue).
+39 cours (26 PDF, 13 PPTX), tous versionnés dans Git. 4 ont une licence explicite (voir Crédits),
+7 sont des supports internes d'Esprit, les autres ont une licence inconnue (source dans l'inventaire).
 
 | Langue | maths | ml | dl | reseaux | Total |
 |---|---|---|---|---|---|
