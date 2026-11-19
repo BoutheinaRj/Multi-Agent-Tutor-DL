@@ -6,7 +6,8 @@ ce module ne définit que ce qui manque au contrat commun.
 
 from __future__ import annotations
 
-from typing import Literal
+from datetime import date
+from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -65,4 +66,54 @@ class Ressource(_Base):
     justification: str = Field(default="", description="Pourquoi la ressource est pertinente (A4)")
 
 
-__all__ = ["QCM", "AskRequest", "Flashcard", "NiveauBloom", "Ressource"]
+Utilisateur = Annotated[
+    str, Field(min_length=1, max_length=100, pattern=r"^\S(?:.*\S)?$", description="Identifiant de l'utilisateur")
+]
+
+
+class EtatSM2(_Base):
+    """État de révision espacée (SM-2) d'une carte (A6)."""
+
+    repetitions: int = Field(ge=0, description="Révisions réussies consécutives")
+    intervalle: int = Field(ge=0, description="Jours jusqu'à la prochaine révision")
+    facilite: float = Field(ge=1.3, description="Facteur de facilité SM-2 (départ 2.5)")
+    prochaine_revision: date
+
+
+class CarteSRS(_Base):
+    """Flashcard enregistrée pour un utilisateur, avec son état SM-2 (A6)."""
+
+    id: int
+    user: str
+    course_id: str
+    recto: str
+    verso: str
+    source: Source
+    etat: EtatSM2
+
+
+class SaveFlashcardsRequest(_Base):
+    """Corps de ``POST /flashcards/save`` : flashcards de l'agent Quiz (A2) à mémoriser."""
+
+    user: Utilisateur
+    flashcards: list[Flashcard] = Field(min_length=1)
+
+
+class ReviewRequest(_Base):
+    """Corps de ``POST /flashcards/{id}/review`` : note SM-2 de 0 (oubli total) à 5 (parfait)."""
+
+    user: Utilisateur
+    qualite: int = Field(ge=0, le=5)
+
+
+__all__ = [
+    "QCM",
+    "AskRequest",
+    "CarteSRS",
+    "EtatSM2",
+    "Flashcard",
+    "NiveauBloom",
+    "Ressource",
+    "ReviewRequest",
+    "SaveFlashcardsRequest",
+]

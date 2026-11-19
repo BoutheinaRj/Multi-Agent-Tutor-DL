@@ -2,7 +2,8 @@
 
 Les réponses viennent de ``schemas/exemples/exemple_cours.json`` en attendant
 le branchement de l'ingestion, du RAG et des agents ; ``GET /resources`` utilise déjà
-l'agent Resources (A4, catalogue local), ``GET /quiz`` et ``GET /flashcards`` l'agent Quiz (A2).
+l'agent Resources (A4, catalogue local), ``GET /quiz`` et ``GET /flashcards`` l'agent Quiz (A2),
+``/flashcards/save|due|export`` et ``/flashcards/{id}/review`` la révision espacée SM-2 (A6).
 
 Lancement : ``uvicorn api.main:app --reload`` puis http://localhost:8000/docs
 """
@@ -10,6 +11,7 @@ Lancement : ``uvicorn api.main:app --reload`` puis http://localhost:8000/docs
 from __future__ import annotations
 
 import json
+from datetime import date
 from pathlib import Path
 from typing import Annotated
 from urllib.parse import quote
@@ -18,10 +20,21 @@ from fastapi import FastAPI, File, HTTPException, Query, Response, UploadFile
 from fastapi import Path as PathParam
 from fastapi.middleware.cors import CORSMiddleware
 
+from agents import srs
 from agents.quiz import brancher_cours, charger_cours, generer_flashcards, generer_quiz_detaille
 from agents.resources import charger_slide, chercher_ressources
-from api.models import QCM, AskRequest, Flashcard, NiveauBloom, Ressource
+from api.models import (
+    QCM,
+    AskRequest,
+    CarteSRS,
+    Flashcard,
+    NiveauBloom,
+    Ressource,
+    ReviewRequest,
+    SaveFlashcardsRequest,
+)
 from schemas.models import (
+    COURSE_ID_PATTERN,
     SLIDE_ID_PATTERN,
     AgentResponse,
     Course,
@@ -182,6 +195,51 @@ def flashcards(
     """Flashcards de l'agent Quiz (A2) ; sans LLM, une carte titre → texte par slide."""
     _verifier_cible(course_id, slide)
     return generer_flashcards(course_id, slide, n, langue=langue)
+
+
+UtilisateurQuery = Annotated[str, Query(min_length=1, max_length=100)]
+
+
+@app.post("/flashcards/save", response_model=list[CarteSRS])
+def flashcards_save(requete: SaveFlashcardsRequest) -> list[CarteSRS]:
+    """Mémoriser des flashcards (A2) pour un utilisateur (A6) ; une carte connue n'est pas dupliquée."""
+    return srs.ajouter_cartes(requete.user, requete.flashcards)
+
+
+@app.get("/flashcards/due", response_model=list[CarteSRS])
+def flashcards_due(
+    user: UtilisateurQuery,
+    date_revision: Annotated[date | None, Query(alias="date")] = None,
+    course_id: Annotated[str | None, Query(pattern=COURSE_ID_PATTERN)] = None,
+) -> list[CarteSRS]:
+    """Cartes de l'utilisateur à réviser au plus tard à ``date`` (défaut : aujourd'hui)."""
+    return srs.cartes_a_reviser(user, date_revision, course_id)
+
+
+@app.post("/flashcards/{carte_id}/review", response_model=CarteSRS)
+def flashcards_review(carte_id: int, requete: ReviewRequest) -> CarteSRS:
+    """Noter une révision (``qualite`` 0..5) et replanifier la carte selon SM-2."""
+    try:
+        return srs.enregistrer_revision(requete.user, carte_id, requete.qualite)
+    except KeyError as erreur:
+        raise HTTPException(status_code=404, detail=erreur.args[0]) from erreur
+
+
+@app.get("/flashcards/export")
+def flashcards_export(
+    course_id: Annotated[str, Query(pattern=COURSE_ID_PATTERN)],
+    user: UtilisateurQuery,
+) -> Response:
+    """Télécharger le deck Anki (.apkg) des cartes de l'utilisateur pour un cours."""
+    try:
+        contenu = srs.exporter_apkg(user, course_id)
+    except LookupError as erreur:
+        raise HTTPException(status_code=404, detail=erreur.args[0]) from erreur
+    return Response(
+        content=contenu,
+        media_type="application/apkg",
+        headers={"Content-Disposition": f'attachment; filename="{course_id}.apkg"'},
+    )
 
 
 def _verifier_cible(course_id: str, slide: int | None) -> None:
