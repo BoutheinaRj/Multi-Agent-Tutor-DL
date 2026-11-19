@@ -80,6 +80,8 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    # Lisibles par le frontend (A5) : raison d'un quiz vide, nom du fichier Anki exporté.
+    expose_headers=["X-Quiz-Message", "Content-Disposition"],
 )
 
 

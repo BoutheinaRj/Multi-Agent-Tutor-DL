@@ -64,3 +64,15 @@ def test_resources(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("LLM_FAKE_REPONSE", raising=False)
     r = client.get("/resources", params={"slide_id": SLIDE_ID})
     assert r.status_code == 200 and len([Ressource.model_validate(x) for x in r.json()]) > 0
+
+
+def test_cors_frontend_vite() -> None:
+    """Le frontend Vite (A5, port 5173) peut appeler l'API et lire X-Quiz-Message."""
+    origine = "http://localhost:5173"
+    pre = client.options(
+        "/ask",
+        headers={"Origin": origine, "Access-Control-Request-Method": "POST", "Access-Control-Request-Headers": "content-type"},
+    )
+    r = client.get("/health", headers={"Origin": origine})
+    assert pre.status_code == 200 and pre.headers["access-control-allow-origin"] == origine
+    assert "x-quiz-message" in r.headers["access-control-expose-headers"].lower()
