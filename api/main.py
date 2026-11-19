@@ -1,7 +1,8 @@
 """A1 — API FastAPI du tuteur, avec des données factices.
 
 Les réponses viennent de ``schemas/exemples/exemple_cours.json`` en attendant
-le branchement de l'ingestion, du RAG et des agents.
+le branchement de l'ingestion, du RAG et des agents ; ``GET /resources`` utilise déjà
+l'agent Resources (A4, catalogue local).
 
 Lancement : ``uvicorn api.main:app --reload`` puis http://localhost:8000/docs
 """
@@ -16,14 +17,17 @@ from fastapi import FastAPI, File, HTTPException, Query, UploadFile
 from fastapi import Path as PathParam
 from fastapi.middleware.cors import CORSMiddleware
 
+from agents.resources import charger_slide, chercher_ressources
 from api.models import QCM, AskRequest, Ressource
 from schemas.models import (
     SLIDE_ID_PATTERN,
     AgentResponse,
     Course,
+    Langue,
     Niveau,
     Slide,
     Source,
+    TutorState,
 )
 
 EXEMPLE_COURS = Path(__file__).resolve().parent.parent / "schemas" / "exemples" / "exemple_cours.json"
@@ -174,21 +178,18 @@ def quiz(
 @app.get("/resources", response_model=list[Ressource])
 def resources(
     slide_id: Annotated[str, Query(pattern=SLIDE_ID_PATTERN)],
+    niveau: Niveau = "intermediaire",
+    langue: Langue = "fr",
 ) -> list[Ressource]:
-    """Ressources factices liées à une slide."""
+    """Ressources externes pour une slide (A4) : catalogue local, sans appel réseau."""
     s = _slide_par_id(slide_id)
-    sujet = s.titre or "le cours"
-    return [
-        Ressource(
-            titre=f"Vidéo d'introduction : {sujet}",
-            url="https://www.youtube.com/results?search_query=" + sujet.replace(" ", "+"),
-            type="video",
-            description="Ressource factice (A1).",
-        ),
-        Ressource(
-            titre=f"Article : {sujet}",
-            url="https://fr.wikipedia.org/w/index.php?search=" + sujet.replace(" ", "+"),
-            type="article",
-            description="Ressource factice (A1).",
-        ),
-    ]
+    state = TutorState(course_id=s.course_id, slide_courante=s.numero, niveau=niveau, langue_reponse=langue)
+    return chercher_ressources(state, charger=_slide_connue)
+
+
+def _slide_connue(course_id: str, numero: int) -> Slide | None:
+    """Slide d'un cours chargé par l'API, sinon d'un cours ingéré dans ``data/processed``."""
+    cours = COURS.get(course_id)
+    if cours is not None and 1 <= numero <= cours.nombre_slides:
+        return cours.slides[numero - 1]
+    return charger_slide(course_id, numero)
