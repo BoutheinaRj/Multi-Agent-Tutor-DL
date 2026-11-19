@@ -2,7 +2,7 @@
 
 Les réponses viennent de ``schemas/exemples/exemple_cours.json`` en attendant
 le branchement de l'ingestion, du RAG et des agents ; ``GET /resources`` utilise déjà
-l'agent Resources (A4, catalogue local).
+l'agent Resources (A4, catalogue local), ``GET /quiz`` et ``GET /flashcards`` l'agent Quiz (A2).
 
 Lancement : ``uvicorn api.main:app --reload`` puis http://localhost:8000/docs
 """
@@ -12,13 +12,15 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Annotated
+from urllib.parse import quote
 
-from fastapi import FastAPI, File, HTTPException, Query, UploadFile
+from fastapi import FastAPI, File, HTTPException, Query, Response, UploadFile
 from fastapi import Path as PathParam
 from fastapi.middleware.cors import CORSMiddleware
 
+from agents.quiz import brancher_cours, charger_cours, generer_flashcards, generer_quiz_detaille
 from agents.resources import charger_slide, chercher_ressources
-from api.models import QCM, AskRequest, Ressource
+from api.models import QCM, AskRequest, Flashcard, NiveauBloom, Ressource
 from schemas.models import (
     SLIDE_ID_PATTERN,
     AgentResponse,
@@ -52,6 +54,7 @@ def charger_cours_exemple() -> Course:
 COURS: dict[str, Course] = {}
 _exemple = charger_cours_exemple()
 COURS[_exemple.id] = _exemple
+brancher_cours(COURS.get)  # l'agent Quiz (A2) voit les cours chargés par l'API
 
 app = FastAPI(
     title="Tuteur multi-agent — API",
@@ -151,28 +154,46 @@ def ask(requete: AskRequest) -> AgentResponse:
 
 @app.get("/quiz", response_model=list[QCM])
 def quiz(
+    response: Response,
     course_id: str,
-    slide: Annotated[int, Query(ge=1)],
+    slide: Annotated[int | None, Query(ge=1)] = None,
+    n: Annotated[int, Query(ge=1, le=10)] = 3,
+    niveau_bloom: NiveauBloom | None = None,
+    langue: Langue | None = None,
 ) -> list[QCM]:
-    """QCM factices construits à partir de la slide demandée."""
-    s = _slide(course_id, slide)
-    source = Source(course_id=s.course_id, numero=s.numero, extrait=s.texte)
-    return [
-        QCM(
-            question=f"Quel est le sujet principal de la slide « {s.titre} » ?",
-            choix=[s.titre, "Les réseaux de neurones", "Le clustering", "La virtualisation"],
-            bonne_reponse=0,
-            explication=f"Voir [Slide {s.numero}].",
-            source=source,
-        ),
-        QCM(
-            question="Cette affirmation provient-elle de la slide ? « " + (s.texte or s.titre) + " »",
-            choix=["Vrai", "Faux"],
-            bonne_reponse=0,
-            explication=f"L'affirmation est reprise de [Slide {s.numero}].",
-            source=source,
-        ),
-    ]
+    """QCM générés par l'agent Quiz (A2) avec le LLM local, sur une slide ou tout le cours.
+
+    Liste vide (et en-tête ``X-Quiz-Message``) si le LLM local est indisponible.
+    """
+    _verifier_cible(course_id, slide)
+    resultat = generer_quiz_detaille(course_id, slide, n, niveau_bloom, langue=langue)
+    if resultat.message:
+        response.headers["X-Quiz-Message"] = quote(resultat.message)
+    return resultat.qcm
+
+
+@app.get("/flashcards", response_model=list[Flashcard])
+def flashcards(
+    course_id: str,
+    slide: Annotated[int | None, Query(ge=1)] = None,
+    n: Annotated[int, Query(ge=1, le=10)] = 5,
+    langue: Langue | None = None,
+) -> list[Flashcard]:
+    """Flashcards de l'agent Quiz (A2) ; sans LLM, une carte titre → texte par slide."""
+    _verifier_cible(course_id, slide)
+    return generer_flashcards(course_id, slide, n, langue=langue)
+
+
+def _verifier_cible(course_id: str, slide: int | None) -> None:
+    """404 si le cours (API, ``data/processed`` ou exemple) ou la slide n'existe pas."""
+    cours = charger_cours(course_id)
+    if cours is None:
+        raise HTTPException(status_code=404, detail=f"Cours inconnu : {course_id}")
+    if slide is not None and not 1 <= slide <= cours.nombre_slides:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Slide {slide} hors limites (1..{cours.nombre_slides}) pour {course_id}",
+        )
 
 
 @app.get("/resources", response_model=list[Ressource])

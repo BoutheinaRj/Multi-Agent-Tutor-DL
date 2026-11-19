@@ -27,13 +27,28 @@ class AskRequest(_Base):
     langue: Langue = "fr"
 
 
-class QCM(_Base):
-    """Question à choix multiples renvoyée par ``GET /quiz``."""
+NiveauBloom = Literal["memoriser", "comprendre", "appliquer", "analyser"]
 
-    question: str
-    choix: list[str] = Field(min_length=2)
-    bonne_reponse: int = Field(ge=0, description="Index de la bonne réponse dans ``choix``")
+
+class QCM(_Base):
+    """Question à choix multiples renvoyée par ``GET /quiz`` (A2).
+
+    Exactement 4 choix distincts, une seule bonne réponse (``bonne_reponse`` : index 0..3).
+    """
+
+    question: str = Field(min_length=1)
+    choix: list[str] = Field(min_length=4, max_length=4)
+    bonne_reponse: int = Field(ge=0, le=3, description="Index de la bonne réponse dans ``choix``")
     explication: str = ""
+    niveau_bloom: NiveauBloom = "comprendre"
+    source: Source
+
+
+class Flashcard(_Base):
+    """Carte de révision renvoyée par ``GET /flashcards`` (A2)."""
+
+    recto: str = Field(min_length=1, description="Question ou notion")
+    verso: str = Field(min_length=1, description="Réponse ou définition")
     source: Source
 
 
@@ -50,4 +65,4 @@ class Ressource(_Base):
     justification: str = Field(default="", description="Pourquoi la ressource est pertinente (A4)")
 
 
-__all__ = ["QCM", "AskRequest", "Ressource"]
+__all__ = ["QCM", "AskRequest", "Flashcard", "NiveauBloom", "Ressource"]
