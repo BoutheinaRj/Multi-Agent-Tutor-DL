@@ -21,8 +21,8 @@
 <link rel="stylesheet" href="assets/layout/layout.css">
 <link rel="stylesheet" href="assets/icons/icon.css">
 <link rel="stylesheet" href="assets/ui/base.css">
-<link rel="stylesheet" href="assets/diagrams/diagram.css">
 <link rel="stylesheet" href="assets/moments/liquid-type/moment.css">
+<link rel="stylesheet" href="accueil.css">
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script src="assets/backgrounds/backgrounds.js"></script>
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
@@ -30,18 +30,19 @@
 <link rel="modulepreload" href="assets/moments/lib.js">
 <link rel="modulepreload" href="assets/moments/liquid-type/moment.js">
 <style>
-/* Charte D1 (Both, docs/charte.md) : bleu roi, marine, jaune du pompon, Inter auto-hébergée, aucun service en ligne */
+/* Charte D1 (Both, docs/charte.md) : Inter auto-hébergée, aucun service en ligne. Couleurs : accueil.css (--mat-*). */
 @font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap;
   src: url("fonts/inter-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap;
   src: url("fonts/inter-latin-ext.woff2") format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* Jetons du kit, alignés sur la charte (mêmes valeurs que les --mat-* d'accueil.css) */
 :root {
-  --p-bg: #f8fafc; --p-surface: #ffffff; --p-ink: #0b1a45; --p-muted: #475569;
-  --p-accent: #2563eb; --p-accent-ink: #f8fafc; --p-action: #2563eb; --p-action-ink: #f8fafc;
-  --p-inv-bg: #0b1a45; --p-inv-surface: #182851; --p-inv-ink: #f8fafc; --p-inv-muted: #949fb4;
-  --p-inv-accent: #f8fafc; --p-inv-accent-ink: #0b1a45; --p-inv-action: #f8fafc; --p-inv-action-ink: #0b1a45;
+  --p-bg: #F8FAFC; --p-surface: #FFFFFF; --p-ink: #0B1A45; --p-muted: #475569;
+  --p-accent: #2563EB; --p-accent-ink: #F8FAFC; --p-action: #2563EB; --p-action-ink: #F8FAFC;
+  --p-inv-bg: #0B1A45; --p-inv-surface: #182851; --p-inv-ink: #F8FAFC; --p-inv-muted: #949FB4;
+  --p-inv-accent: #F8FAFC; --p-inv-accent-ink: #0B1A45; --p-inv-action: #F8FAFC; --p-inv-action-ink: #0B1A45;
   --font-display: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
   --font-text: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
@@ -49,69 +50,11 @@
   --display-tracking: -0.03em;
   --display-tracking-xl: -0.04em;
   --ly-scale: 0.97;
-  --mat-jaune: #fbbf24;
 }
-.nav__logo img { width: 36px; height: 36px; object-fit: contain; }
-/* La fenêtre du hero : l'échange réel du tuteur, liste des slides à gauche */
-.hero__window { background: linear-gradient(180deg, #dbeafe, #eff5ff 70%, #f8fafc); }
-.d-win { font: 400 14px/1.4 var(--font-text); }
-.d-win__bar { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 14px; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
-.d-win__dots { display: flex; gap: 6px; } .d-win__dots i { width: 10px; height: 10px; border-radius: 50%; background: #e2e8f0; }
-.d-chat { display: grid; gap: 10px; align-content: start; padding: 18px; font-size: 14px; }
-.d-msg { max-width: 78%; padding: 10px 14px; border-radius: 16px; line-height: 1.45; }
-.d-msg--me { justify-self: end; border-bottom-right-radius: 6px; }
-.d-msg--bot { border-bottom-left-radius: 6px; }
-.d-tool { display: flex; align-items: center; gap: 8px; font-size: 13px; }
-.d-tool::before { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; }
-.tw .d-msg--bot .avatar-tuteur { display: block; margin: 0 0 6px; }
-
-.tw { background: #fff; color: #0b1a45; border-radius: 14px; box-shadow: 0 0 0 1px #e2e8f0, 0 24px 48px -24px rgb(37 99 235 / .35); overflow: hidden; }
-.tw .d-win__bar { color: #475569; } .tw .d-win__bar b { color: #0b1a45; font-weight: 600; } .tw .d-win__bar .sp { flex: 1; }
-.tw .d-win__body { display: grid; grid-template-columns: 230px 1fr; min-height: 420px; }
-.slides-col { border-right: 1px solid #e2e8f0; padding: 10px; display: grid; align-content: start; gap: 4px; font-size: 13px; }
-.slides-col .s { display: grid; grid-template-columns: 26px 1fr; gap: 8px; align-items: center; padding: 7px 8px; border-radius: 8px; color: #475569; }
-.slides-col .s b { width: 26px; height: 26px; border-radius: 7px; display: grid; place-items: center; background: #eff5ff; color: #2563eb; font-weight: 600; }
-.slides-col .s.is-on { background: #dbeafe; color: #0b1a45; }
-.slides-col .s.is-on b { background: #2563eb; color: #fff; }
-.tw .d-chat { padding: 14px 18px; gap: 10px; }
-.tw .d-msg--me { background: #dbeafe; color: #0b1a45; }
-.tw .d-msg--bot { background: #fff; color: #0b1a45; box-shadow: 0 0 0 1px #e2e8f0; max-width: 88%; }
-.tw .d-tool { color: #475569; }
-.cite { display: inline-block; padding: 0 7px; border-radius: 6px; background: var(--mat-jaune); color: #0b1a45; font-weight: 600; font-size: 12.5px; margin-left: 3px; }
-.tw .acts { display: flex; gap: 8px; }
-.tw .acts span { height: 30px; padding: 0 12px; border-radius: 8px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; background: #2563eb; color: #fff; }
-.tw .acts span + span { background: #fff; color: #2563eb; box-shadow: inset 0 0 0 1px #2563eb; }
-@media (max-width: 639px) { .tw .d-win__body { grid-template-columns: 1fr; } .slides-col { display: none; } .tw .d-tool, .tw .d-win__bar .sp ~ span { display: none; } .tw .d-chat { font-size: 13px; padding: 12px 14px; } }
-/* La capture de la page Cours, notre propre interface */
-.capture { --p-h: 380px; }
-.capture img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
-@media (max-width: 1023px) { .capture { --p-h: 360px; } }
-@media (max-width: 639px) { .capture { --p-h: 300px; } }
-/* Les quatre étapes du parcours */
-.etape-ic { display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; background: #eff5ff; }
-.avatar-tuteur { width: 28px; height: 28px; border-radius: 50%; vertical-align: middle; margin-right: 8px; background: #fff; }
-.faq-visuel img { width: 100%; max-width: 360px; height: auto; display: block; margin-inline: auto; }
-@media (max-width: 1023px) { .faq-visuel { display: none; } }
-.panel.capture { height: var(--p-h); overflow: hidden; position: relative; }
-.panel.capture img { position: absolute; inset: 0; }
-.etape-num { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: #2563eb; color: #fff; font-weight: 700; }
-.agents-cites { margin-top: var(--s-3); display: flex; flex-wrap: wrap; gap: 6px; }
-.agents-cites span { font-size: 13px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: #eff5ff; color: #1d4ed8; }
-/* Un nom de 17 caractères ne tient pas à 390 px avec le bouton et le menu : le logo seul y suffit */
-@media (max-width: 639px) { .nav__bar .nav__logo .nom { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }
-@media (max-width: 639px) { #agents .panel { --p-h: 380px; } }
-/* Preuves : une vraie question du jeu d'évaluation et la couverture du corpus */
-.exemple-q { display: grid; gap: var(--s-3); }
-.exemple-q .q { font-weight: 600; font-size: 17px; }
-.exemple-q .r { color: var(--muted); }
-.rows-corpus { display: grid; }
-.rows-corpus div { display: flex; justify-content: space-between; gap: var(--s-4); padding: 12px 0; border-top: 1px solid #e2e8f0; }
-.rows-corpus div:first-child { border-top: 0; }
-.rows-corpus b { font-variant-numeric: tabular-nums; }
 </style>
 </head>
 <body>
-<!-- deal: hero centred, nav nav-mega, close close-type, footer footer-columns, rhythm surface-pairs, buttons tonal, mark stack (remplacé par le logo du projet), ground sky, moment liquid-type -->
+<!-- deal: hero centred, nav nav-mega, close close-type, footer footer-columns, rhythm surface-pairs, buttons tonal, mark : logo du projet, ground sky, moment liquid-type -->
 <header class="nav">
   <div class="wrap nav__bar">
     <a class="skip-link" href="#top">Aller au contenu</a>
@@ -122,7 +65,7 @@
         <div class="nav__menu">
           <div class="wrap grid">
             <div class="menu-col span-3"><p class="t-label">Pour l'étudiant</p><a href="#cours">La page Cours<span>Slide et explication côte à côte</span></a><a href="#parcours">Le parcours<span>Déposer, comprendre, demander, réviser</span></a></div>
-            <div class="menu-col span-3"><p class="t-label">Sous le capot</p><a href="#agents">Les six agents<span>Router, Explainer, Q&amp;A, Quiz, Resources, Critic</span></a><a href="#questions">Questions<span>Formats, langues, confidentialité</span></a></div>
+            <div class="menu-col span-3"><p class="t-label">Sous le capot</p><a href="#agents">Les six agents<span>Router, Explainer, Q&amp;A, Quiz, Resources, Critic</span></a><a href="#preuves">Le corpus de test<span>47 cours, 160 questions relues</span></a></div>
           </div>
         </div>
       </div>
@@ -145,24 +88,30 @@
         <p class="hero__lead">Dépose un cours en PPTX ou PDF : six agents l'expliquent slide par slide sur trois niveaux, répondent en citant tes slides et te font réviser.</p>
         <div class="btn-row"><a class="btn btn--primary" href="../cours.html">Essayer la démo</a><a class="btn btn--secondary" href="#parcours">Voir le parcours</a></div>
       </div>
-      <div class="hero__window" role="img" aria-label="Le tuteur répond à une question sur la descente de gradient stochastique en citant les slides 7 et 23">
-        <div class="ly-piece d-win tw" aria-hidden="true">
-          <div class="d-win__bar"><span class="d-win__dots"><i></i><i></i><i></i></span><span><b>Optimisation pour le ML</b> · Ch. 3</span><span class="sp"></span><span>FR · 24 slides</span></div>
-          <div class="d-win__body">
-            <div class="slides-col">
-              <div class="s"><b>3</b>Stochastique, mais pourquoi ?</div>
-              <div class="s"><b>5</b>Un petit gradient</div>
-              <div class="s is-on"><b>7</b>Pourquoi ça marche ?</div>
-              <div class="s"><b>13</b>Descente par lots</div>
-              <div class="s"><b>23</b>Pas décroissant</div>
+      <div class="hero__window">
+        <div class="ly-piece tw" data-tuteur>
+          <div class="tw__bar"><span class="tw__dots" aria-hidden="true"><i></i><i></i><i></i></span><span><b>Optimisation pour le ML</b> · Ch. 3</span><span class="sp"></span><span>FR · 24 slides</span></div>
+          <div class="tw__body">
+            <div class="tw__slides" role="group" aria-label="Choisir une slide">
+              <p>Choisis une slide</p>
+              <button class="tw__slide" type="button" data-slide="5" aria-pressed="false"><b>5</b><span>Un petit gradient</span></button>
+              <button class="tw__slide" type="button" data-slide="7" aria-pressed="true"><b>7</b><span>Pourquoi ça marche ?</span></button>
+              <button class="tw__slide" type="button" data-slide="23" aria-pressed="false"><b>23</b><span>Pas décroissant</span></button>
             </div>
-            <div class="convo">
-              <div class="d-chat" data-ly-steps="900">
-                <div class="d-msg d-msg--me">Pourquoi la méthode oscille autour du minimum ?</div>
-                <div class="d-tool" data-step>Recherche dans les slides du chapitre 3</div>
-                <div class="d-msg d-msg--bot" data-step><img class="avatar-tuteur" src="img/logo-icone.png" alt="" width="28" height="28">Au minimiseur X*, le gradient total est nul mais pas les gradients locaux : à pas constant, chaque pas déplace encore le point.<span class="cite">Slide 7</span><span class="cite">Slide 23</span></div>
-                <div class="acts" data-step><span>Me tester</span></div>
+            <div class="tw__chat">
+              <div class="tw__outils">
+                <span id="niveau-l">Niveau de l'explication</span>
+                <div class="niveaux" role="group" aria-labelledby="niveau-l">
+                  <span class="curseur" aria-hidden="true"></span>
+                  <button type="button" data-niveau="debutant" aria-pressed="false">Débutant</button>
+                  <button type="button" data-niveau="intermediaire" aria-pressed="true">Intermédiaire</button>
+                  <button type="button" data-niveau="avance" aria-pressed="false">Avancé</button>
+                </div>
               </div>
+              <div class="msg msg--moi">Pourquoi la méthode oscille autour du minimum ?</div>
+              <div class="outil" hidden>Recherche dans les slides du chapitre 3</div>
+              <div class="msg msg--tuteur" data-mascotte aria-live="polite"><div><span class="ecrit">Au minimiseur X*, le gradient total est nul mais pas les gradients locaux : à pas constant, chaque pas déplace encore le point.</span><span class="sources"><span class="cite">Slide 7</span><span class="cite">Slide 23</span></span></div></div>
+              <div class="acts"><a href="../quiz.html">Me tester sur cette slide</a></div>
             </div>
           </div>
         </div>
@@ -176,7 +125,7 @@
         <h2 id="cours-h">La page Cours : slide et explication côte à côte</h2>
         <p>À gauche, la slide de ton cours ; à droite, l'explication au niveau que tu choisis : débutant, intermédiaire ou avancé, toujours reliée à ses slides.</p>
       </div>
-      <div class="panel capture" style="margin-top: var(--s-8)"><img src="img/page-cours.png" alt="La page Cours : la slide 5 sur la descente de gradient stochastique, son explication au niveau intermédiaire et les questions de l'étudiant" width="1440" height="1394" loading="lazy"></div>
+      <a class="panel capture" href="../cours.html" style="margin-top: var(--s-8); display: block" aria-label="Ouvrir la page Cours de la démo"><img src="img/page-cours.png" alt="La page Cours : la slide 5 sur la descente de gradient stochastique, son explication au niveau intermédiaire et les questions de l'étudiant" width="1440" height="1394" loading="lazy"></a>
     </div>
   </section>
 
@@ -186,11 +135,48 @@
         <h2 id="parcours-h">Quatre étapes pour réviser un cours</h2>
         <p>Chaque étape est confiée à un agent spécialisé ; le Critic vérifie que tout ce qui est dit vient bien de tes slides.</p>
       </div>
-      <div class="grid" style="margin-top: var(--s-8)">
-        <article class="card span-3"><span class="etape-ic"><img src="assets/icons/ui-file-up.svg" alt="" width="28" height="28"></span><h3>Dépôt du cours en PPTX ou PDF</h3><p>Un PPTX ou un PDF, même scanné : texte, figures et formules sont lus en local.</p><div class="agents-cites"><span>Ingestion</span><span>OCR</span><span>VLM</span></div></article>
-        <article class="card span-3"><span class="etape-ic"><img src="assets/icons/ui-book-open.svg" alt="" width="28" height="28"></span><h3>Explication de chaque slide</h3><p>L'explication part de la slide, de ses voisines et des notions qu'elle suppose.</p><div class="agents-cites"><span>Explainer</span><span>Critic</span></div></article>
-        <article class="card span-3"><span class="etape-ic"><img src="assets/icons/ui-message-circle.svg" alt="" width="28" height="28"></span><h3>Questions avec leurs sources</h3><p>Chaque réponse cite ses slides ; si le cours n'en parle pas, le tuteur le dit.</p><div class="agents-cites"><span>Q&amp;A</span><span>Critic</span></div></article>
-        <article class="card span-3"><span class="etape-ic"><img src="assets/icons/ui-list-checks.svg" alt="" width="28" height="28"></span><h3>Quiz et flashcards de révision</h3><p>QCM avec correction immédiate, flashcards à répéter et ressources par notion.</p><div class="agents-cites"><span>Quiz</span><span>Resources</span></div></article>
+      <div class="parcours" style="margin-top: var(--s-8)">
+        <div class="etapes" role="tablist" aria-label="Étapes du parcours" aria-orientation="vertical" data-parcours>
+          <button class="etape" type="button" role="tab" id="t-depot" aria-controls="v-depot" aria-selected="true"><span class="ic"><img src="assets/icons/ui-file-up.svg" alt="" width="26" height="26"></span><span><strong class="t">Dépôt du cours en PPTX ou PDF</strong><span class="d">Même scanné : texte, figures et formules sont lus en local.</span></span></button>
+          <button class="etape" type="button" role="tab" id="t-expl" aria-controls="v-expl" aria-selected="false" tabindex="-1"><span class="ic"><img src="assets/icons/ui-book-open.svg" alt="" width="26" height="26"></span><span><strong class="t">Explication de chaque slide</strong><span class="d">À partir de la slide, de ses voisines et des notions qu'elle suppose.</span></span></button>
+          <button class="etape" type="button" role="tab" id="t-qa" aria-controls="v-qa" aria-selected="false" tabindex="-1"><span class="ic"><img src="assets/icons/ui-message-circle.svg" alt="" width="26" height="26"></span><span><strong class="t">Questions avec leurs sources</strong><span class="d">Chaque réponse cite ses slides ; hors du cours, le tuteur le dit.</span></span></button>
+          <button class="etape" type="button" role="tab" id="t-quiz" aria-controls="v-quiz" aria-selected="false" tabindex="-1"><span class="ic"><img src="assets/icons/ui-list-checks.svg" alt="" width="26" height="26"></span><span><strong class="t">Quiz et flashcards de révision</strong><span class="d">QCM corrigés tout de suite, flashcards à retourner.</span></span></button>
+        </div>
+        <div class="scene">
+          <div class="scene__vue" id="v-depot" role="tabpanel" aria-labelledby="t-depot">
+            <div class="fichier"><img src="assets/icons/ui-file-up.svg" alt="" width="26" height="26"><span>optimisation_ml_ch3.pdf<small>24 slides · 3,1 Mo · lu sur ta machine</small></span></div>
+            <div class="barre" aria-hidden="true"><i></i></div>
+            <div class="lu"><div><b>24</b>slides de texte</div><div><b>9</b>figures décrites</div><div><b>14</b>formules lues</div></div>
+            <div class="agents-cites"><span>Ingestion</span><span>OCR</span><span>VLM</span></div>
+          </div>
+          <div class="scene__vue" id="v-expl" role="tabpanel" aria-labelledby="t-expl" hidden>
+            <dl class="rubriques">
+              <div class="rubrique"><dt>Idée clé</dt><dd>À pas constant, la méthode oscille autour du minimum.<span class="cite">Slide 7</span></dd></div>
+              <div class="rubrique"><dt>Explication</dt><dd>Le gradient total s'annule en X*, mais pas les gradients locaux.</dd></div>
+              <div class="rubrique"><dt>Exemple</dt><dd>Deux exemples tirent à gauche, un à droite : le point bouge encore.</dd></div>
+              <div class="rubrique"><dt>Lien slide 6</dt><dd>On reprend le pas constant présenté juste avant.<span class="cite">Slide 6</span></dd></div>
+              <div class="rubrique"><dt>À retenir</dt><dd><span class="retenir">Pas constant = convergence vers un voisinage de X*</span></dd></div>
+            </dl>
+            <div class="agents-cites"><span>Explainer</span><span>Critic</span></div>
+          </div>
+          <div class="scene__vue" id="v-qa" role="tabpanel" aria-labelledby="t-qa" hidden>
+            <div class="msg msg--moi" style="justify-self:end">Pourquoi faire décroître le pas ?</div>
+            <div class="msg msg--tuteur" data-mascotte><div>Avec un pas qui décroît, le bruit des gradients locaux s'atténue et l'itéré converge vers X*.<span class="cite">Slide 23</span><span class="cite">Slide 7</span></div></div>
+            <div class="msg msg--moi" style="justify-self:end">Et qui a inventé Python ?</div>
+            <div class="refus"><img src="assets/icons/ui-message-circle.svg" alt="" width="20" height="20">L'information n'est pas dans le cours.</div>
+            <div class="agents-cites"><span>Q&amp;A</span><span>Critic</span></div>
+          </div>
+          <div class="scene__vue" id="v-quiz" role="tabpanel" aria-labelledby="t-quiz" hidden>
+            <button class="flashcard" type="button" aria-pressed="false" aria-label="Flashcard : clique pour voir la réponse">
+              <span class="flashcard__in">
+                <span class="flashcard__face flashcard__face--recto"><small>Recto · slide 23</small>Quelles conditions sur le pas αₖ ?</span>
+                <span class="flashcard__face flashcard__face--dos"><small>Verso</small>Σαₖ = ∞ et Σαₖ² &lt; ∞, par exemple αₖ = 1/k.</span>
+              </span>
+            </button>
+            <p class="indice">Clique sur la carte pour la retourner.</p>
+            <div class="agents-cites"><span>Quiz</span><span>Resources</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -199,9 +185,33 @@
     <div class="wrap">
       <div class="section-head">
         <h2 id="agents-h">Six agents qui se partagent le travail</h2>
-        <p>Le Router lit ta demande et la confie au bon agent ; un modèle de langage local les fait tous tourner, sans aucune API.</p>
+        <p>Choisis une demande : le Router la confie au bon agent, puis le Critic vérifie la réponse avant qu'elle t'arrive.</p>
       </div>
-      <div class="panel" style="margin-top: var(--s-8); --p-h: 460px"><div class="dg" data-diagram><script type="application/json">{"layout":"lanes","alt":"Ta demande sur un cours arrive au Router, qui la confie à l'Explainer, au Q&A ou au Quiz ; le Critic vérifie chaque réponse.","input":{"label":"Ta demande","icon":"ui:message-square","sub":"slide 7"},"core":{"label":"Router","icon":"ui:bot"},"lanes":[{"label":"Explainer","icon":"ui:book-open","done":true,"sub":"3 niveaux"},{"label":"Q&A","icon":"ui:message-circle","done":true,"sub":"cite ses slides"},{"label":"Quiz","icon":"ui:list-checks","done":true,"sub":"QCM"}]}</script></div></div>
+      <div class="routeur" style="margin-top: var(--s-8)" data-routeur>
+        <div class="demandes" role="group" aria-label="Demandes d'exemple">
+          <p>Ta demande sur la slide 7</p>
+          <button class="demande" type="button" data-route="explainer" aria-pressed="false"><img src="assets/icons/ui-book-open.svg" alt="" width="20" height="20">Explique-moi cette slide</button>
+          <button class="demande" type="button" data-route="qa" aria-pressed="false"><img src="assets/icons/ui-message-circle.svg" alt="" width="20" height="20">Pourquoi le pas doit-il décroître ?</button>
+          <button class="demande" type="button" data-route="quiz" aria-pressed="false"><img src="assets/icons/ui-list-checks.svg" alt="" width="20" height="20">Teste-moi sur ce chapitre</button>
+          <button class="demande" type="button" data-route="resources" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Une vidéo pour aller plus loin</button>
+          <button class="demande" type="button" data-route="refus" aria-pressed="false"><img src="assets/icons/ui-message-square.svg" alt="" width="20" height="20">Qui a inventé Python ?</button>
+        </div>
+        <div class="flux" aria-live="polite">
+          <div class="lien" aria-hidden="true"><i></i></div>
+          <div class="noeud noeud--router" data-mascotte>Router <small>lit ta demande</small></div>
+          <div class="lien" aria-hidden="true"><i></i></div>
+          <div class="agents4">
+            <div class="noeud" data-agent="explainer"><img src="assets/icons/ui-book-open.svg" alt="" width="22" height="22">Explainer<small>3 niveaux</small></div>
+            <div class="noeud" data-agent="qa"><img src="assets/icons/ui-message-circle.svg" alt="" width="22" height="22">Q&amp;A<small>cite ses slides</small></div>
+            <div class="noeud" data-agent="quiz"><img src="assets/icons/ui-list-checks.svg" alt="" width="22" height="22">Quiz<small>QCM, flashcards</small></div>
+            <div class="noeud" data-agent="resources"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Resources<small>catalogue local</small></div>
+          </div>
+          <div class="lien" aria-hidden="true"><i></i></div>
+          <div class="critic"><span><b>Critic</b> vérifie chaque affirmation dans le cours</span></div>
+          <div class="sortie cache"></div>
+          <p class="local">Un seul modèle de langage local fait tourner les six agents : aucune API, aucun envoi de ton cours.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -209,21 +219,29 @@
     <div class="wrap">
       <div data-moment="liquid-type" class="section-head" style="max-width:none">
         <h2 id="preuves-h" class="mo-lt__type">Testé sur 47 vrais cours</h2>
-        <p>En français et en anglais, avec 160 questions d'évaluation écrites et relues par l'équipe.</p>
+        <p>En français et en anglais, avec 160 questions d'évaluation écrites et relues par l'équipe. Essaie l'une d'elles.</p>
       </div>
       <div class="grid" style="margin-top: var(--s-8)">
-        <article class="card span-6 exemple-q">
+        <article class="card span-7 qcm" data-qcm>
           <h3>Une question du jeu d'évaluation</h3>
-          <p class="q">Pourquoi la descente stochastique à pas constant oscille-t-elle autour du minimiseur ?</p>
-          <p class="r">Réponse attendue : au minimiseur, le gradient total est nul mais pas les gradients locaux. <span class="cite">Slide 7</span><span class="cite">Slide 23</span></p>
+          <p class="q" id="qcm-q">Pourquoi la descente stochastique à pas constant oscille-t-elle autour du minimiseur ?</p>
+          <div class="qcm__choix" role="group" aria-labelledby="qcm-q" style="display:grid;gap:8px">
+            <button class="choix" type="button" data-juste="false"><span class="lettre">A</span>Le gradient total ne s'annule jamais<svg class="verdict verdict--non" viewBox="0 0 20 20" aria-label="Faux"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><svg class="verdict verdict--ok" viewBox="0 0 20 20" aria-label="Juste"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="choix" type="button" data-juste="true"><span class="lettre">B</span>Au minimiseur, les gradients locaux ne sont pas nuls<svg class="verdict verdict--non" viewBox="0 0 20 20" aria-label="Faux"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><svg class="verdict verdict--ok" viewBox="0 0 20 20" aria-label="Juste"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="choix" type="button" data-juste="false"><span class="lettre">C</span>Le pas est trop petit pour converger<svg class="verdict verdict--non" viewBox="0 0 20 20" aria-label="Faux"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><svg class="verdict verdict--ok" viewBox="0 0 20 20" aria-label="Juste"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="choix" type="button" data-juste="false"><span class="lettre">D</span>La fonction de coût n'est pas convexe<svg class="verdict verdict--non" viewBox="0 0 20 20" aria-label="Faux"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><svg class="verdict verdict--ok" viewBox="0 0 20 20" aria-label="Juste"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="retour" data-mascotte role="status" hidden><p></p></div>
+          <button class="rejouer" type="button" hidden>Réessayer</button>
         </article>
-        <article class="card span-6">
+        <article class="card span-5">
           <h3>Les cours du corpus de test</h3>
-          <div class="rows-corpus">
-            <div><span>Machine learning et deep learning</span><b>23 cours</b></div>
-            <div><span>Maths</span><b>13 cours</b></div>
-            <div><span>Réseaux</span><b>8 cours</b></div>
-            <div><span>Cloud et bases de données</span><b>3 cours</b></div>
+          <div class="corpus">
+            <div class="corpus__ligne" style="--part: .489"><div><span>Machine learning et deep learning</span><b>23 cours</b></div><div class="corpus__barre" aria-hidden="true"><i></i></div></div>
+            <div class="corpus__ligne" style="--part: .277"><div><span>Maths</span><b>13 cours</b></div><div class="corpus__barre" aria-hidden="true"><i></i></div></div>
+            <div class="corpus__ligne" style="--part: .170"><div><span>Réseaux</span><b>8 cours</b></div><div class="corpus__barre" aria-hidden="true"><i></i></div></div>
+            <div class="corpus__ligne" style="--part: .064"><div><span>Cloud et bases de données</span><b>3 cours</b></div><div class="corpus__barre" aria-hidden="true"><i></i></div></div>
+            <p class="corpus__note">Barres : part de chaque domaine dans les 47 cours.</p>
           </div>
         </article>
       </div>
@@ -238,6 +256,7 @@
         <details><summary>Quels fichiers puis-je déposer ?</summary><p>Des présentations PPTX et des PDF, y compris des slides scannées : le texte est alors lu par OCR.</p></details>
         <details><summary>Dans quelles langues fonctionne-t-il ?</summary><p>L'interface et les réponses existent en français, en anglais et en arabe, avec une mise en page de droite à gauche pour l'arabe.</p></details>
         <details><summary>Que se passe-t-il si la réponse n'est pas dans le cours ?</summary><p>Le tuteur répond que l'information n'est pas dans ton cours plutôt que d'inventer, et propose une notion proche qu'il peut expliquer.</p></details>
+        <details><summary>Comment sait-on que l'explication est fidèle au cours ?</summary><p>L'agent Critic relit chaque réponse et vérifie que ses affirmations sont appuyées par les slides citées. Sinon, la réponse repart vers l'agent avec les corrections, deux fois au plus.</p></details>
       </div><div class="span-4 faq-visuel"><img src="img/logo-icone.png" alt="Le robot tuteur, coiffé d'une toque, tient les bulles de l'équipe d'agents et du cours" width="512" height="512" loading="lazy"></div></div>
     </div>
   </section>
@@ -274,10 +293,11 @@
   <a class="btn btn--primary" href="../cours.html">Essayer la démo</a>
 </nav>
 
+<script src="../maquettes.js"></script>
+<script src="accueil.js" defer></script>
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
-<script type="module" src="assets/diagrams/mount.js"></script>
 <script type="module" src="assets/moments/moments.js"></script>
 </body>
 </html>
