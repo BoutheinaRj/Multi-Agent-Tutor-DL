@@ -9,3 +9,20 @@ pillow>=10
 
 # Orchestration multi-agent (O1)
 langgraph>=1.0
+
+# API (A1)
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+httpx>=0.27
+
+# Agents : LLM 100 % local (agents/llm.py, A0) et Resources (A4)
+# llama-cpp-python : installer la roue CPU précompilée (pas de compilation C++) :
+#   pip install llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+llama-cpp-python>=0.3
+python-dotenv>=1.0
+# Backend optionnel LLM_BACKEND=transformers (non installé par défaut, lourd) :
+#   pip install transformers torch --index-url https://download.pytorch.org/whl/cpu
+
+# Révision espacée SM-2 et export Anki (A6) : SQLite (stdlib) + genanki
+genanki>=0.13
