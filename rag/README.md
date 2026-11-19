@@ -33,3 +33,28 @@ python -m pytest tests/test_rag_b1.py -q              # sans modèle (HashEmbedd
 python -m rag.search "Qu'est-ce qu'une clé primaire ?" --hash   # démo sans modèle
 python -m rag.search "how to move a VM without downtime"         # démo avec bge-m3
 ```
+
+## B2 — Indexation des slides + reranker
+
+| Fichier | Rôle |
+|---|---|
+| `index.py` | `chunks_du_cours` : une slide = un chunk (texte + notes + descriptions des figures), avec le titre des slides N-1 et N+1 en contexte. `indexer_cours` / `indexer_dossier` : (ré)indexent les `course.json` de H1 dans Qdrant. |
+| `rerank.py` | `BgeReranker` (bge-reranker-v2-m3, multilingue, local, scores entre 0 et 1), `reranker(...)` et `RechercheReranked` : hybride top-20 → reranker → top-5. `MotsCommunsReranker` remplace le modèle dans les tests. |
+
+### Utilisation
+
+```bash
+python -m rag.index                                    # indexe data/processed/*/course.json (bge-m3)
+python -m rag.index data/processed/<id>/course.json    # un seul cours
+python -m rag.rerank "how to move a VM without downtime"   # démo hybride + reranker
+```
+
+```python
+from rag.rerank import BgeReranker, RechercheReranked
+pipeline = RechercheReranked(RechercheHybride(store), BgeReranker())
+hits = pipeline.rechercher("Qu'est-ce qu'une clé primaire ?", course_id="...")  # top-5, score 0..1
+```
+
+- Réindexer après H2 (VLM) : relancer `python -m rag.index`, chaque cours est remplacé.
+- B3 : le score du reranker (0..1) sert de seuil pour répondre « l'information n'est pas dans le cours ».
+- `--hash` utilise une collection séparée (`slides_hash`), pour ne pas mélanger avec les vecteurs bge-m3.
