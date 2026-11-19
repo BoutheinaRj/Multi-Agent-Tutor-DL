@@ -509,7 +509,8 @@
       "reponse_reference": "Cinq : trois couches de convolution 5 × 5 (la première transforme une image 32 × 32 × 1 en 28 × 28 × 6), puis deux couches entièrement connectées (120 → 84, puis 84 → 10, la dernière jouant le rôle d'une régression logistique).",
       "slides": [
         38
-      ]
+      ],
+      "relu_par": "both"
     },
     {
       "id": "dl_reseaux_convolutifs_cnam_fr__q10",
@@ -714,7 +715,8 @@
       "slides": [
         5,
         6
-      ]
+      ],
+      "relu_par": "both"
     },
     {
       "id": "maths_valeurs_propres_ntu_en__q06",
@@ -791,7 +793,8 @@
       "slides": [
         3,
         4
-      ]
+      ],
+      "relu_par": "both"
     },
     {
       "id": "ml_regression_uppsala_en__q02",
