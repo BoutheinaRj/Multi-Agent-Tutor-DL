@@ -42,9 +42,12 @@ class Ressource(_Base):
 
     titre: str
     url: str
-    type: Literal["video", "article", "cours", "exercice", "documentation"]
+    type: Literal["video", "article", "cours", "exercice", "documentation", "recherche"] = Field(
+        description="``recherche`` : lien de recherche Wikipédia/YouTube construit localement (A4)"
+    )
     langue: Langue = "fr"
     description: str = ""
+    justification: str = Field(default="", description="Pourquoi la ressource est pertinente (A4)")
 
 
 __all__ = ["QCM", "AskRequest", "Ressource"]
