@@ -10,6 +10,12 @@ pillow>=10
 # Orchestration multi-agent (O1)
 langgraph>=1.0
 
+# API (A1)
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+httpx>=0.27
+
 # RAG (B1) : base vectorielle + embeddings bge-m3 (installe aussi PyTorch)
 qdrant-client>=1.10
 sentence-transformers>=3.0
