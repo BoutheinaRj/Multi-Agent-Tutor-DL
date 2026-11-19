@@ -11,7 +11,8 @@
 4. sans LLM (``LLMIndisponible``) : repli extractif tiré de la slide elle-même.
 
 La réponse cite [Slide N] (et [Slide N-1] pour le lien) : le Critic (O3) s'appuie sur ces
-citations et sur ``sources``.
+citations et sur ``sources`` ; quand il renvoie des ``corrections``, elles sont ajoutées au
+prompt pour la nouvelle version.
 
 Branchement dans le graphe (O1) :
 
@@ -186,8 +187,9 @@ def _bloc_slide(etiquette: str, slide: Slide, limite: int) -> str:
     return f"{etiquette} — [Slide {slide.numero}] {titre}\n{corps}"
 
 
-def construire_prompt(cours: Course, numero: int, langue: Langue, prerequis_slide: list[str]) -> str:
-    """Message utilisateur : langue, slide à expliquer, voisines et prérequis."""
+def construire_prompt(cours: Course, numero: int, langue: Langue, prerequis_slide: list[str],
+                      corrections: list[str] | None = None) -> str:
+    """Message utilisateur : langue, slide à expliquer, voisines, prérequis et corrections du Critic."""
     slide = cours.slides[numero - 1]
     lignes = [f"Langue de la réponse : {LANGUES_LISIBLES.get(langue, langue)}.", ""]
     lignes.append(_bloc_slide("Slide à expliquer", slide, MAX_CARACTERES_SLIDE))
@@ -199,6 +201,10 @@ def construire_prompt(cours: Course, numero: int, langue: Langue, prerequis_slid
         lignes += ["", _bloc_slide("Slide suivante", cours.slides[numero], MAX_CARACTERES_VOISINE)]
     if prerequis_slide:
         lignes += ["", "Prérequis déjà vus : " + ", ".join(prerequis_slide) + "."]
+    if corrections:
+        lignes += ["", "Corrections du relecteur : ta version précédente contenait ces affirmations, "
+                   "que la slide n'appuie pas. Retire-les ou reformule-les d'après la slide :"]
+        lignes += [f"- {c}" for c in corrections]
     return "\n".join(lignes)
 
 
@@ -258,6 +264,7 @@ def expliquer_slide(
     *,
     charger: ChargerCours = charger_cours,
     source_prerequis: Prerequis | None = None,
+    corrections: list[str] | None = None,
 ) -> ResultatExplication | None:
     """Explication de la slide ``numero`` du cours, ou ``None`` si la slide n'existe pas."""
     cours = charger(course_id)
@@ -270,7 +277,7 @@ def expliquer_slide(
     try:
         brute = llm.generer_structure(
             prompt_systeme(niveau),
-            construire_prompt(cours, numero, langue, prerequis_slide),
+            construire_prompt(cours, numero, langue, prerequis_slide, corrections),
             Explication,
             max_tokens=TOKENS_PAR_NIVEAU[niveau],
         )
@@ -328,7 +335,8 @@ def explainer_agent(state: TutorState) -> dict[str, Any]:
     """Nœud LangGraph ``explainer`` : même signature et mêmes champs que les bouchons d'O1."""
     numero = slide_demandee(state.question, state.slide_courante)
     langue: Langue = state.langue_reponse
-    resultat = expliquer_slide(state.course_id, numero, state.niveau, langue)
+    resultat = expliquer_slide(state.course_id, numero, state.niveau, langue,
+                               corrections=state.corrections)
     if resultat is None:
         reponse = RUBRIQUES.get(langue, RUBRIQUES["fr"])["absente"].format(n=numero)
         sources = [Source(course_id=state.course_id, numero=state.slide_courante)]
