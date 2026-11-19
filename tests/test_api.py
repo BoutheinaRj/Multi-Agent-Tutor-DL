@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import json
+
+import pytest
 from fastapi.testclient import TestClient
 
 from api.main import app
@@ -47,11 +50,17 @@ def test_ask() -> None:
     assert r.status_code == 200 and "[Slide 2]" in rep.reponse and rep.sources[0].numero == 2
 
 
-def test_quiz() -> None:
+def test_quiz(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("LLM_BACKEND", "fake")
+    monkeypatch.setenv("LLM_FAKE_REPONSE", json.dumps({"qcm": [{
+        "question": "Que minimise-t-on ?", "choix": ["MSE", "MAE", "R2", "AUC"], "bonne_reponse": 0,
+        "explication": "MSE.", "niveau_bloom": "memoriser", "slide": 2}]}))
     r = client.get("/quiz", params={"course_id": COURSE_ID, "slide": 2})
     assert r.status_code == 200 and len([QCM.model_validate(q) for q in r.json()]) > 0
 
 
-def test_resources() -> None:
+def test_resources(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("LLM_BACKEND", "fake")
+    monkeypatch.delenv("LLM_FAKE_REPONSE", raising=False)
     r = client.get("/resources", params={"slide_id": SLIDE_ID})
     assert r.status_code == 200 and len([Ressource.model_validate(x) for x in r.json()]) > 0
