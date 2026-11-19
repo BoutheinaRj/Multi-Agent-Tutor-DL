@@ -4,130 +4,179 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Maquette D2 — Page Cours</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="maquettes.css">
 </head>
 <body>
 <!-- D2 — Maquette de la page Cours (pour Ali, A5).
      Données d'exemple : cours ml_gradient_stochastique_esprit_fr, slide 5. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-livre" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/><path d="M8 7h7"/></symbol>
+  <symbol id="i-cours" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+  <symbol id="i-quiz" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-gauche" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="i-droite" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-ampoule" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.4 1 2.5h6c0-1.1.3-1.8 1-2.5A6 6 0 0 0 12 3z"/></symbol>
+  <symbol id="i-texte" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></symbol>
+  <symbol id="i-exemple" viewBox="0 0 24 24"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></symbol>
+  <symbol id="i-lien" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-marque" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol>
+  <symbol id="i-son" viewBox="0 0 24 24"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></symbol>
+  <symbol id="i-ressource" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="i-envoyer" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-7z"/></symbol>
+  <symbol id="i-tuteur" viewBox="0 0 24 24"><path d="M3 9l9-5 9 5-9 5z"/><path d="M7 11.5V16c0 1.5 2.2 3 5 3s5-1.5 5-3v-4.5"/></symbol>
+</svg>
+
 <header class="barre">
-  <span class="logo">Multi-Agent Tutor</span>
-  <span class="titre-cours">Optimisation pour le ML — Ch. 3 Descente de gradient stochastique</span>
+  <a class="marque" href="cours.html">
+    <span class="marque-logo"><svg class="icone"><use href="#i-tuteur"/></svg></span>
+    <span class="marque-nom">Tutor</span>
+  </a>
+  <div class="fil">
+    <svg class="icone"><use href="#i-livre"/></svg>
+    <span>Optimisation pour le ML</span><span>›</span>
+    <strong>Ch. 3 — Descente de gradient stochastique</strong>
+  </div>
   <nav class="onglets">
-    <a href="cours.html" class="actif">Cours</a>
-    <a href="quiz.html">Quiz</a>
+    <a href="cours.html" class="actif"><svg class="icone"><use href="#i-cours"/></svg>Cours</a>
+    <a href="quiz.html"><svg class="icone"><use href="#i-quiz"/></svg>Quiz</a>
   </nav>
+  <span class="avatar" title="Étudiant">OA</span>
 </header>
 
 <main class="page-cours">
-  <!-- Gauche : la slide et la navigation slide par slide -->
-  <section class="carte zone-slide" aria-label="Slide courante">
-    <div class="slide">
-      <h3>Principe général — Un « petit » gradient à la place d'un « gros »</h3>
-      <p>On utilise à chaque itération le gradient d'une seule erreur locale E<sub>i</sub> :</p>
-      <p class="formule">X<sub>k+1</sub> = X<sub>k</sub> − ρ ∇E<sub>i</sub>(X<sub>k</sub>)</p>
-      <ul>
-        <li>Gradient classique : un « gros » gradient (N données), un grand pas.</li>
-        <li>Gradient stochastique : N « petits » gradients par époque.</li>
-      </ul>
+  <!-- Gauche : la slide et la navigation -->
+  <div class="colonne">
+    <div class="entete-slide">
+      <h1>Un « petit » gradient à la place d'un « gros »</h1>
+      <span class="pastille">Slide 5</span>
     </div>
-    <div class="navigation">
-      <button class="bouton" id="precedente">← Précédente</button>
-      <span class="position" id="position">Slide 5 / 24</span>
-      <button class="bouton" id="suivante">Suivante →</button>
-    </div>
-    <div class="miniatures" aria-label="Miniatures">
-      <span>1</span><span>2</span><span>3</span><span>4</span><span class="courante">5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
-    </div>
-    <p class="note">Rendu de la slide : image PNG (H1) ; formules en KaTeX (A5).</p>
-  </section>
-
-  <!-- Droite : explication de l'agent Explainer (O2), 3 niveaux -->
-  <section class="carte zone-explication" aria-label="Explication">
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-      <strong>Explication</strong>
-      <div class="niveaux" role="group" aria-label="Niveau">
-        <button data-niveau="debutant">Débutant</button>
-        <button data-niveau="intermediaire" class="actif">Intermédiaire</button>
-        <button data-niveau="avance">Avancé</button>
+    <section class="carte cadre-slide" aria-label="Slide courante">
+      <div class="slide">
+        <h3>Principe général</h3>
+        <p>À chaque itération, on utilise le gradient d'une seule erreur locale <em>E<sub>i</sub></em> au lieu de celui de <em>E</em> :</p>
+        <p class="formule">X<sub>k+1</sub> = X<sub>k</sub> − ρ ∇E<sub>i</sub>(X<sub>k</sub>)</p>
+        <ul>
+          <li><strong>Gradient classique</strong> : un « gros » gradient (N données), un grand pas.</li>
+          <li><strong>Gradient stochastique</strong> : N « petits » gradients par époque.</li>
+        </ul>
       </div>
+    </section>
+    <div class="navigation">
+      <button class="bouton" id="precedente"><svg class="icone"><use href="#i-gauche"/></svg>Précédente</button>
+      <div class="position">
+        <div><strong id="numero">5</strong> / 24</div>
+        <div class="barre-progression"><div id="progression" style="width:21%"></div></div>
+      </div>
+      <button class="bouton primaire" id="suivante">Suivante<svg class="icone"><use href="#i-droite"/></svg></button>
     </div>
-    <div class="explication" id="explication"></div>
-    <div class="outils">
-      <button class="bouton">🔊 Écouter</button>
-      <button class="bouton">Quiz sur cette slide</button>
-      <button class="bouton">Ressources</button>
-    </div>
-    <p class="note">Sources de l'explication : <a class="source" href="#">[Slide 5]</a> <a class="source" href="#">[Slide 3]</a></p>
-  </section>
+    <div class="miniatures" id="miniatures" aria-label="Miniatures des slides"></div>
+  </div>
 
-  <!-- Bas : chat Q&A (B3) avec citations [Slide N] -->
-  <section class="carte zone-chat" aria-label="Chat">
-    <strong>Poser une question sur le cours</strong>
-    <div class="messages">
-      <div class="message utilisateur">Pourquoi la méthode oscille autour du minimum ?</div>
-      <div class="message tuteur">Au minimiseur X*, le gradient total est nul, mais pas les gradients locaux ∇E<sub>i</sub>(X*) : avec un pas constant, chaque pas déplace encore le point <a class="source" href="#">[Slide 7]</a>. Un pas décroissant corrige ce problème <a class="source" href="#">[Slide 23]</a>.</div>
-    </div>
-    <div class="suggestions">
-      <button>Résume cette slide</button>
-      <button>Donne un exemple</button>
-      <button>Différence avec la descente par lots ?</button>
-    </div>
-    <form class="saisie" onsubmit="return false">
-      <input type="text" placeholder="Votre question…" aria-label="Votre question">
-      <button class="bouton primaire">Envoyer</button>
-    </form>
-  </section>
+  <!-- Droite : explication (Explainer, O2) -->
+  <div class="colonne">
+    <section class="carte panneau" aria-label="Explication">
+      <div class="panneau-titre">
+        <h2><svg class="icone"><use href="#i-ampoule"/></svg>Explication</h2>
+        <div class="segment" role="group" aria-label="Niveau">
+          <button data-niveau="debutant">Débutant</button>
+          <button data-niveau="intermediaire" class="actif">Intermédiaire</button>
+          <button data-niveau="avance">Avancé</button>
+        </div>
+      </div>
+      <div class="agent"><span class="point"></span>Agent Explainer · vérifié par le Critic · sources <a class="source" href="#">Slide 5</a><a class="source" href="#">Slide 3</a></div>
+      <div id="explication" style="display:flex;flex-direction:column;gap:14px"></div>
+      <div class="outils">
+        <button class="bouton"><svg class="icone"><use href="#i-son"/></svg>Écouter</button>
+        <button class="bouton"><svg class="icone"><use href="#i-quiz"/></svg>Me tester</button>
+        <button class="bouton"><svg class="icone"><use href="#i-ressource"/></svg>Ressources</button>
+      </div>
+    </section>
+
+    <!-- Chat Q&A (B3) -->
+    <section class="carte chat" aria-label="Questions">
+      <div class="panneau-titre"><h2><svg class="icone"><use href="#i-chat"/></svg>Questions sur le cours</h2></div>
+      <div class="messages">
+        <div class="message utilisateur"><div class="bulle">Pourquoi la méthode oscille-t-elle autour du minimum ?</div></div>
+        <div class="message tuteur">
+          <span class="mini-avatar"><svg class="icone"><use href="#i-tuteur"/></svg></span>
+          <div class="bulle">Au minimiseur X*, le gradient total est nul, mais pas les gradients locaux ∇E<sub>i</sub>(X*) : avec un pas constant, chaque pas déplace encore le point <a class="source" href="#">Slide 7</a>. Un pas décroissant règle ce problème <a class="source" href="#">Slide 23</a>.</div>
+        </div>
+      </div>
+      <div class="suggestions">
+        <button>Résume cette slide</button>
+        <button>Donne-moi un exemple</button>
+        <button>Différence avec la descente par lots ?</button>
+      </div>
+      <form class="saisie" onsubmit="return false">
+        <input type="text" placeholder="Posez une question sur ce cours…" aria-label="Votre question">
+        <button class="bouton primaire"><svg class="icone"><use href="#i-envoyer"/></svg>Envoyer</button>
+      </form>
+    </section>
+  </div>
 </main>
 
 <script>
-  // Contenu d'exemple : structure de l'Explainer (O2) — idée clé, explication, exemple, lien, à retenir.
+  // Contenu d'exemple suivant la structure de l'Explainer (O2).
   const textes = {
     debutant: {
-      idee: "Au lieu de regarder toutes les données avant chaque pas, on en regarde une seule.",
-      explication: "Imaginez descendre une colline dans le brouillard : plutôt que d'interroger 1 000 personnes sur la pente, vous demandez à une seule personne à chaque pas. Chaque conseil est moins précis, mais vous avancez beaucoup plus vite.",
-      exemple: "Avec 1 million de photos, la méthode classique les parcourt toutes pour faire un seul pas ; la méthode stochastique fait 1 million de petits pas pendant le même temps.",
-      lien: "La slide précédente montrait l'erreur totale E comme une somme d'erreurs locales E_i : ici, on n'utilise qu'un seul de ces morceaux à la fois.",
+      idee: "Au lieu de regarder toutes les données avant chaque pas, on n'en regarde qu'une seule.",
+      explication: "Imaginez descendre une colline dans le brouillard : plutôt que d'interroger mille personnes sur la pente, vous en interrogez une seule à chaque pas. Chaque conseil est moins précis, mais vous avancez bien plus vite.",
+      exemple: "Avec un million de photos, la méthode classique les parcourt toutes pour faire un seul pas ; la méthode stochastique fait un million de petits pas dans le même temps.",
+      lien: "La slide précédente décomposait l'erreur totale E en une somme d'erreurs locales E_i : on n'utilise ici qu'un seul de ces morceaux à la fois.",
       retenir: "Un petit pas par donnée, beaucoup de pas : plus rapide, mais plus « bruité »."
     },
     intermediaire: {
-      idee: "On remplace le gradient de l'erreur totale ∇E par celui d'une seule erreur locale ∇E_i.",
-      explication: "La mise à jour devient X_{k+1} = X_k − ρ ∇E_i(X_k), puis l'itération suivante utilise une autre donnée. Une époque (un passage sur les N données) donne ainsi N mises à jour au lieu d'une seule, pour le même coût de calcul.",
-      exemple: "Pour une régression y ≃ ax + b, chaque pas n'utilise qu'un point (x_i, y_i) : le gradient ne coûte plus une somme sur m données.",
-      lien: "La slide 4 définit E = Σ E_i ; cette slide exploite cette décomposition pour réduire le coût de chaque itération.",
-      retenir: "Gradient classique : 1 gros pas par époque. Gradient stochastique : N petits pas par époque."
+      idee: "On remplace le gradient de l'erreur totale ∇E par celui d'une seule erreur locale ∇Eᵢ.",
+      explication: "La mise à jour devient Xₖ₊₁ = Xₖ − ρ ∇Eᵢ(Xₖ), puis l'itération suivante utilise une autre donnée. Une époque (un passage sur les N données) donne ainsi N mises à jour au lieu d'une seule, pour le même coût de calcul.",
+      exemple: "Pour une régression y ≃ ax + b, chaque pas n'utilise qu'un point (xᵢ, yᵢ) : le gradient ne demande plus de sommer sur m données.",
+      lien: "La slide 4 définit E = Σ Eᵢ ; cette slide exploite cette décomposition pour réduire le coût de chaque itération.",
+      retenir: "Gradient classique : un gros pas par époque. Gradient stochastique : N petits pas par époque."
     },
     avance: {
-      idee: "∇E_I, avec I tiré uniformément, est un estimateur sans biais de (1/N) ∇E.",
-      explication: "E[∇E_I(X)] = (1/N) Σ ∇E_i(X) = (1/N) ∇E(X) : en moyenne, un pas stochastique est un pas de descente classique (à l'échelle 1/N près). La variance de l'estimateur rend la trajectoire bruitée ; au minimiseur, ∇E(X*) = 0 mais ∇E_i(X*) ≠ 0, d'où une oscillation à pas constant.",
-      exemple: "Coût par itération O(1) au lieu de O(N) ; la convergence vers X* demande un pas décroissant vérifiant Σ ρ_k = ∞ et Σ ρ_k² < ∞.",
+      idee: "Avec I tiré uniformément, ∇E_I est un estimateur sans biais de (1/N) ∇E.",
+      explication: "E[∇E_I(X)] = (1/N) Σ ∇Eᵢ(X) = (1/N) ∇E(X) : en moyenne, un pas stochastique est un pas de descente classique, à l'échelle 1/N près. La variance de l'estimateur rend la trajectoire bruitée ; au minimiseur, ∇E(X*) = 0 mais ∇Eᵢ(X*) ≠ 0, d'où l'oscillation à pas constant.",
+      exemple: "Coût par itération O(1) au lieu de O(N) ; converger vers X* demande un pas décroissant tel que Σ ρₖ = ∞ et Σ ρₖ² < ∞.",
       lien: "Formalise la slide 3 (coût de la somme sur m données) et prépare la slide 7 (pourquoi la méthode fonctionne).",
-      retenir: "Estimateur sans biais, mais de variance non nulle : compromis vitesse / précision, réglé par ρ."
+      retenir: "Estimateur sans biais mais de variance non nulle : le pas ρ règle le compromis entre vitesse et précision."
     }
   };
-  const zone = document.getElementById("explication");
+  const bloc = (classe, icone, titre, texte) =>
+    `<div class="bloc ${classe}"><span class="bloc-icone"><svg class="icone"><use href="#${icone}"/></svg></span><div><h4>${titre}</h4><p>${texte}</p></div></div>`;
   function afficher(niveau) {
     const t = textes[niveau];
-    zone.innerHTML =
-      `<h4>Idée clé</h4><p>${t.idee}</p>` +
-      `<h4>Explication</h4><p>${t.explication}</p>` +
-      `<h4>Exemple</h4><p>${t.exemple}</p>` +
-      `<h4>Lien avec la slide précédente</h4><p>${t.lien}</p>` +
-      `<h4>À retenir</h4><p class="a-retenir">${t.retenir}</p>`;
-    document.querySelectorAll(".niveaux button").forEach(b => b.classList.toggle("actif", b.dataset.niveau === niveau));
+    document.getElementById("explication").innerHTML =
+      bloc("idee", "i-ampoule", "Idée clé", t.idee) +
+      bloc("", "i-texte", "Explication", t.explication) +
+      bloc("", "i-exemple", "Exemple", t.exemple) +
+      bloc("", "i-lien", "Lien avec la slide précédente", t.lien) +
+      `<div class="a-retenir"><svg class="icone"><use href="#i-marque"/></svg><div><strong>À retenir</strong>${t.retenir}</div></div>`;
+    document.querySelectorAll(".segment button").forEach(b => b.classList.toggle("actif", b.dataset.niveau === niveau));
   }
-  document.querySelectorAll(".niveaux button").forEach(b => b.addEventListener("click", () => afficher(b.dataset.niveau)));
+  document.querySelectorAll(".segment button").forEach(b => b.addEventListener("click", () => afficher(b.dataset.niveau)));
   afficher("intermediaire");
 
-  // Navigation factice (la maquette ne contient qu'une slide).
-  let numero = 5;
-  const total = 24;
-  const position = document.getElementById("position");
-  function bouger(delta) {
-    numero = Math.min(total, Math.max(1, numero + delta));
-    position.textContent = `Slide ${numero} / ${total}`;
+  // Navigation et miniatures (la maquette ne contient qu'une slide).
+  const total = 24; let numero = 5;
+  const mini = document.getElementById("miniatures");
+  for (let n = 1; n <= total; n++) {
+    const s = document.createElement("span");
+    s.className = "miniature"; s.textContent = n; s.addEventListener("click", () => aller(n));
+    mini.appendChild(s);
   }
-  document.getElementById("precedente").addEventListener("click", () => bouger(-1));
-  document.getElementById("suivante").addEventListener("click", () => bouger(1));
+  function aller(n) {
+    numero = Math.min(total, Math.max(1, n));
+    document.getElementById("numero").textContent = numero;
+    document.getElementById("progression").style.width = `${(numero / total) * 100}%`;
+    [...mini.children].forEach((s, i) => { s.classList.toggle("courante", i + 1 === numero); s.classList.toggle("vue", i + 1 < numero); });
+    const cible = mini.children[numero - 1];
+    mini.scrollLeft = cible.offsetLeft - mini.offsetLeft - (mini.clientWidth - cible.offsetWidth) / 2;
+  }
+  document.getElementById("precedente").addEventListener("click", () => aller(numero - 1));
+  document.getElementById("suivante").addEventListener("click", () => aller(numero + 1));
+  aller(5);
 </script>
 </body>
 </html>

@@ -10,7 +10,9 @@ Maquettes HTML/CSS cliquables, à ouvrir dans un navigateur (double-clic sur le 
 | `quiz.html` | Page Quiz (QCM + flashcards) |
 | `maquettes.css` | Styles communs |
 
-Les couleurs sont provisoires : à remplacer par la charte de Both (D1, `docs/charte.md`).
+Direction visuelle « bibliothèque calme » : fond papier chaud, encre bleu nuit (`#1c2541`), accent ambre (`#d99a2b`),
+titres en serif **Fraunces**, texte en **Inter** (Google Fonts), cartes arrondies, icônes au trait.
+Toutes les couleurs sont des variables CSS en tête de `maquettes.css` : à aligner sur la charte de Both (D1, `docs/charte.md`).
 Les contenus sont des exemples tirés du cours `ml_gradient_stochastique_esprit_fr`.
 
 ## Page Cours
