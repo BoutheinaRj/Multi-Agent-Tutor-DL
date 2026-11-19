@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#ffffff">
 <title>Quiz — Multi-Agent Tutor</title>
-<link rel="preload" href="fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/atkinson-hyperlegible-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="maquettes.css">
 </head>
 <body>
@@ -24,7 +23,7 @@
 </svg>
 
 <header class="barre">
-  <a class="marque" href="cours.html" data-mascotte aria-label="Multi-Agent Tutor, accueil"><span class="marque-nom">Multi-Agent <b>Tutor</b></span></a>
+  <a class="marque" href="cours.html" aria-label="Multi-Agent Tutor, accueil"><img src="img/logo-icone.png" alt="" width="44" height="44"><span class="marque-nom">Multi-Agent <b>Tutor</b></span></a>
   <div class="cours-actuel">
     <svg class="icone"><use href="#i-livre"/></svg>
     <span>Optimisation pour le ML ·</span>
@@ -159,9 +158,11 @@
     const boutons = [...$("choix").children];
     boutons.forEach(b => (b.disabled = true));
     boutons[q.bonne].classList.add("bonne");
+    // Icône ✓ / ✗ en plus de la couleur (charte D1 : ne pas reposer sur la couleur seule)
+    boutons[q.bonne].querySelector(".lettre").innerHTML = `<svg class="icone" aria-label="Bonne réponse"><use href="#i-ok"/></svg>`;
     const juste = n === q.bonne;
     resultats.push(juste);
-    if (!juste) boutons[n].classList.add("mauvaise");
+    if (!juste) { boutons[n].classList.add("mauvaise"); boutons[n].querySelector(".lettre").innerHTML = `<svg class="icone" aria-label="Mauvaise réponse"><use href="#i-ko"/></svg>`; }
     // La mascotte réagit : éclats du logo sur une bonne réponse, tête penchée sur une erreur.
     etatMascotte($("mascotte-quiz"), juste ? "contente" : "oups");
     $("retour").className = `retour visible ${juste ? "ok" : "ko"}`;

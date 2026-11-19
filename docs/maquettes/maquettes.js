@@ -11,20 +11,20 @@ const MASCOTTE_SVG = `
     <rect class="contour" x="12" y="49" width="9" height="17" rx="4.5" fill="#fff"/>
     <rect class="contour" x="79" y="49" width="9" height="17" rx="4.5" fill="#fff"/>
     <rect class="contour" x="19" y="33" width="62" height="52" rx="25" fill="#fff"/>
-    <rect x="27" y="45" width="46" height="26" rx="12" fill="#0e1a3d"/>
-    <g class="yeux yeux-arcs" fill="none" stroke="#4a86f5" stroke-width="4" stroke-linecap="round">
+    <rect x="27" y="45" width="46" height="26" rx="12" fill="#0B1A45"/>
+    <g class="yeux yeux-arcs" fill="none" stroke="#4C8AFD" stroke-width="4" stroke-linecap="round">
       <path d="M36 61 q5.5 -8 11 0"/><path d="M53 61 q5.5 -8 11 0"/>
     </g>
-    <g class="yeux yeux-points" fill="#4a86f5">
+    <g class="yeux yeux-points" fill="#4C8AFD">
       <circle cx="40" cy="58" r="3.4"/><circle cx="50" cy="58" r="3.4"/><circle cx="60" cy="58" r="3.4"/>
     </g>
-    <g class="yeux yeux-oups" fill="none" stroke="#4a86f5" stroke-width="4" stroke-linecap="round">
+    <g class="yeux yeux-oups" fill="none" stroke="#4C8AFD" stroke-width="4" stroke-linecap="round">
       <path d="M36 58 h11"/><path d="M53 58 h11"/>
     </g>
-    <path class="contour" d="M18 21 L52 9 L86 21 L52 33 Z" fill="#2350d8"/>
-    <path class="contour" d="M33 27 V35 H71 V27" fill="#1a3fb3"/>
-    <path d="M82 22 V37" stroke="#f5b21f" stroke-width="3" stroke-linecap="round"/>
-    <rect x="78.5" y="35" width="7" height="10" rx="3" fill="#f5b21f" stroke="#0e1a3d" stroke-width="2"/>
+    <path class="contour" d="M18 21 L52 9 L86 21 L52 33 Z" fill="#2563EB"/>
+    <path class="contour" d="M33 27 V35 H71 V27" fill="#1D4ED8"/>
+    <path d="M82 22 V37" stroke="#FBBF24" stroke-width="3" stroke-linecap="round"/>
+    <rect x="78.5" y="35" width="7" height="10" rx="3" fill="#FBBF24" stroke="#0B1A45" stroke-width="2"/>
   </g>
 </svg>`;
 

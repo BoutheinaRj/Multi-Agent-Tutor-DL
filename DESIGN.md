@@ -1,65 +1,65 @@
 ---
 name: Multi-Agent Tutor
-description: Tuteur multi-agent pour supports de cours, dans le monde du logo (mascotte robot, bleu roi, marine, or).
+description: Tuteur multi-agent pour supports de cours, dans le monde du logo et de la charte D1 (bleu roi, marine, jaune du pompon, Inter).
 colors:
-  bleu: "#2350d8"
-  bleu-fonce: "#1a3fb3"
-  bleu-clair: "#4a86f5"
-  bleu-ciel: "#eaf1ff"
-  bleu-ciel-2: "#d9e6ff"
-  or: "#f5b21f"
-  or-doux: "#fff3d4"
-  or-texte: "#7a5300"
-  marine: "#0e1a3d"
-  marine-2: "#33405f"
-  gris: "#5d6782"
-  filet: "#dfe6f5"
-  filet-fort: "#c4d0ea"
-  fond: "#f5f8ff"
-  surface: "#ffffff"
-  vert: "#187547"
-  vert-doux: "#e3f5ec"
-  rouge: "#c8433a"
-  rouge-doux: "#fdeceb"
+  bleu: "#2563EB"
+  bleu-fonce: "#1D4ED8"
+  bleu-clair: "#4C8AFD"
+  bleu-ciel: "#EFF5FF"
+  bleu-ciel-2: "#DBEAFE"
+  or: "#FBBF24"
+  or-doux: "#FEF3C7"
+  or-texte: "#78350F"
+  marine: "#0B1A45"
+  marine-2: "#334155"
+  gris: "#475569"
+  filet: "#E2E8F0"
+  filet-fort: "#CBD5E1"
+  fond: "#F8FAFC"
+  surface: "#FFFFFF"
+  vert: "#15803D"
+  vert-doux: "#DCFCE7"
+  rouge: "#DC2626"
+  rouge-doux: "#FEE2E2"
 typography:
   display:
-    fontFamily: "Nunito, Noto Sans Arabic, sans-serif"
+    fontFamily: "Inter, Noto Sans Arabic, Segoe UI, Roboto, Arial, sans-serif"
     fontSize: "50px"
-    fontWeight: 800
+    fontWeight: 700
     lineHeight: 1
   headline:
-    fontFamily: "Nunito, Noto Sans Arabic, sans-serif"
+    fontFamily: "Inter, Noto Sans Arabic, Segoe UI, Roboto, Arial, sans-serif"
     fontSize: "27px"
-    fontWeight: 800
+    fontWeight: 700
     lineHeight: 1.2
     letterSpacing: "-0.01em"
   title:
-    fontFamily: "Nunito, Noto Sans Arabic, sans-serif"
+    fontFamily: "Inter, Noto Sans Arabic, Segoe UI, Roboto, Arial, sans-serif"
     fontSize: "21px"
-    fontWeight: 800
+    fontWeight: 700
     lineHeight: 1.2
     letterSpacing: "-0.01em"
   lead:
-    fontFamily: "Nunito, Noto Sans Arabic, sans-serif"
+    fontFamily: "Inter, Noto Sans Arabic, Segoe UI, Roboto, Arial, sans-serif"
     fontSize: "22px"
-    fontWeight: 800
+    fontWeight: 700
     lineHeight: 1.35
   body:
-    fontFamily: "Atkinson Hyperlegible, Noto Sans Arabic, sans-serif"
+    fontFamily: "Inter, Noto Sans Arabic, Segoe UI, Roboto, Arial, sans-serif"
     fontSize: "16px"
     fontWeight: 400
-    lineHeight: 1.6
+    lineHeight: 1.5
     fontFeature: "tnum"
   label:
-    fontFamily: "Nunito, Noto Sans Arabic, sans-serif"
+    fontFamily: "Inter, Noto Sans Arabic, Segoe UI, Roboto, Arial, sans-serif"
     fontSize: "15px"
-    fontWeight: 800
+    fontWeight: 600
     lineHeight: 1
   meta:
-    fontFamily: "Atkinson Hyperlegible, Noto Sans Arabic, sans-serif"
+    fontFamily: "Inter, Noto Sans Arabic, Segoe UI, Roboto, Arial, sans-serif"
     fontSize: "14.5px"
     fontWeight: 400
-    lineHeight: 1.6
+    lineHeight: 1.5
   math:
     fontFamily: "STIX Two Text, Noto Sans Math, serif"
     fontSize: "23px"
@@ -69,7 +69,11 @@ rounded:
   pill: "999px"
   lg: "18px"
   md: "16px"
+  vignette: "14px"
   sm: "12px"
+  segment: "10px"
+  bouton: "8px"
+  citation: "6px"
 spacing:
   xs: "4px"
   sm: "8px"
@@ -81,34 +85,32 @@ components:
     backgroundColor: "{colors.bleu}"
     textColor: "{colors.surface}"
     typography: "{typography.label}"
-    rounded: "{rounded.pill}"
-    padding: "0 18px"
-    height: "44px"
+    rounded: "{rounded.bouton}"
+    padding: "0 16px"
+    height: "40px"
   button-primary-hover:
     backgroundColor: "{colors.bleu-fonce}"
   button-secondary:
     backgroundColor: "{colors.surface}"
-    textColor: "{colors.marine}"
+    textColor: "{colors.bleu}"
     typography: "{typography.label}"
-    rounded: "{rounded.pill}"
-    padding: "0 18px"
-    height: "44px"
+    rounded: "{rounded.bouton}"
+    padding: "0 16px"
+    height: "40px"
   button-secondary-hover:
     backgroundColor: "{colors.bleu-ciel}"
   button-ghost:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.bleu}"
-    rounded: "{rounded.pill}"
-    padding: "0 18px"
-    height: "44px"
+    backgroundColor: "transparent"
+    textColor: "{colors.gris}"
+    typography: "{typography.label}"
+    rounded: "{rounded.bouton}"
+    padding: "0 16px"
+    height: "40px"
   source-chip:
-    backgroundColor: "{colors.bleu-ciel}"
-    textColor: "{colors.bleu}"
-    rounded: "{rounded.pill}"
-    padding: "0 10px"
-  source-chip-hover:
-    backgroundColor: "{colors.bleu}"
-    textColor: "{colors.surface}"
+    backgroundColor: "{colors.or}"
+    textColor: "{colors.marine}"
+    rounded: "{rounded.citation}"
+    padding: "0 8px"
   agent-disc:
     backgroundColor: "{colors.bleu}"
     textColor: "{colors.surface}"
@@ -124,6 +126,24 @@ components:
     textColor: "{colors.marine}"
     rounded: "{rounded.sm}"
     padding: "14px 16px"
+  bubble-tutor:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.marine}"
+    rounded: "{rounded.lg}"
+    padding: "10px 14px"
+  bubble-student:
+    backgroundColor: "{colors.bleu-ciel-2}"
+    textColor: "{colors.marine}"
+    rounded: "{rounded.lg}"
+    padding: "10px 14px"
+  level-selector:
+    backgroundColor: "{colors.bleu-ciel}"
+    textColor: "{colors.marine-2}"
+    rounded: "{rounded.segment}"
+    padding: "4px"
+  level-selector-active:
+    backgroundColor: "{colors.bleu}"
+    textColor: "{colors.surface}"
   choice:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.marine}"
@@ -134,11 +154,14 @@ components:
     backgroundColor: "{colors.vert-doux}"
   choice-wrong:
     backgroundColor: "{colors.rouge-doux}"
-  segmented:
+  tabs:
     backgroundColor: "{colors.bleu-ciel}"
     textColor: "{colors.marine-2}"
     rounded: "{rounded.pill}"
     padding: "4px"
+  tabs-active:
+    backgroundColor: "{colors.bleu}"
+    textColor: "{colors.surface}"
   input-question:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.marine}"
@@ -149,103 +172,115 @@ components:
 # Design System: Multi-Agent Tutor
 
 > Système relevé sur les maquettes livrées (`docs/maquettes/cours.html`, `quiz.html`, `maquettes.css`, `maquettes.js`).
-> Ces maquettes HTML/CSS/JS statiques sont la **référence visuelle du frontend React (Vite)** (tâche A5) : les jetons de
-> `:root` deviennent les variables CSS (ou le thème) des composants React, et la mascotte SVG de `maquettes.js` devient
-> un composant à états. Les valeurs s'aligneront sur la charte D1 (`docs/charte.md`) quand elle sera livrée.
+> **Source des valeurs de couleur, de police et de bouton : la charte graphique D1 de Both (`docs/charte.md`, branche
+> `both`).** Elle est contraignante pour l'équipe : les variables `--mat-*` de `maquettes.css` en sont la copie exacte,
+> et les jetons ci-dessus en dérivent. Les maquettes HTML/CSS/JS statiques sont la référence visuelle du frontend React
+> (Vite, tâche A5) : les jetons de `:root` deviennent les variables CSS du thème, la mascotte SVG de `maquettes.js`
+> devient un composant à états. Toute nouvelle valeur de couleur, de police ou de bouton passe par la charte.
 
 ## Overview
 
 **Creative North Star: "Le tuteur a un visage"**
 
-Le système sort entièrement du logo officiel (`docs/maquettes/img/logo.jpg`, contrainte binding de PRODUCT.md) : une
-mascotte robot souriante à toque de diplômé, contours bleu marine épais et arrondis, disques bleu roi qui portent des
-pictogrammes blancs, traits d'« éclat », un seul point d'or. L'interface reprend ces matériaux tels quels plutôt que de
-les décorer : la mascotte est le visage du tuteur et change d'état quand un agent travaille ou quand l'étudiant répond ;
-les disques deviennent les avatars des agents ; l'éclat devient le retour positif ; l'or marque la seule chose à
-retenir.
+Le système sort du logo officiel (contrainte binding de PRODUCT.md) et de la charte D1 qui en fixe les valeurs : un robot
+tuteur à toque de diplômé, contours bleu marine, bleu roi pour l'action, jaune du pompon pour ce qui renvoie au cours.
+L'en-tête porte le logo lui-même (`docs/maquettes/img/logo-icone.png`, copie de `assets/logo-icone.png` de la charte),
+sans recoloration ni ombre. La mascotte SVG redessinée reste le visage animé du tuteur : elle change d'état quand un agent
+travaille ou quand l'étudiant répond (tête de panneau Explication, fil de questions, réactions du quiz) ; les disques bleu
+roi deviennent les avatars des agents ; l'éclat devient le retour positif.
 
-La densité est celle d'un outil d'étude, pas d'une page vitrine : fond blanc à peine bleuté, panneaux blancs posés
-dessus, tout en pilules et coins larges, titres en sans-serif arrondi très gras, lecture dans une police conçue pour la
-lisibilité. Le ton visuel est encourageant et clair, crédible devant un jury d'enseignants. L'interface est trilingue
-(FR / EN / AR) et passe entièrement en RTL en arabe.
+La densité est celle d'un outil d'étude, pas d'une page vitrine : fond gris très clair, panneaux blancs posés dessus,
+boutons nets à 8px de rayon, rails et pilules pour la navigation, une seule famille (Inter) pour toute l'interface et une
+vraie serif mathématique pour les formules. Le ton visuel est encourageant et clair, crédible devant un jury
+d'enseignants. L'interface est trilingue (FR / EN / AR) et passe entièrement en RTL en arabe.
 
 Rejet confirmé : le tableau de bord SaaS anonyme à cartes grises. Le monde précédemment tiré (« tableau de l'amphi »,
 sombre) a été remplacé par l'épinglage du logo et ne fait pas partie du système.
 
 **Key Characteristics:**
-- La mascotte du logo, redessinée en SVG, avec quatre états : sourit, réfléchit, contente, oups.
-- Bleu roi pour l'action et les agents, marine pour le texte et les contours épais, or réservé à un seul accent.
-- Contour marine épais (2.5px) sur ce qui « porte » le cours : cadre de la slide, flashcard, bouton secondaire.
-- Pilules partout pour les contrôles ; panneaux à 18px de rayon.
-- Chaque contenu généré porte sa source `[Slide N]` sous forme d'ovale bleu cliquable.
+- Les valeurs de la charte D1 (Both, `docs/charte.md`) reprises telles quelles dans les variables `--mat-*`.
+- Le logo officiel en en-tête ; la mascotte SVG à quatre états (sourit, réfléchit, contente, oups) comme visage du tuteur.
+- Bleu roi pour l'action, les agents et le segment actif ; marine pour le texte et les contours épais ; jaune du pompon pour les citations `[Slide N]` et « à retenir ».
+- Inter auto-hébergée pour toute l'interface (700 titres, 600 boutons, 400 texte) ; STIX Two Text pour les formules.
+- Chaque contenu généré porte sa source `[Slide N]` sous forme de pastille jaune cliquable.
 - Mouvement court et doux (ease-out), réduit mais pas supprimé sous `prefers-reduced-motion`.
 
 ## Colors
 
-Une palette de logo : un bleu roi franc décliné en trois clartés, un marine presque noir pour l'encre, un or rare, et
-deux couleurs de verdict (vert, rouge) qui n'apparaissent qu'après une réponse.
+La palette de la charte D1, tirée du logo : un bleu roi franc avec son survol et un bleu clair, un marine presque noir
+pour l'encre, le jaune du pompon, deux couleurs de verdict, et des neutres ardoise. Quelques teintes pâles sont dérivées
+dans le build pour les grands aplats ; elles ne remplacent jamais une valeur de la charte.
 
 ### Primary
-- **Bleu roi** (bleu) : action principale (« Me tester », « Envoyer »), onglet actif, avatars d'agent, bulle de
-  l'étudiant, trait tracé sous la formule clé, verso de la flashcard, score final.
-- **Bleu roi profond** (bleu-fonce) : survol du bouton principal, titre de la slide affichée, niveau de Bloom.
-- **Bleu clair** (bleu-clair) : yeux de la mascotte, point « vue » de la bande des slides, survol des choix et
-  vignettes, disque de l'agent Q&A.
-- **Bleu ciel** (bleu-ciel) et **bleu ciel appuyé** (bleu-ciel-2) : zones douces : rail des sélecteurs à curseur,
-  ovale de source, bulle du tuteur, fond de formule sur la slide, halo de focus du champ de question, étapes à venir.
+- **Bleu roi** (bleu, `--mat-primaire`) : bouton principal, liens, onglet actif, segment actif du sélecteur de niveau,
+  avatars d'agent, trait tracé sous la formule clé, verso de la flashcard, score final, contour de focus clavier.
+- **Bleu foncé** (bleu-fonce, `--mat-primaire-survol`) : survol du bouton principal, titre de la slide, niveau de Bloom.
+- **Bleu clair** (bleu-clair, `--mat-secondaire`) : point « vue » de la bande des slides, survol des choix, des
+  vignettes et des suggestions, disque de l'agent Q&A. Jamais de texte blanc dessus (contraste insuffisant, charte).
+- **Bleu très clair** (bleu-ciel-2, `--mat-fond-clair`) : bulle de l'étudiant, étapes à venir du quiz, halo de focus du
+  champ de question, sélection de texte.
+- **Bleu ciel** (bleu-ciel, teinte dérivée de `--mat-fond-clair`) : grands aplats doux : rails des onglets et
+  sélecteurs, survol des boutons secondaires, disque-lettre des choix, fond de formule sur la slide.
 
 ### Secondary
-- **Or du gland** (or) : l'unique accent. Bordure de l'encadré « À retenir », étape courante du quiz, éclair de
-  repérage autour de la slide quand une source y mène, gland de la toque.
-- **Or pâle** (or-doux) : fond de l'encadré « À retenir » et de la vignette de la slide courante.
-- **Or encre** (or-texte) : titre de l'encadré « À retenir » (l'or pur n'est pas lisible en texte).
+- **Jaune du pompon** (or, `--mat-accent`) : pastille de citation `[Slide N]`, bordure et disque de l'encadré « À
+  retenir », étape courante du quiz, halo de repérage autour de la slide quand une source y mène. Toujours du texte
+  marine dessus, jamais blanc.
+- **Jaune pâle** (or-doux, dérivé) : fond de l'encadré « À retenir » et de la vignette de la slide courante.
+- **Ambre encre** (or-texte, dérivé) : titre de l'encadré « À retenir » (le jaune pur n'est pas lisible en texte).
 
 ### Tertiary
-- **Vert validé** (vert) / **vert pâle** (vert-doux) : bonne réponse, point « testée », badge « Vérifié par le Critic ».
-- **Rouge oups** (rouge) / **rouge pâle** (rouge-doux) : mauvaise réponse uniquement.
+- **Vert succès** (vert, `--mat-succes`) / **vert pâle** (vert-doux, dérivé) : bonne réponse, point « testée », badge
+  « Vérifié par le Critic ».
+- **Rouge erreur** (rouge, `--mat-erreur`) / **rouge pâle** (rouge-doux, dérivé) : mauvaise réponse uniquement.
 
 ### Neutral
-- **Marine encre** (marine) : texte, contours épais, langue active, contour de la mascotte.
-- **Marine adouci** (marine-2) : texte secondaire des paragraphes, libellés inactifs.
-- **Gris ardoise** (gris) : métadonnées, compteurs, placeholders, légende.
-- **Filet** (filet) et **filet appuyé** (filet-fort) : séparateurs, bordures de panneau, bordures des choix ; bordure
-  du champ au repos, bordure pointillée du refus honnête.
-- **Fond bleuté** (fond) : fond de page. **Surface** (surface) : panneaux, boutons secondaires, cadre de slide.
+- **Bleu marine** (marine, `--mat-texte`) : texte principal, contours épais, langue active, contour de la mascotte.
+- **Ardoise appuyée** (marine-2, dérivé) : texte des paragraphes d'explication, libellés inactifs des rails, compteurs.
+- **Ardoise** (gris, `--mat-texte-secondaire`) : métadonnées, légendes, placeholders, texte du bouton discret.
+- **Gris clair** (filet, `--mat-bordure`) : séparateurs, bordures des panneaux, des choix, des vignettes, bulle du tuteur.
+- **Gris appuyé** (filet-fort, dérivé) : bordure du champ de question au repos, pointillé du refus honnête, point de
+  maîtrise vide, barre de défilement.
+- **Fond** (fond, `--mat-fond`) : fond de page. **Surface** (surface, `--mat-surface`) : panneaux, bouton secondaire,
+  cadre de slide, bulle du tuteur.
 
 ### Named Rules
-**The One Gold Rule.** L'or marque une seule chose par écran : ce qu'il faut retenir, ou là où l'on est. Jamais un
-bouton, jamais une décoration.
+**The Charter Rule.** Toute couleur vient de `docs/charte.md` (variables `--mat-*`) ou en est une teinte pâle dérivée
+pour un aplat. Une nouvelle teinte passe par la charte D1, pas par la maquette.
 
-**The Verdict Colors Rule.** Le vert et le rouge n'apparaissent qu'en réponse à un acte de l'étudiant (réponse au
-quiz, vérification par le Critic). Ils ne colorent jamais l'interface au repos.
+**The Pompon Rule.** Le jaune renvoie au cours : citations `[Slide N]`, ce qu'il faut retenir, l'endroit où l'on est.
+Jamais un bouton d'action, jamais une décoration, jamais de texte blanc dessus.
 
-**The Logo Palette Rule.** Aucune teinte hors du logo et des deux couleurs de verdict. Toute nouvelle couleur passe
-par la charte D1.
+**The Verdict Colors Rule.** Le vert et le rouge n'apparaissent qu'en réponse à un acte de l'étudiant (réponse au quiz,
+vérification par le Critic), et toujours avec une icône coche ou croix : jamais la couleur seule, jamais au repos.
 
 ## Typography
 
-**Display Font:** Nunito 700–800 (avec Noto Sans Arabic, sans-serif)
-**Body Font:** Atkinson Hyperlegible 400/700 (avec Noto Sans Arabic, sans-serif)
+**Display Font:** Inter 700 (avec Noto Sans Arabic, Segoe UI, Roboto, Arial, sans-serif)
+**Body Font:** Inter 400 (même pile)
 **Label/Mono Font:** STIX Two Text pour les formules (avec Noto Sans Math, serif)
 
-**Character:** Le sans-serif arrondi et très gras du lettrage du logo pour tout ce qui parle (titres, boutons, idée
-clé) ; une police de lecture pensée pour la lisibilité pour tout ce qui explique. Les formules ont leur propre voix,
-une vraie serif mathématique. Toutes les polices sont auto-hébergées (`docs/maquettes/fonts/`). En arabe, titres et
-texte basculent sur Noto Sans Arabic.
+**Character:** Une seule voix d'interface, Inter, imposée par la charte D1 : la hiérarchie se fait par la graisse (700
+titres, 600 boutons et citations, 400 texte) et la taille, pas par un changement de famille. Les formules ont leur
+propre voix, une vraie serif mathématique. Toutes les polices sont auto-hébergées (`docs/maquettes/fonts/`, aucun
+service en ligne). En arabe, titres et texte basculent sur Noto Sans Arabic.
 
 ### Hierarchy
-- **Display** (800, 50px, 1) : le score final du quiz, seul.
-- **Headline** (800, 27px cours / 30px quiz, 1.2, -0.01em, `text-wrap: balance`) : titre de page. 22–24px sous 980px.
-- **Title** (800, 21px panneau ; 24px question de quiz, 1.35) : tête de panneau, énoncé de question.
-- **Lead** (800, 22px, 1.35) : l'idée clé de l'explication, une phrase.
-- **Body** (400, 16px, 1.6, chiffres tabulaires) : explications, bulles, choix (16.5px). Paragraphes à 68ch maximum.
-- **Label** (800, 13–15px) : boutons, onglets, sélecteurs, sources, noms d'agent, titres de bloc (13.5px, bleu).
-- **Meta** (400, 13.5–14.5px, gris) : position dans le cours, sous-titres, légende, compteurs.
+- **Display** (700, 50px, 1) : le score final du quiz, seul.
+- **Headline** (700, 27px cours / 30px quiz, 1.2, -0.01em, `text-wrap: balance`) : titre de page. 22–24px sous 980px.
+  La charte indique 28px ; le build arrondit à 27 et 30.
+- **Title** (700, 21px tête de panneau ; 24px question de quiz à 1.35 ; 23px titre du score) : la charte indique 20px
+  pour un titre de section.
+- **Lead** (700, 22px, 1.35) : l'idée clé de l'explication, une phrase.
+- **Body** (400, 16px, 1.5, chiffres tabulaires) : explications, bulles, choix (16.5px). Paragraphes à 68ch maximum.
+- **Label** (600, 15px) : boutons et citations (0.85em). Les rails, onglets, sélecteurs, compteurs et noms d'agent sont
+  en 700 (13–15px). Les titres de bloc (« En détail ») en 700 13.5px bleu.
+- **Meta** (400, 13.5–14.5px, ardoise) : position dans le cours, sous-titres, légende, compteurs.
 - **Math** (STIX Two Text 400, 23px formule clé ; 28px verso de flashcard ; 17–21px sur la slide).
 
 ### Named Rules
-**The Two Voices Rule.** Nunito parle (titres, contrôles, idée clé), Atkinson explique (tout texte courant). On ne
-compose jamais un paragraphe en Nunito ni un bouton en Atkinson.
+**The One Family Rule.** Toute l'interface est en Inter (charte D1) ; on hiérarchise par la graisse et la taille. La
+note « police trop répandue » est acceptée parce que la charte l'impose.
 
 **The Real Math Rule.** Une formule est toujours en STIX Two Text (KaTeX en React), jamais en police d'interface.
 
@@ -255,108 +290,118 @@ compose jamais un paragraphe en Nunito ni un bouton en Atkinson.
   28px. À gauche, la colonne de la slide est collante (`top: 92px`) : titre, slide encadrée en 16:9, navigation, bande
   des slides, légende. À droite : panneau Explication puis panneau Questions.
 - **Page Quiz** : une colonne de 860px max, `34px 24px 52px` de marge, pile espacée de 20px.
-- **Barre du haut** collante, blanche translucide (90 %, flou 10px), filet en bas : marque, cours actuel, onglets
+- **Barre du haut** collante, blanche translucide (90 %, flou 10px), filet en bas : logo et nom, cours actuel, onglets
   Cours/Quiz poussés à droite, sélecteur FR/EN/AR.
 - **Rythme** : pas de 4px ; espacements usuels 8, 12, 16, 20, 24, 28. Panneaux à 22–24px de marge interne
   (18px sur mobile), 30px pour la carte de question.
 - **Sous 980px** : une colonne ; l'ordre devient titre, slide, navigation, bande, légende, explication, questions ; la
   slide perd son ratio fixe ; une barre d'actions fixe en bas (« Me tester », « Demander ») garde l'action principale
   à portée de pouce, avec `safe-area-inset-bottom`.
-- **Sous 640px** : la barre du haut passe sur deux lignes (onglets en pleine largeur) ; « Envoyer » et les flèches de
-  navigation deviennent des boutons icône de 44px avec libellé masqué accessible.
+- **Sous 640px** : la barre du haut passe sur deux lignes (onglets en pleine largeur) et défile avec la page ;
+  « Envoyer » et les flèches de navigation deviennent des boutons icône de 44px avec libellé masqué accessible.
 - **RTL** : propriétés logiques partout (`inline-start`, `block-end`) ; les icônes directionnelles portent la classe
   miroir et se retournent en arabe.
 
 ## Elevation & Depth
 
-Système hybride et léger : des panneaux blancs posés sur un fond bleuté, séparés par un filet de 1px et une ombre
-diffuse teintée de bleu. La profondeur vient d'abord du contraste blanc / fond et des contours marine, ensuite des
-ombres. Les éléments actifs (bouton principal, onglet courant) portent une ombre colorée bleue qui les fait « lever ».
+Système hybride et léger : des panneaux blancs posés sur le fond, séparés par un filet de 1px et une ombre diffuse
+teintée de bleu. La profondeur vient d'abord du contraste blanc / fond et des contours marine, ensuite des ombres. Les
+éléments actifs (bouton principal, onglet courant, segment de niveau actif) portent une ombre colorée bleue.
 
 ### Shadow Vocabulary
 - **Ombre de panneau** (`box-shadow: 0 1px 2px rgba(14,26,61,.05), 0 12px 32px rgba(35,80,216,.08)`) : panneaux,
   cadre de slide.
 - **Ombre forte** (`box-shadow: 0 18px 44px rgba(35,80,216,.18)`) : la flashcard, seul objet qu'on manipule.
-- **Lueur d'action** (`box-shadow: 0 6px 16px rgba(35,80,216,.28)`) : bouton principal ; `0 4px 12px` à .3 pour
-  l'onglet actif.
-- **Curseur de sélecteur** (`box-shadow: 0 2px 8px rgba(14,26,61,.12)`) : la pastille blanche qui glisse dans les
-  sélecteurs de niveau et de mode.
+- **Lueur d'action** (`box-shadow: 0 4px 12px rgba(37,99,235,.25)`) : bouton principal ; `rgba(35,80,216,.3)` pour
+  l'onglet actif, `0 2px 8px rgba(37,99,235,.3)` pour le segment de niveau actif.
+- **Curseur blanc** (`box-shadow: 0 2px 8px rgba(14,26,61,.12)`) : option choisie du sélecteur de mode QCM / flashcards.
 
 ### Named Rules
-**The Blue Shadow Rule.** Les ombres sont teintées du bleu du logo, diffuses et basses. Pas d'ombre grise neutre,
-pas d'ombre décalée dure.
+**The Blue Shadow Rule.** Les ombres sont teintées de bleu, diffuses et basses. Pas d'ombre grise neutre, pas d'ombre
+décalée dure, et jamais d'ombre sur le logo (charte).
 
 ## Shapes
 
-Formes du logo : rondes et pleines. Les contrôles sont des pilules (999px), les avatars et pastilles des disques
-parfaits. Les conteneurs ont des coins larges : 18px pour les panneaux, la slide encadrée et la flashcard ; 16px pour
-les choix de quiz et le retour ; 12px pour l'encadré « À retenir » ; 14px pour les vignettes. Les bulles de dialogue
-ont 18px avec un coin réduit à 6px du côté de celui qui parle. Le contour épais marine (2.5px, l'épaisseur des traits
-du logo) est réservé aux objets qui portent le cours ; les bordures de contrôle ordinaires font 2px en filet.
+Deux familles de formes. Les **contrôles d'action** sont nets : boutons à 8px (charte), citations à 6px, segments du
+sélecteur de niveau à 7px dans un rail à 10px, contour de focus arrondi à 6px. La **navigation et les rails** gardent
+la pilule (999px) : onglets, langues, sélecteur de mode, champ de question, suggestions, barres de progression. Les
+avatars et pastilles sont des disques parfaits. Les conteneurs ont des coins larges : 18px pour les panneaux, la slide
+encadrée et la flashcard ; 16px pour les choix de quiz, le retour et les boutons d'évaluation ; 14px pour les vignettes ;
+12px pour l'encadré « À retenir ». Les bulles de dialogue ont 18px avec un coin réduit à 6px du côté de celui qui parle.
+Le contour épais marine (2.5px, l'épaisseur des traits du logo) est réservé au cadre de la slide et à la flashcard ; le
+champ de question porte la même épaisseur en gris appuyé ; les bordures ordinaires font 1–2px en gris clair.
 
 ## Components
 
 ### Buttons
-Pleins, arrondis et francs, comme le lettrage du logo.
-- **Shape:** pilule (999px), 44px de haut minimum, 18px de marge horizontale, icône 20px et libellé Nunito 800 15px.
-- **Primary:** bleu roi, texte blanc, lueur d'action bleue. Un seul par zone.
-- **Secondary:** surface blanche, contour marine épais (2.5px), texte marine.
-- **Ghost (discret):** sans contour, texte bleu roi.
-- **Hover / Focus:** survol (seulement sur pointeur fin) vers bleu ciel, ou bleu profond pour le principal ; appui en
-  `scale(.97)` sur 160ms ease-out. Désactivé : contour filet appuyé, texte gris.
+Nets et sobres, aux valeurs de la charte D1.
+- **Shape:** coins à 8px, 40px de haut minimum, 16px de marge horizontale, icône 20px et libellé Inter 600 15px.
+- **Primary:** bleu roi, texte blanc, sans bordure, lueur d'action bleue. Un seul par zone.
+- **Secondary:** surface blanche, bordure 1px bleu roi, texte bleu roi.
+- **Ghost (discret):** transparent, sans bordure, texte ardoise.
+- **Hover / Focus:** survol (seulement sur pointeur fin) vers bleu foncé pour le principal, bleu ciel pour le secondaire
+  et le discret ; appui en `scale(.97)` sur 160ms ease-out ; focus clavier en contour 2px bleu roi décalé de 2px.
+  Désactivé : opacité 50 %, curseur `not-allowed`.
+- **Évaluation des flashcards:** boutons à 16px de rayon, 60px de haut, libellé et délai sur deux lignes.
 
 ### Chips
-- **Source `[Slide N]`:** ovale bleu ciel, texte bleu roi Nunito 800 à 0.85em, dans le fil du texte ; au survol il
-  passe en bleu plein, texte blanc ; un clic amène la slide et la fait clignoter d'un halo or (900ms).
-- **Suggestions de questions:** pilules blanches à contour filet 2px, texte marine adouci ; survol bleu clair.
+- **Citation `[Slide N]`:** pastille jaune du pompon, texte marine Inter 600 à 0.85em, coins 6px, dans le fil du texte ;
+  un clic amène la slide et la fait clignoter d'un halo jaune (900ms) ; appui en `scale(.95)`.
+- **Suggestions de questions:** pilules blanches à bordure gris clair 2px, texte ardoise appuyée ; survol bleu clair.
 
 ### Cards / Containers
 - **Corner Style:** 18px.
-- **Background:** surface blanche sur fond bleuté.
+- **Background:** surface blanche sur fond gris très clair.
 - **Shadow Strategy:** ombre de panneau (voir Elevation & Depth).
-- **Border:** filet 1px.
+- **Border:** gris clair 1px.
 - **Internal Padding:** 22–24px ; 18px sous 980px.
 - **Cadre de slide:** contour marine épais 2.5px, 10px de marge, slide intérieure à 10px de rayon.
-- **Encadré « À retenir »:** or pâle, bordure or 2px, disque or à pictogramme marine, titre en or encre.
+- **Encadré « À retenir »:** jaune pâle, bordure jaune 2px, disque jaune à pictogramme marine, titre en ambre encre.
 
 ### Inputs / Fields
-- **Style:** champ de question en pilule, contour filet appuyé 2.5px, bouton « Envoyer » principal logé dedans.
-- **Focus:** le contour passe au bleu roi avec un halo bleu ciel appuyé de 4px (`:focus-within`).
+- **Style:** champ de question en pilule, contour gris appuyé 2.5px, bouton « Envoyer » principal logé dedans.
+- **Focus:** le contour passe au bleu roi avec un halo bleu très clair de 4px (`:focus-within`).
 
 ### Navigation
+- **Logo:** `img/logo-icone.png` à 44px dans la marque, suivi du nom Inter 700 18px (« Tutor » en bleu roi).
 - **Onglets Cours / Quiz:** rail bleu ciel en pilule, 4px de marge ; onglet actif plein bleu roi, texte blanc, lueur
-  bleue ; inactifs marine adouci, survol blanc et bleu.
-- **Langues:** groupe de pilules à contour filet 1px ; langue active pleine marine, texte blanc.
-- **Sélecteurs à curseur (niveau, mode QCM / flashcards):** rail bleu ciel, pastille blanche qui glisse en 220ms
-  ease-out sous l'option choisie (texte bleu roi). Le sens s'inverse en RTL.
-- **Bande des slides:** vignettes de 50×56px, bordure filet 2px, numéro et point de maîtrise dont la **taille et la
-  couleur disent l'état** (5px filet, 7px bleu clair « vue », 9px bleu « comprise », 11px vert « testée ») ; slide
-  courante en bordure marine sur or pâle ; fondu aux deux bords.
+  bleue ; inactifs ardoise appuyée, survol blanc et bleu.
+- **Langues:** groupe de pilules à bordure gris clair 1px ; langue active pleine marine, texte blanc.
+- **Sélecteur de niveau (charte):** segmenté, rail bleu ciel à 10px de rayon et bordure gris clair ; le segment actif
+  bleu roi (7px de rayon, texte blanc) glisse en 220ms ease-out d'un niveau à l'autre. Le sens s'inverse en RTL.
+- **Sélecteur de mode (QCM / flashcards):** rail bleu ciel en pilule, option choisie en pilule blanche, texte bleu roi.
+- **Bande des slides:** vignettes de 50×56px, bordure gris clair 2px, numéro et point de maîtrise dont la **taille et la
+  couleur disent l'état** (5px gris, 7px bleu clair « vue », 9px bleu « comprise », 11px vert « testée ») ; slide
+  courante en bordure marine sur jaune pâle ; fondu aux deux bords.
 
 ### Mascotte (composant signature)
-Le visage du tuteur, redessiné du logo en SVG 100×100 (tête blanche à contour marine 3px, visière marine, yeux en arc
-bleu clair, toque bleu roi, gland or). 40px dans la marque, 56–58px en tête de panneau, 76px en tête de quiz, 110px
-sur le score. Quatre états via `data-etat` :
+Le visage animé du tuteur, redessiné du logo en SVG 100×100 (tête blanche à contour marine 3px, visière marine, yeux en
+arc bleu clair, toque bleu roi, gland jaune). 46–58px en tête de panneau, dans le fil et dans le retour de quiz ; 76px
+en tête de quiz ; 110px sur le score. Le logo image tient l'en-tête ; la mascotte ne le remplace pas là. Quatre états
+via `data-etat` :
 - **sourit** (repos) : yeux en arc.
 - **réfléchit** (un agent génère) : les yeux deviennent trois points qui pulsent (900ms, décalés de 150ms) ; le
   contenu en cours de génération passe à 25 % d'opacité avec un flou de 2px.
 - **contente** (bonne réponse) : la tête se redresse (`translateY(-2px) rotate(-4deg)`) et les trois traits d'éclat
-  du logo apparaissent en 360ms, échelonnés.
+  apparaissent en 360ms, échelonnés.
 - **oups** (erreur, refus) : yeux en traits, tête penchée de 5°, retour au repos après 1.6s.
 
 ### Avatars d'agent
 Disque de 32px plein (bleu roi par défaut ; bleu clair, marine ou vert selon l'agent) portant un pictogramme blanc de
-17px, suivi du nom de l'agent en Nunito 800 14px. Chaque agent garde sa couleur.
+17px, suivi du nom de l'agent en Inter 700 14px. Chaque agent garde sa couleur.
 
 ### Fil de questions
-Bulle étudiant bleu roi à droite, bulle tuteur bleu ciel à gauche précédée de la mascotte ; le refus honnête
-(« ce n'est pas dans le cours ») est une bulle blanche à bordure pointillée filet appuyé 2px. Les tours entrent en
-260ms (fondu et 8px de montée) ; la réponse s'écrit avec un curseur bleu qui pulse.
+Bulle étudiant bleu très clair, texte marine, alignée à droite ; bulle tuteur blanche à bordure gris clair, à gauche,
+précédée de la mascotte (charte : bulle tuteur blanche bordée, bulle utilisateur `#DBEAFE` à droite). Le refus honnête
+(« ce n'est pas dans le cours ») est une bulle blanche à bordure pointillée gris appuyé 2px. Les tours entrent en 260ms
+(fondu et 8px de montée) ; la réponse s'écrit avec un curseur bleu qui pulse, puis ses citations jaunes s'ajoutent.
 
 ### Quiz et flashcards
-- **Choix:** ligne de 56px min, rayon 16px, bordure filet 2px, lettre dans un disque bleu ciel ; bonne réponse en
-  vert pâle (bordure et disque verts), mauvaise en rouge pâle ; les autres options passent à 50 %.
-- **Progression:** barres de 8px en pilule, étape courante or, juste vert, fausse rouge.
+- **Choix:** ligne de 56px min, rayon 16px, bordure gris clair 2px, lettre dans un disque bleu ciel ; après réponse, la
+  bonne passe en vert pâle (bordure verte, disque vert portant une **coche**), la mauvaise choisie en rouge pâle (disque
+  rouge portant une **croix**) ; les autres options passent à 50 %. Le récapitulatif du score reprend les mêmes disques
+  coche / croix.
+- **Progression:** barres de 8px en pilule, étape courante jaune, juste vert, fausse rouge.
 - **Flashcard:** 300px de haut, contour marine épais, ombre forte ; retournement 3D de 420ms ease-in-out vers un
   verso bleu roi plein dont la réponse est en STIX Two Text 28px. Sous mouvement réduit, le retournement devient un
   simple échange de faces.
@@ -370,18 +415,19 @@ et d'opacité restent.
 ## Do's and Don'ts
 
 ### Do:
-- **Do** mettre la mascotte en état « réfléchit » pendant chaque génération d'agent (SSE de l'Explainer et du Q&A) et
-  la ramener au repos à la fin.
-- **Do** rendre chaque `[Slide N]` comme un ovale de source cliquable qui mène à la slide.
-- **Do** réserver le contour marine épais (2.5px) aux objets qui portent le cours : slide, flashcard, bouton
-  secondaire.
-- **Do** utiliser des propriétés logiques (`inline-start`, `block-end`) et retourner les icônes directionnelles pour
-  que l'arabe passe en RTL sans CSS supplémentaire.
-- **Do** garder les cibles tactiles à 44px minimum et l'action principale dans la barre fixe du bas sous 980px.
-- **Do** composer les formules en STIX Two Text (KaTeX dans le frontend React).
+- **Do** prendre toute valeur de couleur, de police et de bouton dans `docs/charte.md` (D1, Both) ; reprendre ses variables `--mat-*` telles quelles.
+- **Do** mettre la mascotte en état « réfléchit » pendant chaque génération d'agent (SSE de l'Explainer et du Q&A) et la ramener au repos à la fin.
+- **Do** rendre chaque `[Slide N]` comme une pastille jaune cliquable (texte marine, coins 6px) qui mène à la slide.
+- **Do** accompagner chaque verdict de quiz d'une icône coche ou croix en plus du vert ou du rouge.
+- **Do** garder le focus clavier visible : contour 2px bleu roi décalé de 2px sur tout élément interactif.
+- **Do** utiliser des propriétés logiques (`inline-start`, `block-end`) et retourner les icônes directionnelles pour que l'arabe passe en RTL sans CSS supplémentaire.
+- **Do** garder l'action principale dans la barre fixe du bas sous 980px et les boutons icône à 44px sur téléphone.
+- **Do** composer les formules en STIX Two Text (KaTeX dans le frontend React) et auto-héberger toutes les polices.
 
 ### Don't:
-- **Don't** sortir de la palette du logo : pas de nouvelle teinte, pas de thème sombre, pas de dégradé décoratif.
-- **Don't** utiliser l'or pour un bouton ou une décoration : il marque une seule chose par écran.
+- **Don't** sortir de la palette de la charte : pas de nouvelle teinte, pas de thème sombre, pas de dégradé décoratif.
+- **Don't** utiliser le jaune pour un bouton d'action ou une décoration, ni mettre du texte blanc sur le jaune ou le bleu clair.
+- **Don't** déformer, recolorer ou ombrer le logo, ni le poser sur un fond foncé.
 - **Don't** construire des écrans en tableau de bord SaaS à cartes grises anonymes ; le tuteur a la mascotte pour visage.
-- **Don't** mettre de vert ou de rouge sur l'interface au repos : ce sont des verdicts.
+- **Don't** mettre de vert ou de rouge sur l'interface au repos, ni un verdict sans son icône.
+- **Don't** charger une police depuis un service en ligne (Google Fonts ou autre).
