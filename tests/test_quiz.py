@@ -186,6 +186,37 @@ def test_nettoyer_ne_retire_pas_de_prefixe_hors_choix() -> None:
     assert qz.nettoyer("A) ceci est une question ?") == "A) ceci est une question ?"
 
 
+@pytest.mark.parametrize("brut", [
+    "Que minimise la régression linéaire ?\n- A) L'erreur quadratique\n- B) Le biais\n- C) x\n- D) y",
+    "Que minimise la régression linéaire ?\nA) L'erreur quadratique\nB) Le biais",
+    "Que minimise la régression linéaire ?\n\nChoix :\na. L'erreur quadratique\nb. Le biais",
+    "Que minimise la régression linéaire ?\n(a) L'erreur quadratique\n(b) Le biais",
+    "Que minimise la régression linéaire ?\n• C: x\n• D: y",
+    "Que minimise la régression linéaire ? A) L'erreur quadratique B) Le biais C) x D) y",
+])
+def test_nettoyer_question_retire_les_choix_recopies(brut: str) -> None:
+    assert qz.nettoyer(brut, question=True) == "Que minimise la régression linéaire ?"
+
+
+@pytest.mark.parametrize("texte", [
+    "Que minimise la régression linéaire ?",
+    "Soit le modèle suivant.\nQue vaut la pente ?",
+    "A) est-elle une question ?",          # première ligne toujours gardée
+    "Pourquoi la vitamine A) est-elle citée ?",  # « A) » seul, sans « B) » ensuite
+    "Avec a = 2,\nAprès une itération, que vaut $\\theta$ ?",
+])
+def test_nettoyer_question_garde_l_enonce(texte: str) -> None:
+    assert qz.nettoyer(texte, question=True) == texte
+
+
+def test_qcm_question_sans_choix_recopies(monkeypatch: pytest.MonkeyPatch) -> None:
+    question = "Que minimise la régression linéaire ?\n- A) L'erreur quadratique moyenne\n- B) Le biais"
+    _imposer(monkeypatch, {"qcm": [_qcm(question)]})
+    q = qz.generer_quiz(COURSE_ID, slide=2, rng=random.Random(0))[0]
+    assert q.question == "Que minimise la régression linéaire ?"
+    assert "ne recopie jamais les choix" in qz.prompt_systeme("QCM")
+
+
 @pytest.mark.parametrize("brut, attendu", [
     (r"J(\theta) = \frac{1}{m} \times \text{Erreur quadratique} moyenne.",
      r"$J(\theta) = \frac{1}{m} \times \text{Erreur quadratique}$ moyenne."),

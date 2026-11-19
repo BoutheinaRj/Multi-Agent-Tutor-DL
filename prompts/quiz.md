@@ -23,6 +23,8 @@ Règles :
 - `slide` : numéro de la slide sur laquelle porte la question.
 - Choix courts (quelques mots), SANS préfixe : jamais « A) », « B. », « c) » ni « 1. »
   au début d'un choix (l'ordre des choix est mélangé ensuite).
+- `question` contient UNIQUEMENT l'énoncé : ne recopie jamais les choix dedans
+  (pas de lignes « - A) … », « A) … », « a. … » après la question) ; ils vont dans `choix`.
 - Toute formule ou variable mathématique est entourée de $...$ : « $J(\theta) = \frac{1}{2m}$ »,
   « $x_i$ », jamais de LaTeX nu comme « J(\theta) = \frac{1}{2m} ».
 - Rédige la question, les choix et l'explication dans la langue demandée.

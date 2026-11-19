@@ -4,7 +4,8 @@
    (``rag/search.py``, B2) s'il existe, sinon bouchon local qui lit les slides du cours ;
 2. un SEUL appel ``agents.llm.generer_structure`` par lot (schéma court, ``max_tokens`` serré :
    le LLM tourne sur CPU) ;
-3. nettoyage (préfixes « A) », « b. » retirés des choix, LaTeX nu entouré de ``$…$`` pour KaTeX),
+3. nettoyage (choix recopiés dans l'énoncé retirés, préfixes « A) », « b. » retirés des choix,
+   LaTeX nu entouré de ``$…$`` pour KaTeX),
    vérification Python des QCM (4 choix distincts, ``bonne_reponse`` dans 0..3, bonne réponse
    non dupliquée), rejet des QCM invalides, puis mélange des choix ;
 4. sans LLM (``LLMIndisponible``) : flashcards titre → texte de la slide, quiz vide avec message.
@@ -277,6 +278,13 @@ _LATEX_CASSE = str.maketrans({"\t": "\\t", "\b": "\\b", "\f": "\\f", "\r": "\\r"
 
 # Préfixe de choix recopié malgré le mélange : « A) », « b. », « (C) », « D: », « a - ».
 _PREFIXE_CHOIX = re.compile(r"^\s*\(?[A-Da-d]\s*[).:\-–]\s+")
+# Ligne de choix recopiée sous la question : « - A) x », « A) x », « a. x », « (b) x », « • C: x ».
+_LIGNE_CHOIX = re.compile(r"^\s*(?:[-*•]\s*)?\(?[A-Da-d](?:\s*\)\s*|\s*[.:\-–]\s+)\S")
+# Choix recopiés sur la même ligne que la question : « … ? A) x B) y … » (A puis B exigés).
+_CHOIX_EN_LIGNE = re.compile(r"\s+\(?[Aa]\s*\)\s*\S.*?\s\(?[Bb]\s*\)\s*\S")
+# Intitulé laissé seul avant les choix : « Choix : », « Options : », « Propositions : ».
+_INTITULE_CHOIX = re.compile(r"^\s*(?:choix|options?|propositions?|réponses?|choices|answers?)\s*:?\s*$",
+                             re.IGNORECASE)
 
 # Formules déjà délimitées ($$…$$, $…$, \[…\], \(…\)) : laissées telles quelles.
 _FORMULE_DELIMITEE = re.compile(r"\$\$.+?\$\$|\$[^$]+\$|\\\[.+?\\\]|\\\(.+?\\\)", re.DOTALL)
@@ -366,11 +374,37 @@ def delimiter_latex(texte: str) -> str:
     return "".join(morceaux)
 
 
-def nettoyer(texte: str, *, choix: bool = False) -> str:
-    """Réparer le LaTeX abîmé, le délimiter par $…$ et, pour un choix, retirer « A) », « b. »…"""
+def retirer_choix_recopies(question: str) -> str:
+    """Garder seulement la question quand le LLM y a recopié les choix (« A) … », « - b. … »).
+
+    La première ligne est toujours gardée ; tout ce qui suit la première ligne de choix est retiré,
+    ainsi qu'un intitulé isolé (« Choix : ») juste avant ; sur une seule ligne, tout ce qui suit
+    « A) … B) … » est retiré. L'énoncé n'est jamais vidé.
+    """
+    lignes = question.strip().splitlines()
+    if not lignes:
+        return question.strip()
+    gardees = [lignes[0]]
+    for ligne in lignes[1:]:
+        if _LIGNE_CHOIX.match(ligne):
+            break
+        gardees.append(ligne)
+    while len(gardees) > 1 and (not gardees[-1].strip() or _INTITULE_CHOIX.match(gardees[-1])):
+        gardees.pop()
+    m = _CHOIX_EN_LIGNE.search(gardees[-1])
+    if m and gardees[-1][:m.start()].strip():
+        gardees[-1] = gardees[-1][:m.start()]
+    return "\n".join(gardees).strip()
+
+
+def nettoyer(texte: str, *, choix: bool = False, question: bool = False) -> str:
+    """Réparer le LaTeX abîmé, le délimiter par $…$ ; pour un choix, retirer « A) », « b. »… ;
+    pour une question, retirer les choix recopiés après elle."""
     texte = texte.translate(_LATEX_CASSE).strip()
     if choix:
         texte = _PREFIXE_CHOIX.sub("", texte)
+    if question:
+        texte = retirer_choix_recopies(texte)
     return delimiter_latex(texte).strip()
 
 
@@ -469,7 +503,7 @@ def generer_quiz_detaille(
     for brut in lot.qcm:  # type: ignore[attr-defined]
         # Nettoyer AVANT la vérification : « A) x » et « B) x » deviennent des choix identiques.
         brut = brut.model_copy(update={
-            "question": nettoyer(brut.question),
+            "question": nettoyer(brut.question, question=True),
             "choix": [nettoyer(c, choix=True) for c in brut.choix],
             "explication": nettoyer(brut.explication),
         })
@@ -620,5 +654,6 @@ __all__ = [
     "quiz_agent",
     "recherche",
     "recherche_locale",
+    "retirer_choix_recopies",
     "valider_qcm",
 ]
