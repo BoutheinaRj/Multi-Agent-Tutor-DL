@@ -9,3 +9,7 @@ pillow>=10
 
 # Orchestration multi-agent (O1)
 langgraph>=1.0
+
+# RAG (B1) : base vectorielle + embeddings bge-m3 (installe aussi PyTorch)
+qdrant-client>=1.10
+sentence-transformers>=3.0
