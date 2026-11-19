@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maquette D2 — Page Cours</title>
+<link rel="stylesheet" href="maquettes.css">
+</head>
+<body>
+<!-- D2 — Maquette de la page Cours (pour Ali, A5).
+     Données d'exemple : cours ml_gradient_stochastique_esprit_fr, slide 5. -->
+<header class="barre">
+  <span class="logo">Multi-Agent Tutor</span>
+  <span class="titre-cours">Optimisation pour le ML — Ch. 3 Descente de gradient stochastique</span>
+  <nav class="onglets">
+    <a href="cours.html" class="actif">Cours</a>
+    <a href="quiz.html">Quiz</a>
+  </nav>
+</header>
+
+<main class="page-cours">
+  <!-- Gauche : la slide et la navigation slide par slide -->
+  <section class="carte zone-slide" aria-label="Slide courante">
+    <div class="slide">
+      <h3>Principe général — Un « petit » gradient à la place d'un « gros »</h3>
+      <p>On utilise à chaque itération le gradient d'une seule erreur locale E<sub>i</sub> :</p>
+      <p class="formule">X<sub>k+1</sub> = X<sub>k</sub> − ρ ∇E<sub>i</sub>(X<sub>k</sub>)</p>
+      <ul>
+        <li>Gradient classique : un « gros » gradient (N données), un grand pas.</li>
+        <li>Gradient stochastique : N « petits » gradients par époque.</li>
+      </ul>
+    </div>
+    <div class="navigation">
+      <button class="bouton" id="precedente">← Précédente</button>
+      <span class="position" id="position">Slide 5 / 24</span>
+      <button class="bouton" id="suivante">Suivante →</button>
+    </div>
+    <div class="miniatures" aria-label="Miniatures">
+      <span>1</span><span>2</span><span>3</span><span>4</span><span class="courante">5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
+    </div>
+    <p class="note">Rendu de la slide : image PNG (H1) ; formules en KaTeX (A5).</p>
+  </section>
+
+  <!-- Droite : explication de l'agent Explainer (O2), 3 niveaux -->
+  <section class="carte zone-explication" aria-label="Explication">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <strong>Explication</strong>
+      <div class="niveaux" role="group" aria-label="Niveau">
+        <button data-niveau="debutant">Débutant</button>
+        <button data-niveau="intermediaire" class="actif">Intermédiaire</button>
+        <button data-niveau="avance">Avancé</button>
+      </div>
+    </div>
+    <div class="explication" id="explication"></div>
+    <div class="outils">
+      <button class="bouton">🔊 Écouter</button>
+      <button class="bouton">Quiz sur cette slide</button>
+      <button class="bouton">Ressources</button>
+    </div>
+    <p class="note">Sources de l'explication : <a class="source" href="#">[Slide 5]</a> <a class="source" href="#">[Slide 3]</a></p>
+  </section>
+
+  <!-- Bas : chat Q&A (B3) avec citations [Slide N] -->
+  <section class="carte zone-chat" aria-label="Chat">
+    <strong>Poser une question sur le cours</strong>
+    <div class="messages">
+      <div class="message utilisateur">Pourquoi la méthode oscille autour du minimum ?</div>
+      <div class="message tuteur">Au minimiseur X*, le gradient total est nul, mais pas les gradients locaux ∇E<sub>i</sub>(X*) : avec un pas constant, chaque pas déplace encore le point <a class="source" href="#">[Slide 7]</a>. Un pas décroissant corrige ce problème <a class="source" href="#">[Slide 23]</a>.</div>
+    </div>
+    <div class="suggestions">
+      <button>Résume cette slide</button>
+      <button>Donne un exemple</button>
+      <button>Différence avec la descente par lots ?</button>
+    </div>
+    <form class="saisie" onsubmit="return false">
+      <input type="text" placeholder="Votre question…" aria-label="Votre question">
+      <button class="bouton primaire">Envoyer</button>
+    </form>
+  </section>
+</main>
+
+<script>
+  // Contenu d'exemple : structure de l'Explainer (O2) — idée clé, explication, exemple, lien, à retenir.
+  const textes = {
+    debutant: {
+      idee: "Au lieu de regarder toutes les données avant chaque pas, on en regarde une seule.",
+      explication: "Imaginez descendre une colline dans le brouillard : plutôt que d'interroger 1 000 personnes sur la pente, vous demandez à une seule personne à chaque pas. Chaque conseil est moins précis, mais vous avancez beaucoup plus vite.",
+      exemple: "Avec 1 million de photos, la méthode classique les parcourt toutes pour faire un seul pas ; la méthode stochastique fait 1 million de petits pas pendant le même temps.",
+      lien: "La slide précédente montrait l'erreur totale E comme une somme d'erreurs locales E_i : ici, on n'utilise qu'un seul de ces morceaux à la fois.",
+      retenir: "Un petit pas par donnée, beaucoup de pas : plus rapide, mais plus « bruité »."
+    },
+    intermediaire: {
+      idee: "On remplace le gradient de l'erreur totale ∇E par celui d'une seule erreur locale ∇E_i.",
+      explication: "La mise à jour devient X_{k+1} = X_k − ρ ∇E_i(X_k), puis l'itération suivante utilise une autre donnée. Une époque (un passage sur les N données) donne ainsi N mises à jour au lieu d'une seule, pour le même coût de calcul.",
+      exemple: "Pour une régression y ≃ ax + b, chaque pas n'utilise qu'un point (x_i, y_i) : le gradient ne coûte plus une somme sur m données.",
+      lien: "La slide 4 définit E = Σ E_i ; cette slide exploite cette décomposition pour réduire le coût de chaque itération.",
+      retenir: "Gradient classique : 1 gros pas par époque. Gradient stochastique : N petits pas par époque."
+    },
+    avance: {
+      idee: "∇E_I, avec I tiré uniformément, est un estimateur sans biais de (1/N) ∇E.",
+      explication: "E[∇E_I(X)] = (1/N) Σ ∇E_i(X) = (1/N) ∇E(X) : en moyenne, un pas stochastique est un pas de descente classique (à l'échelle 1/N près). La variance de l'estimateur rend la trajectoire bruitée ; au minimiseur, ∇E(X*) = 0 mais ∇E_i(X*) ≠ 0, d'où une oscillation à pas constant.",
+      exemple: "Coût par itération O(1) au lieu de O(N) ; la convergence vers X* demande un pas décroissant vérifiant Σ ρ_k = ∞ et Σ ρ_k² < ∞.",
+      lien: "Formalise la slide 3 (coût de la somme sur m données) et prépare la slide 7 (pourquoi la méthode fonctionne).",
+      retenir: "Estimateur sans biais, mais de variance non nulle : compromis vitesse / précision, réglé par ρ."
+    }
+  };
+  const zone = document.getElementById("explication");
+  function afficher(niveau) {
+    const t = textes[niveau];
+    zone.innerHTML =
+      `<h4>Idée clé</h4><p>${t.idee}</p>` +
+      `<h4>Explication</h4><p>${t.explication}</p>` +
+      `<h4>Exemple</h4><p>${t.exemple}</p>` +
+      `<h4>Lien avec la slide précédente</h4><p>${t.lien}</p>` +
+      `<h4>À retenir</h4><p class="a-retenir">${t.retenir}</p>`;
+    document.querySelectorAll(".niveaux button").forEach(b => b.classList.toggle("actif", b.dataset.niveau === niveau));
+  }
+  document.querySelectorAll(".niveaux button").forEach(b => b.addEventListener("click", () => afficher(b.dataset.niveau)));
+  afficher("intermediaire");
+
+  // Navigation factice (la maquette ne contient qu'une slide).
+  let numero = 5;
+  const total = 24;
+  const position = document.getElementById("position");
+  function bouger(delta) {
+    numero = Math.min(total, Math.max(1, numero + delta));
+    position.textContent = `Slide ${numero} / ${total}`;
+  }
+  document.getElementById("precedente").addEventListener("click", () => bouger(-1));
+  document.getElementById("suivante").addEventListener("click", () => bouger(1));
+</script>
+</body>
+</html>

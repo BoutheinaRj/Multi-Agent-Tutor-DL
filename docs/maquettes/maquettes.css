@@ -1,0 +1,145 @@
+/* D2 — Styles communs des maquettes (Cours, Quiz).
+   Couleurs provisoires : à remplacer par la charte de Both (D1, docs/charte.md). */
+:root {
+  --fond: #f6f7fb;
+  --surface: #ffffff;
+  --bord: #dfe3ec;
+  --texte: #1f2430;
+  --texte-doux: #5c6577;
+  --primaire: #3b5bdb;
+  --primaire-doux: #e7ecff;
+  --succes: #2f9e44;
+  --succes-doux: #e6f6ea;
+  --erreur: #e03131;
+  --erreur-doux: #fdeaea;
+  --rayon: 12px;
+  --ombre: 0 1px 3px rgba(20, 30, 60, 0.08);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--fond);
+  color: var(--texte);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Barre du haut */
+.barre {
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 20px; background: var(--surface); border-bottom: 1px solid var(--bord);
+}
+.logo { font-weight: 700; color: var(--primaire); }
+.titre-cours { color: var(--texte-doux); }
+.onglets { margin-left: auto; display: flex; gap: 4px; }
+.onglets a {
+  padding: 6px 14px; border-radius: 8px; text-decoration: none; color: var(--texte-doux);
+}
+.onglets a.actif { background: var(--primaire-doux); color: var(--primaire); font-weight: 600; }
+
+/* Éléments communs */
+.carte { background: var(--surface); border: 1px solid var(--bord); border-radius: var(--rayon); box-shadow: var(--ombre); }
+.bouton {
+  border: 1px solid var(--bord); background: var(--surface); color: var(--texte);
+  padding: 8px 14px; border-radius: 8px; cursor: pointer; font: inherit;
+}
+.bouton.primaire { background: var(--primaire); border-color: var(--primaire); color: #fff; }
+.bouton:disabled { opacity: 0.45; cursor: default; }
+.etiquette {
+  display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px;
+  background: var(--primaire-doux); color: var(--primaire);
+}
+.note { font-size: 12px; color: var(--texte-doux); }
+.source { color: var(--primaire); font-weight: 600; text-decoration: none; }
+
+/* ----- Page Cours ----- */
+.page-cours {
+  display: grid; gap: 16px; padding: 16px 20px;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  max-width: 1400px; margin: 0 auto;
+}
+.zone-slide { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.slide {
+  aspect-ratio: 16 / 9; border: 1px solid var(--bord); border-radius: 8px;
+  background: #fff; padding: 24px 28px; overflow: hidden;
+}
+.slide h3 { margin: 0 0 10px; font-size: 20px; }
+.slide .formule {
+  font-family: "Cambria Math", "Times New Roman", serif; font-size: 18px;
+  background: var(--fond); padding: 8px 12px; border-radius: 6px; display: inline-block;
+}
+.navigation { display: flex; align-items: center; gap: 8px; }
+.navigation .position { margin: 0 auto; color: var(--texte-doux); }
+.miniatures { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+.miniatures span {
+  flex: 0 0 44px; height: 26px; border: 1px solid var(--bord); border-radius: 4px;
+  font-size: 11px; display: grid; place-items: center; color: var(--texte-doux); background: #fff;
+}
+.miniatures span.courante { border-color: var(--primaire); color: var(--primaire); font-weight: 700; }
+
+.zone-explication { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.niveaux { display: inline-flex; border: 1px solid var(--bord); border-radius: 8px; overflow: hidden; }
+.niveaux button {
+  border: 0; background: var(--surface); padding: 6px 12px; cursor: pointer; font: inherit; color: var(--texte-doux);
+}
+.niveaux button.actif { background: var(--primaire); color: #fff; }
+.explication h4 { margin: 12px 0 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--texte-doux); }
+.explication p { margin: 0; }
+.a-retenir { background: var(--primaire-doux); border-radius: 8px; padding: 10px 12px; }
+.outils { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.zone-chat { grid-column: 1 / -1; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.messages { display: flex; flex-direction: column; gap: 8px; max-height: 220px; overflow-y: auto; }
+.message { max-width: 75%; padding: 8px 12px; border-radius: 12px; }
+.message.utilisateur { align-self: flex-end; background: var(--primaire); color: #fff; }
+.message.tuteur { align-self: flex-start; background: var(--fond); border: 1px solid var(--bord); }
+.saisie { display: flex; gap: 8px; }
+.saisie input {
+  flex: 1; padding: 10px 12px; border: 1px solid var(--bord); border-radius: 8px; font: inherit;
+}
+.suggestions { display: flex; gap: 6px; flex-wrap: wrap; }
+.suggestions button {
+  border: 1px dashed var(--bord); background: transparent; border-radius: 999px; padding: 4px 10px;
+  cursor: pointer; font: inherit; font-size: 13px; color: var(--texte-doux);
+}
+
+/* ----- Page Quiz ----- */
+.page-quiz { max-width: 760px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+.entete-quiz { display: flex; align-items: center; gap: 12px; }
+.modes { margin-left: auto; }
+.progression { height: 6px; background: var(--bord); border-radius: 999px; overflow: hidden; }
+.progression div { height: 100%; background: var(--primaire); }
+.question { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.question h2 { margin: 0; font-size: 19px; }
+.choix { display: flex; flex-direction: column; gap: 8px; }
+.choix button {
+  text-align: left; padding: 12px 14px; border: 1px solid var(--bord); border-radius: 10px;
+  background: var(--surface); cursor: pointer; font: inherit;
+}
+.choix button.bonne { border-color: var(--succes); background: var(--succes-doux); }
+.choix button.mauvaise { border-color: var(--erreur); background: var(--erreur-doux); }
+.feedback { border-radius: 10px; padding: 12px 14px; display: none; }
+.feedback.visible { display: block; }
+.feedback.ok { background: var(--succes-doux); }
+.feedback.ko { background: var(--erreur-doux); }
+.pied-quiz { display: flex; justify-content: space-between; align-items: center; }
+
+.score { padding: 24px; text-align: center; display: none; }
+.score .valeur { font-size: 44px; font-weight: 700; color: var(--primaire); }
+.score ul { text-align: left; display: inline-block; }
+
+.flashcards { display: none; flex-direction: column; align-items: center; gap: 14px; }
+.flashcard {
+  width: 100%; min-height: 220px; padding: 28px; display: grid; place-items: center; text-align: center;
+  cursor: pointer; font-size: 18px;
+}
+.flashcard .face { color: var(--texte-doux); font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 8px; }
+.evaluation { display: flex; gap: 8px; }
+
+@media (max-width: 900px) {
+  .page-cours { grid-template-columns: minmax(0, 1fr); padding: 12px 16px; }
+  .barre { flex-wrap: wrap; }
+  .slide { aspect-ratio: auto; }
+}
