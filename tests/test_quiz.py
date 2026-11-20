@@ -246,6 +246,12 @@ def test_delimiter_latex_mixte_delimite_et_nu() -> None:
     assert qz.delimiter_latex(r"Avec $\alpha$ puis \beta seul.") == r"Avec $\alpha$ puis $\beta$ seul."
 
 
+def test_nettoyer_ne_delimite_que_sur_demande() -> None:
+    # Par défaut (Explainer) : réparation seule ; le quiz et les flashcards passent delimiter=True.
+    assert qz.nettoyer(r"La pente \beta_1 est estimée") == r"La pente \beta_1 est estimée"
+    assert qz.nettoyer(r"La pente \beta_1 est estimée", delimiter=True) == r"La pente $\beta_1$ est estimée"
+
+
 def test_qcm_prefixes_retires_et_latex_delimite(monkeypatch: pytest.MonkeyPatch) -> None:
     choix = [r"A) J(\theta) = \frac{1}{2m}", "B) L'erreur absolue", "c) Le nombre de données", "D. Le biais"]
     brut = _qcm(r"Quelle formule définit J(\theta) ?", choix, bonne=0)

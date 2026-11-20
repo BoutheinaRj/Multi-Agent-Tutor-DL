@@ -397,15 +397,16 @@ def retirer_choix_recopies(question: str) -> str:
     return "\n".join(gardees).strip()
 
 
-def nettoyer(texte: str, *, choix: bool = False, question: bool = False) -> str:
-    """Réparer le LaTeX abîmé, le délimiter par $…$ ; pour un choix, retirer « A) », « b. »… ;
-    pour une question, retirer les choix recopiés après elle."""
+def nettoyer(texte: str, *, choix: bool = False, question: bool = False,
+             delimiter: bool = False) -> str:
+    """Réparer le LaTeX abîmé ; pour un choix, retirer « A) », « b. »… ; pour une question,
+    retirer les choix recopiés après elle ; si delimiter, entourer le LaTeX de $…$ (KaTeX)."""
     texte = texte.translate(_LATEX_CASSE).strip()
     if choix:
         texte = _PREFIXE_CHOIX.sub("", texte)
     if question:
         texte = retirer_choix_recopies(texte)
-    return delimiter_latex(texte).strip()
+    return delimiter_latex(texte).strip() if delimiter else texte.strip()
 
 
 # --------------------------------------------------------------------------- vérification et mélange
@@ -503,9 +504,9 @@ def generer_quiz_detaille(
     for brut in lot.qcm:  # type: ignore[attr-defined]
         # Nettoyer AVANT la vérification : « A) x » et « B) x » deviennent des choix identiques.
         brut = brut.model_copy(update={
-            "question": nettoyer(brut.question, question=True),
-            "choix": [nettoyer(c, choix=True) for c in brut.choix],
-            "explication": nettoyer(brut.explication),
+            "question": nettoyer(brut.question, question=True, delimiter=True),
+            "choix": [nettoyer(c, choix=True, delimiter=True) for c in brut.choix],
+            "explication": nettoyer(brut.explication, delimiter=True),
         })
         motif = valider_qcm(brut)
         if motif is None and normaliser(brut.question) in vues:
@@ -581,7 +582,7 @@ def generer_flashcards(
     cartes: list[Flashcard] = []
     vues: set[str] = set()
     for brute in lot.cartes:  # type: ignore[attr-defined]
-        recto, verso = nettoyer(brute.recto), nettoyer(brute.verso)
+        recto, verso = nettoyer(brute.recto, delimiter=True), nettoyer(brute.verso, delimiter=True)
         if not recto or not verso or normaliser(recto) in vues:
             continue
         vues.add(normaliser(recto))
