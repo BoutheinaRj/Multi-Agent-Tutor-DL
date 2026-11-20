@@ -119,9 +119,9 @@ def test_filtres_sur_sorties_reelles() -> None:
             "A diagram showing the self-attention mechanism in a neural network, with q, k, and v "
             "elements connected by attention coefficients.",
         ],
-        formules=["M^{-1}=A^{-1}", "\textbf{Defi Singular Matrix No all non-zero matrices A have an inverse.",
-                  "\text{softmax}(QK^T / \sqrt{d_k}) V", "x^2" * 120],
+        formules=["M^{-1}=A^{-1}", r"\textbf{Defi Singular Matrix No all non-zero matrices A have an inverse.",
+                  r"\text{softmax}(QK^T / \sqrt{d_k}) V", "x^2" * 120],
     )
     figures, formules = vlm._nettoyer(analyse)
     assert len(figures) == 1 and figures[0].startswith("A diagram illustrating")
-    assert formules == ["M^{-1}=A^{-1}", "\text{softmax}(QK^T / \sqrt{d_k}) V"]
+    assert formules == ["M^{-1}=A^{-1}", r"\text{softmax}(QK^T / \sqrt{d_k}) V"]
