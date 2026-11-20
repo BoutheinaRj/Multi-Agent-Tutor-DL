@@ -93,3 +93,26 @@ graphe = construire_graphe({"question": agent})
 - Sinon, le LLM local (A0) répond à partir des seuls passages, en citant `[Slide N]` ; les citations de slides absentes des passages sont retirées ; une réponse sans citation reçoit celle du meilleur passage.
 - LLM indisponible (`LLMIndisponible`) : repli extractif, le passage le plus pertinent est renvoyé avec sa citation.
 - Démo : `python -m agents.qa "Qu'est-ce que la fonction de coût ?"` (cours d'exemple T0, modèles locaux). Tests : `tests/test_qa.py` (LLM fake).
+
+## O5 — Le tuteur complet (`tuteur.py`)
+
+`Tuteur` relie tout le travail de l'équipe : ingestion de Ghayth (H1 → H2 → H3), RAG de Both
+(B1-B2, Qdrant + reranker), graphe avec les vrais agents (Explainer O2, Q&A B3, Quiz A2 vérifié,
+Resources A4) et le Critic (O3). L'API (`api/main.py`) l'utilise pour `POST /upload`,
+`GET /slide/{id}/explain` et `POST /ask`.
+
+```python
+from agents.tuteur import Tuteur
+tuteur = Tuteur()                                   # TUTEUR_MODELES = complet | leger
+cours = tuteur.ingerer("data/corpus/fr/ml/ml_gradient_stochastique_esprit_fr.pdf")
+tuteur.expliquer(cours.id, 7, niveau="debutant")    # AgentResponse avec score_fidelite du Critic
+tuteur.demander(cours.id, 7, "Pourquoi le pas doit-il décroître ?")
+```
+
+- **`complet`** : bge-m3 + bge-reranker-v2-m3 dans `qdrant_storage/`, LLM local d'A0. Par défaut si
+  `sentence-transformers` est installé.
+- **`leger`** : embeddings par hachage et reranker par mots-clés (mots vides retirés, seuil 0,5,
+  réglable par `QA_SEUIL_LEGER`), en mémoire, sans aucun modèle : tests et démo sans GPU.
+- `INGESTION_RAPIDE=1` : ingestion texte seul (sans rendu, OCR ni VLM).
+- Démo de bout en bout sur 2 cours : `python -m tools.demo_o5` (`--leger --rapide` sans modèle,
+  `--rapport docs/demo_o5.md` pour le compte rendu). Tests : `tests/test_tuteur.py`, `tests/test_api.py`.

@@ -113,3 +113,14 @@ des statistiques descriptives sur les supports de cours.
 
 Il peut également servir à renseigner le nombre de slides
 dans `data/corpus_extra/inventaire.csv` pour la tâche G2.
+
+# O5 — Démo de bout en bout (`demo_o5.py`)
+
+Joue le parcours complet sur 2 vrais cours du corpus (un PDF français, un PPTX anglais) : dépôt et
+ingestion, explication d'une slide, question du cours, question hors cours (refus attendu), quiz
+vérifié et ressources, avec les temps et les scores du Critic.
+
+```bash
+python -m tools.demo_o5 --leger --rapide        # sans aucun modèle, en ~10 s
+python -m tools.demo_o5 --rapport docs/demo_o5.md   # modèles de .env, compte rendu Markdown
+```

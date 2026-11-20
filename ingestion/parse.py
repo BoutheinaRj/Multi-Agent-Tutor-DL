@@ -306,7 +306,10 @@ def _titre_pdf(page: pymupdf.Page) -> str:
                 continue
             taille = max(s["size"] for s in spans)
             tailles.extend(s["size"] for s in spans)
-            texte = re.sub(r"\s+", " ", "".join(s["text"] for s in spans)).strip()
+            # Joindre tous les spans, y compris ceux qui ne contiennent qu'une espace : dans les PDF
+            # LaTeX/Beamer, chaque mot est un span et les espaces sont des spans à part (O5 : sinon
+            # « Descente de gradient » devenait « Descentedegradient »).
+            texte = re.sub(r"\s+", " ", "".join(s["text"] for s in ligne["spans"])).strip()
             if ligne["bbox"][1] <= limite and len(texte) >= 2:
                 candidats.append((taille, -ligne["bbox"][1], texte))
     if not candidats:

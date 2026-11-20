@@ -21,3 +21,6 @@ models/
 
 # --- A6 : base SQLite de révision espacée (SRS_DB_PATH) ---
 data/srs.db
+
+# --- O5 : cours déposés par les utilisateurs via POST /upload ---
+data/raw/depots/

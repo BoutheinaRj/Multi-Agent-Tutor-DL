@@ -1,7 +1,9 @@
-"""A1 — API FastAPI du tuteur, avec des données factices.
+"""A1 — API FastAPI du tuteur, branchée sur le tuteur complet (O5, ``agents/tuteur.py``).
 
-Les réponses viennent de ``schemas/exemples/exemple_cours.json`` en attendant
-le branchement de l'ingestion, du RAG et des agents ; ``GET /resources`` utilise déjà
+``POST /upload`` lance l'ingestion de Ghayth (H1 → H2 → H3) et indexe le cours pour le RAG (B1-B2) ;
+``GET /slide/{id}/explain`` et ``POST /ask`` passent par le graphe (router → Explainer O2 / Q&A B3
+→ Critic O3). Le cours d'exemple ``schemas/exemples/exemple_cours.json`` reste chargé au démarrage.
+``GET /resources`` utilise
 l'agent Resources (A4, catalogue local), ``GET /quiz`` et ``GET /flashcards`` l'agent Quiz (A2),
 ``/flashcards/save|due|export`` et ``/flashcards/{id}/review`` la révision espacée SM-2 (A6).
 
@@ -11,6 +13,8 @@ Lancement : ``uvicorn api.main:app --reload`` puis http://localhost:8000/docs
 from __future__ import annotations
 
 import json
+import logging
+import re
 from datetime import date
 from pathlib import Path
 from typing import Annotated
@@ -18,11 +22,13 @@ from urllib.parse import quote
 
 from fastapi import FastAPI, File, HTTPException, Query, Response, UploadFile
 from fastapi import Path as PathParam
+from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
 
 from agents import srs
 from agents.quiz import brancher_cours, charger_cours, generer_flashcards, generer_quiz_detaille
 from agents.resources import charger_slide, chercher_ressources
+from agents.tuteur import Tuteur, tuteur_partage
 from api.models import (
     QCM,
     AskRequest,
@@ -41,12 +47,14 @@ from schemas.models import (
     Langue,
     Niveau,
     Slide,
-    Source,
     TutorState,
 )
 
 EXEMPLE_COURS = Path(__file__).resolve().parent.parent / "schemas" / "exemples" / "exemple_cours.json"
 EXTENSIONS_ACCEPTEES = {".pdf": "pdf", ".pptx": "pptx"}
+DOSSIER_DEPOTS = Path(__file__).resolve().parent.parent / "data" / "raw" / "depots"
+TAILLE_MAX_DEPOT = 50 * 1024 * 1024
+log = logging.getLogger(__name__)
 
 # Origines du frontend en développement (Vite, CRA, Streamlit).
 ORIGINES_FRONTEND = [
@@ -56,6 +64,9 @@ ORIGINES_FRONTEND = [
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5173",
     "http://127.0.0.1:8501",
+    # Maquettes D2 servies en local (python -m http.server 8765 --directory docs/maquettes)
+    "http://localhost:8765",
+    "http://127.0.0.1:8765",
 ]
 
 
@@ -81,6 +92,24 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+def tuteur() -> Tuteur:
+    """Le tuteur complet (O5), avec le cours d'exemple et les cours chargés par l'API."""
+    t = tuteur_partage()
+    for cours in COURS.values():
+        if cours.id not in t.cours:
+            t.ajouter_cours(cours)
+    return t
+
+
+def _course_id_depuis(nom: str) -> str:
+    """Identifiant de cours valide (minuscules ASCII, chiffres, « _ ») tiré du nom du fichier."""
+    import unicodedata
+
+    base = unicodedata.normalize("NFKD", Path(nom).stem).encode("ascii", "ignore").decode().lower()
+    base = re.sub(r"[^a-z0-9]+", "_", base).strip("_")
+    return base or "cours"
 
 
 def _cours(course_id: str) -> Course:
@@ -111,13 +140,29 @@ def health() -> dict[str, str]:
 
 
 @app.post("/upload", response_model=Course)
-async def upload(fichier: UploadFile = File(...)) -> Course:
-    """Recevoir un PDF/PPTX et renvoyer un cours factice (ingestion non branchée)."""
+async def upload(fichier: UploadFile = File(...), rapide: bool | None = None) -> Course:
+    """Recevoir un PDF/PPTX, l'ingérer (H1 → H2 → H3) et l'indexer : le cours est prêt pour les agents.
+
+    ``rapide`` : texte seul, sans rendu, OCR ni VLM (par défaut : ``INGESTION_RAPIDE`` ou le jeu
+    de modèles du tuteur, voir ``agents/tuteur.py``).
+    """
     extension = Path(fichier.filename or "").suffix.lower()
     if extension not in EXTENSIONS_ACCEPTEES:
         raise HTTPException(status_code=415, detail="Seuls les fichiers PDF et PPTX sont acceptés")
-    await fichier.read()  # Le contenu sera transmis à l'ingestion (H1).
-    return _cours(_exemple.id)
+    contenu = await fichier.read()
+    if len(contenu) > TAILLE_MAX_DEPOT:
+        raise HTTPException(status_code=413, detail="Fichier trop volumineux (50 Mo au plus)")
+    DOSSIER_DEPOTS.mkdir(parents=True, exist_ok=True)
+    course_id = _course_id_depuis(fichier.filename or "cours")
+    chemin = DOSSIER_DEPOTS / f"{course_id}{extension}"
+    chemin.write_bytes(contenu)
+    try:
+        cours = await run_in_threadpool(tuteur().ingerer, chemin, rapide=rapide, course_id=course_id)
+    except Exception as e:  # noqa: BLE001 - fichier illisible : message clair plutôt qu'une 500
+        log.warning("ingestion impossible pour %s : %s", chemin.name, e)
+        raise HTTPException(status_code=422, detail=f"Ce fichier n'a pas pu être lu : {e}") from e
+    COURS[cours.id] = cours
+    return cours
 
 
 @app.get("/course/{course_id}", response_model=Course)
@@ -125,44 +170,21 @@ def get_course(course_id: str) -> Course:
     return _cours(course_id)
 
 
-PREFIXES_NIVEAU: dict[str, str] = {
-    "debutant": "En termes simples",
-    "intermediaire": "En résumé",
-    "avance": "Plus formellement",
-}
-
-
 @app.get("/slide/{slide_id}/explain", response_model=AgentResponse)
 def explain(
     slide_id: Annotated[str, PathParam(pattern=SLIDE_ID_PATTERN)],
     niveau: Niveau = "intermediaire",
 ) -> AgentResponse:
-    """Explication factice d'une slide, adaptée au niveau demandé."""
+    """Explication de la slide par l'Explainer (O2) au niveau demandé, vérifiée par le Critic (O3)."""
     slide = _slide_par_id(slide_id)
-    contenu = slide.texte or slide.titre
-    return AgentResponse(
-        agent="explainer",
-        reponse=(
-            f"{PREFIXES_NIVEAU[niveau]} : la slide « {slide.titre} » explique ceci. "
-            f"{contenu} [Slide {slide.numero}]"
-        ),
-        sources=[Source(course_id=slide.course_id, numero=slide.numero, extrait=contenu)],
-    )
+    return tuteur().expliquer(slide.course_id, slide.numero, niveau)
 
 
 @app.post("/ask", response_model=AgentResponse)
 def ask(requete: AskRequest) -> AgentResponse:
-    """Réponse factice à une question, citant la slide courante."""
+    """Question sur le cours : le router choisit l'agent (Q&A B3 par défaut), puis le Critic vérifie."""
     slide = _slide(requete.course_id, requete.slide_courante)
-    contenu = slide.texte or slide.titre
-    return AgentResponse(
-        agent="qa",
-        reponse=(
-            f"Réponse factice ({requete.niveau}, {requete.langue}) à « {requete.question} » : "
-            f"{contenu} [Slide {slide.numero}]"
-        ),
-        sources=[Source(course_id=slide.course_id, numero=slide.numero, extrait=contenu)],
-    )
+    return tuteur().demander(slide.course_id, slide.numero, requete.question, requete.niveau, requete.langue)
 
 
 @app.get("/quiz", response_model=list[QCM])
