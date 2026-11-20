@@ -62,14 +62,23 @@ class Recherche(Protocol):
         ...
 
 
-def construire_prompt(question: str, passages: Sequence[SearchHit]) -> str:
-    """Passages numérotés par slide, puis la question."""
+def construire_prompt(
+    question: str, passages: Sequence[SearchHit], corrections: Sequence[str] = ()
+) -> str:
+    """Passages numérotés par slide, la question, puis les corrections du Critic (O3) s'il y en a."""
     blocs = []
     for hit in passages:
         c = hit.chunk
         titre = f" — {c.titre}" if c.titre else ""
         blocs.append(f"[Slide {c.numero}]{titre}\n{c.contenu[:LONGUEUR_PASSAGE]}")
-    return "Passages du cours :\n\n" + "\n\n".join(blocs) + f"\n\nQuestion : {question}\nRéponse :"
+    texte = "Passages du cours :\n\n" + "\n\n".join(blocs) + f"\n\nQuestion : {question}\n"
+    if corrections:
+        texte += (
+            "\nTa réponse précédente contenait des affirmations non appuyées par les passages :\n"
+            + "\n".join(f"- {c}" for c in corrections)
+            + "\nRéécris la réponse en retirant ou en corrigeant ces affirmations.\n"
+        )
+    return texte + "Réponse :"
 
 
 def slides_citees(texte: str) -> list[int]:
@@ -124,15 +133,21 @@ class AgentQA:
         hits = self.recherche.rechercher(question, course_id=course_id, k=self.k)
         return [h for h in hits if h.score >= self.seuil]
 
-    def repondre(self, question: str, course_id: str, langue: str = "fr") -> AgentResponse:
-        """Répondre à une question sur un cours, avec les sources citées."""
+    def repondre(
+        self, question: str, course_id: str, langue: str = "fr", corrections: Sequence[str] = ()
+    ) -> AgentResponse:
+        """Répondre à une question sur un cours, avec les sources citées.
+
+        ``corrections`` : affirmations rejetées par le Critic (O3) au tour précédent.
+        """
         passages = self.passages(question, course_id) if question.strip() else []
         if not passages:
             return AgentResponse(agent="qa", reponse=REPONSE_HORS_COURS, sources=[])
 
         systeme = SYSTEME.format(refus=REPONSE_HORS_COURS, langue=LANGUES.get(langue, "français"))
         try:
-            texte = self._generer(systeme, construire_prompt(question, passages), max_tokens=self.max_tokens)
+            prompt = construire_prompt(question, passages, corrections)
+            texte = self._generer(systeme, prompt, max_tokens=self.max_tokens)
         except llm.LLMIndisponible as e:
             log.warning("LLM indisponible, repli extractif : %s", e)
             meilleur = passages[0].chunk
@@ -155,7 +170,8 @@ class AgentQA:
 
     def __call__(self, state: TutorState) -> dict[str, Any]:
         """Nœud LangGraph : met à jour la réponse, les sources et l'historique."""
-        resultat = self.repondre(state.question, state.course_id, state.langue_reponse)
+        corrections = getattr(state, "corrections", None) or []  # rempli par le Critic (O3)
+        resultat = self.repondre(state.question, state.course_id, state.langue_reponse, corrections)
         historique = list(state.historique)
         if state.question:
             historique.append(Message(role="utilisateur", contenu=state.question))
