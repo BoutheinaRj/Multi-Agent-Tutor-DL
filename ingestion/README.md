@@ -74,7 +74,20 @@ Modèle local : **Qwen2.5-VL-3B-Instruct** (GGUF Q4_K_M + projecteur mmproj Q8_0
 - Seules les slides **visuelles** sont envoyées (images, ≥ 12 tracés vectoriels, formules, scans) ;
   `--toutes` force l'analyse de toutes les slides.
 - **Cache** `data/cache/vlm/` : clé = SHA-256(image + modèle + version du prompt + langue).
-- Un échec du VLM ne bloque jamais l'ingestion : les champs restent vides.
+- Un échec du VLM ne bloque jamais l'ingestion : les champs restent vides. Si le JSON est
+  invalide (boucle du modèle), une seconde tentative est faite à température plus élevée.
+- Filtres : descriptions quasi dupliquées, « formules » décrites comme des figures et phrases
+  renvoyées comme formules sont écartées.
+
+Mesures (CPU, Qwen2.5-VL-3B Q4_K_M, image 896 px) :
+
+| Cas | Temps / slide | Qualité |
+|---|---|---|
+| Slide de schéma (`dl_self_attention_ntu_en`) | ≈ 60–70 s | descriptions justes et pédagogiques ; formules parfois omises |
+| Notes manuscrites scannées (`maths_matrices_scan_uiowa_en`) | ≈ 130 s | 8/8 slides, 60 formules ; matrices et vecteurs bien lus, quelques formules bruitées |
+
+Le cache rend tout second passage instantané. Pour aller plus vite : `VLM_MAX_COTE=768`, ou un
+GPU avec une roue llama-cpp CUDA et `VLM_N_GPU_LAYERS=-1`.
 
 | Variable | Défaut | Rôle |
 |---|---|---|
@@ -95,6 +108,10 @@ Modèle local : **Qwen2.5-VL-3B-Instruct** (GGUF Q4_K_M + projecteur mmproj Q8_0
 3. **Résumé global** du cours par le LLM (repli : résumé extractif) → `course.resume`.
 4. **`get_prerequisites(slide_id)`** → ids des slides antérieures qui introduisent les concepts
    nécessaires, triés dans l'ordre du cours (5 au plus). `[]` si la carte n'existe pas.
+
+Validé avec Qwen2.5-3B (A0) : `dl_self_attention_ntu_en` → 120 concepts, résumé fidèle ;
+p. ex. « Self-attention for Image » (s33) → prérequis s1 (self-attention) et s3 (vector set).
+Environ 10 s par slide sur CPU, puis instantané grâce au cache.
 
 `course_map.json` :
 

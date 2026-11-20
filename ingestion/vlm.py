@@ -26,6 +26,7 @@ Usage : ``python -m ingestion.vlm <course_id> [...] [--toutes] [--force]``.
 from __future__ import annotations
 
 import argparse
+import atexit
 import base64
 import hashlib
 import importlib.util
@@ -51,7 +52,7 @@ RACINE = Path(__file__).resolve().parents[1]
 DOSSIER_PROCESSED = RACINE / "data" / "processed"
 DOSSIER_CACHE = RACINE / "data" / "cache" / "vlm"
 
-VERSION_PROMPT = "h2-v1"
+VERSION_PROMPT = "h2-v2"
 MODELE_GGUF = "models/Qwen2.5-VL-3B-Instruct-Q4_K_M.gguf"
 MMPROJ_GGUF = "models/mmproj-Qwen2.5-VL-3B-Instruct-Q8_0.gguf"
 MODELE_HF = "Qwen/Qwen2.5-VL-3B-Instruct"
@@ -122,12 +123,14 @@ def _consignes(langue: str) -> tuple[str, str]:
                   "You answer only with JSON.")
         consigne = (
             "Look at the slide image and return a JSON object with two lists:\n"
-            '- "figures": one entry per diagram, chart, plot, table drawn as an image, schematic or '
-            "meaningful photo. In 1 to 3 sentences, explain what it shows (components, arrows, axes, "
-            "trends, relationships) so that a student who cannot see it understands it. Ignore logos, "
-            "decorative pictures and plain text. Empty list if there is no figure.\n"
-            '- "formules": every mathematical formula or equation visible on the slide, transcribed in '
-            "LaTeX without $ delimiters. Empty list if there is none.\n"
+            '- "figures": exactly one entry per distinct diagram, chart, plot, table drawn as an image, '
+            "schematic or meaningful photo (never two entries for the same figure). In 1 to 3 sentences, "
+            "explain what it shows (components, arrows, axes, trends, relationships) so that a student "
+            "who cannot see it understands it. Formulas, logos, decorative pictures and plain text are "
+            "not figures. Empty list if there is no figure.\n"
+            '- "formules": every distinct mathematical formula or equation visible on the slide, in '
+            "LaTeX without $ delimiters (use commands such as \\sum, \\frac, \\alpha, _ and ^), each "
+            "formula written once. Empty list if there is none.\n"
             "Do not invent anything that is not visible.")
         contexte = "Text already extracted from the slide (do not copy it into the figures):"
     else:
@@ -135,12 +138,14 @@ def _consignes(langue: str) -> tuple[str, str]:
                   "Tu réponds uniquement en JSON.")
         consigne = (
             "Observe l'image de la slide et renvoie un objet JSON avec deux listes :\n"
-            '- "figures" : une entrée par schéma, graphique, courbe, tableau dessiné en image, diagramme '
-            "ou photo utile. En 1 à 3 phrases en français, explique ce qu'il montre (éléments, flèches, "
-            "axes, tendances, relations) pour qu'un étudiant qui ne le voit pas le comprenne. Ignore les "
-            "logos, les images décoratives et le texte simple. Liste vide s'il n'y a pas de figure.\n"
-            '- "formules" : chaque formule ou équation mathématique visible, retranscrite en LaTeX, sans '
-            "délimiteurs $. Liste vide s'il n'y en a pas.\n"
+            '- "figures" : exactement une entrée par schéma, graphique, courbe, tableau dessiné en image, '
+            "diagramme ou photo utile (jamais deux entrées pour la même figure). En 1 à 3 phrases en "
+            "français, explique ce qu'il montre (éléments, flèches, axes, tendances, relations) pour "
+            "qu'un étudiant qui ne le voit pas le comprenne. Les formules, logos, images décoratives et "
+            "le texte simple ne sont pas des figures. Liste vide s'il n'y a pas de figure.\n"
+            '- "formules" : chaque formule ou équation mathématique distincte visible, en vrai LaTeX sans '
+            "délimiteurs $ (avec des commandes comme \\sum, \\frac, \\alpha, _ et ^), chacune écrite une "
+            "seule fois. Liste vide s'il n'y en a pas.\n"
             "N'invente rien qui ne soit pas visible.")
         contexte = "Texte déjà extrait de la slide (ne pas le recopier dans les figures) :"
     return system, f"{consigne}\n\n{contexte}\n{{texte}}"
@@ -186,13 +191,23 @@ def _charger_llamacpp(modele_path: str, mmproj_path: str, n_ctx: int, n_threads:
     log.info("chargement du VLM %s", Path(modele_path).name)
     try:
         handler = Qwen25VLChatHandler(clip_model_path=mmproj_path, verbose=False)
-        return Llama(model_path=modele_path, chat_handler=handler, n_ctx=n_ctx, n_threads=n_threads,
-                     n_gpu_layers=n_gpu_layers, verbose=False)
+        llm = Llama(model_path=modele_path, chat_handler=handler, n_ctx=n_ctx, n_threads=n_threads,
+                    n_gpu_layers=n_gpu_layers, verbose=False)
     except Exception as e:  # noqa: BLE001
         raise VLMIndisponible(f"échec du chargement du VLM : {e}") from e
+    # Fermer avant l'arrêt de l'interpréteur (sinon llama-cpp lève une erreur dans __del__).
+    atexit.register(_fermer, llm)
+    return llm
 
 
-def _appel_llamacpp(system: str, prompt: str, data_uri: str) -> str:
+def _fermer(llm: Any) -> None:
+    try:
+        llm.close()
+    except Exception:  # noqa: BLE001
+        pass
+
+
+def _appel_llamacpp(system: str, prompt: str, data_uri: str, temperature: float = 0.1) -> str:
     llm = _charger_llamacpp(
         str(_chemin("VLM_MODEL_PATH", MODELE_GGUF)), str(_chemin("VLM_MMPROJ_PATH", MMPROJ_GGUF)),
         _entier("VLM_N_CTX", 4096) or 4096, _entier("VLM_N_THREADS", None), _entier("VLM_N_GPU_LAYERS", 0) or 0,
@@ -207,7 +222,7 @@ def _appel_llamacpp(system: str, prompt: str, data_uri: str) -> str:
     try:
         with _verrou:
             reponse = llm.create_chat_completion(
-                messages=messages, max_tokens=MAX_TOKENS, temperature=0.1,
+                messages=messages, max_tokens=MAX_TOKENS, temperature=temperature, repeat_penalty=1.15,
                 response_format={"type": "json_object", "schema": AnalyseVisuelle.model_json_schema()},
             )
     except Exception as e:  # noqa: BLE001
@@ -250,22 +265,28 @@ def analyser_image(chemin_image: Path, slide: Slide, langue: str) -> AnalyseVisu
     """Appeler le VLM sur une image de slide (sans cache). Lève ``VLMIndisponible``."""
     system, prompt = _prompt(slide, langue)
     b = backend()
-    if b == "fake":
-        brut = os.getenv("VLM_FAKE_REPONSE", "").strip() or json.dumps(
-            {"figures": [f"[fake] figure de la slide {slide.numero}"], "formules": ["E = mc^2"]})
-    else:
-        data_uri, octets = _image_data_uri(chemin_image)
-        if b == "llamacpp":
-            brut = _appel_llamacpp(system, prompt, data_uri)
-        elif b == "transformers":
-            brut = _appel_transformers(system, prompt, octets)
+    if b not in ("fake", "llamacpp", "transformers"):
+        raise VLMIndisponible(f"VLM_BACKEND inconnu ou désactivé : {b!r}")
+    data_uri, octets = ("", b"") if b == "fake" else _image_data_uri(chemin_image)
+    erreur: Exception | None = None
+    # Deux tentatives : un petit modèle peut boucler et tronquer le JSON ; on relance plus « chaud ».
+    for temperature in (0.1, 0.5):
+        if b == "fake":
+            brut = os.getenv("VLM_FAKE_REPONSE", "").strip() or json.dumps(
+                {"figures": [f"[fake] figure de la slide {slide.numero}"], "formules": ["E = mc^2"]})
+        elif b == "llamacpp":
+            brut = _appel_llamacpp(system, prompt, data_uri, temperature)
         else:
-            raise VLMIndisponible(f"VLM_BACKEND inconnu ou désactivé : {b!r}")
-    debut, fin = brut.find("{"), brut.rfind("}")
-    try:
-        return AnalyseVisuelle.model_validate_json(brut[debut:fin + 1] if 0 <= debut < fin else brut)
-    except ValidationError as e:
-        raise VLMIndisponible(f"sortie VLM invalide : {e}") from e
+            brut = _appel_transformers(system, prompt, octets)
+        debut, fin = brut.find("{"), brut.rfind("}")
+        try:
+            return AnalyseVisuelle.model_validate_json(brut[debut:fin + 1] if 0 <= debut < fin else brut)
+        except ValidationError as e:
+            erreur = e
+            log.info("sortie VLM invalide sur %s (T=%.1f), nouvelle tentative", slide.id, temperature)
+            if b != "llamacpp":
+                break
+    raise VLMIndisponible(f"sortie VLM invalide : {erreur}") from erreur
 
 
 # --------------------------------------------------------------------------- nettoyage
@@ -282,18 +303,43 @@ def nettoyer_latex(formule: str) -> str:
 
 
 _RIEN = re.compile(r"^(aucun|aucune|none|no|n/?a|pas de|there is no|il n'y a)\b", re.I)
+# « A formula for … », « La formule … » : une formule décrite comme une figure.
+_FORMULE_DECRITE = re.compile(
+    r"^(an?|the|une?|la|le)\s+(mathematical\s+|mathématique\s+)?(formula|equation|formule|équation)\b", re.I)
+
+
+def _est_de_la_prose(formule: str) -> bool:
+    """Vrai si la « formule » contient plus de deux vrais mots (hors commandes LaTeX) : une phrase."""
+    sans_commandes = re.sub(r"\\[a-zA-Z]+", " ", formule)
+    return len(re.findall(r"[A-Za-zÀ-ÿ]{4,}", sans_commandes)) > 2
+
+
+def _mots_cles(texte: str) -> set[str]:
+    return set(re.findall(r"\w{3,}", texte.lower()))
+
+
+def _quasi_doublon(texte: str, gardees: list[str]) -> bool:
+    """Vrai si ``texte`` partage ≥ 60 % de ses mots avec une description déjà gardée."""
+    mots = _mots_cles(texte)
+    for autre in gardees:
+        autres = _mots_cles(autre)
+        if mots and autres and len(mots & autres) / min(len(mots), len(autres)) >= 0.6:
+            return True
+    return False
 
 
 def _nettoyer(analyse: AnalyseVisuelle) -> tuple[list[str], list[str]]:
     figures: list[str] = []
     for f in analyse.figures:
         f = re.sub(r"\s+", " ", f).strip()
-        if len(f) >= 15 and not _RIEN.match(f) and f not in figures:
+        if (len(f) >= 15 and not _RIEN.match(f) and not _FORMULE_DECRITE.match(f)
+                and not _quasi_doublon(f, figures)):
             figures.append(f)
     formules: list[str] = []
     for f in analyse.formules:
         f = nettoyer_latex(f)
-        if f and re.search(r"[=<>\\^_+\-*/≤≥∑∫]", f) and f not in formules:
+        if f and len(f) <= 200 and re.search(r"[=<>\\^_+\-*/≤≥∑∫]", f) and not _est_de_la_prose(f) \
+                and f not in formules:
             formules.append(f)
     return figures, formules
 

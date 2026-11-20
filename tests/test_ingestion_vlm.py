@@ -107,3 +107,21 @@ def test_vlm_indisponible_ne_bloque_pas(cours, tmp_path: Path, monkeypatch) -> N
     monkeypatch.setattr(vlm, "analyser_image", en_panne)
     enrichi = enrich_with_vlm(course, dossier=sortie, cache=tmp_path / "cache", toutes=True, sauvegarder=False)
     assert enrichi == course
+
+
+def test_filtres_sur_sorties_reelles() -> None:
+    """Sorties observées avec Qwen2.5-VL-3B : doublons, formule décrite, phrase en guise de formule."""
+    analyse = AnalyseVisuelle(
+        figures=[
+            "A diagram illustrating self-attention in a neural network, showing how elements (q, k, v) "
+            "are connected and weighted by attention coefficients.",
+            "A formula for calculating b2 is shown, representing the sum of weighted elements.",
+            "A diagram showing the self-attention mechanism in a neural network, with q, k, and v "
+            "elements connected by attention coefficients.",
+        ],
+        formules=["M^{-1}=A^{-1}", "\textbf{Defi Singular Matrix No all non-zero matrices A have an inverse.",
+                  "\text{softmax}(QK^T / \sqrt{d_k}) V", "x^2" * 120],
+    )
+    figures, formules = vlm._nettoyer(analyse)
+    assert len(figures) == 1 and figures[0].startswith("A diagram illustrating")
+    assert formules == ["M^{-1}=A^{-1}", "\text{softmax}(QK^T / \sqrt{d_k}) V"]
