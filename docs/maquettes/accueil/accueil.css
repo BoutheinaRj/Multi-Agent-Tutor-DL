@@ -26,7 +26,7 @@
   --jaune-pale: #FEF3C7;         /* « à retenir », dérivé de --mat-accent */
   --vert-pale: #DCFCE7;
   --rouge-pale: #FEE2E2;
-  --marine-2: #182851;           /* surface sur la bande marine, dérivée de --mat-texte */
+  --marine-surface: #182851;           /* surface sur la bande marine, dérivée de --mat-texte */
   --sur-marine: #C7D2FE;         /* texte secondaire sur marine, dérivé de --mat-fond-clair */
   --ombre-panneau: 0 1px 2px rgba(14, 26, 61, .05), 0 12px 32px rgba(35, 80, 216, .08);
   --ombre-forte: 0 30px 60px -20px rgba(11, 26, 69, .35), 0 12px 24px -12px rgba(37, 99, 235, .25);
@@ -304,7 +304,7 @@ p { margin: 0; text-wrap: pretty; }
 .routeur { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 28px; align-items: start; }
 .demandes { display: grid; gap: 10px; }
 .demandes p { margin: 0 0 4px; font-size: 13px; font-weight: 600; color: var(--sur-marine); }
-.demande { display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 16px; border: 0; border-radius: 12px; background: var(--marine-2);
+.demande { display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 16px; border: 0; border-radius: 12px; background: var(--marine-surface);
   box-shadow: inset 0 0 0 1px rgba(199, 210, 254, .16); text-align: start; font: 500 15.5px/1.35 var(--police); color: var(--mat-surface); cursor: pointer;
   transition: box-shadow 200ms ease, background-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); }
 .demande img, .demande svg { flex: none; padding: 5px; width: 30px; height: 30px; border-radius: 8px; background: var(--mat-surface); color: var(--mat-primaire); }

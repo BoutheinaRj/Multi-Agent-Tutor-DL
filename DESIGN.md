@@ -21,6 +21,8 @@ colors:
   vert-doux: "#DCFCE7"
   rouge: "#DC2626"
   rouge-doux: "#FEE2E2"
+  marine-surface: "#182851"
+  sur-marine: "#C7D2FE"
 typography:
   display:
     fontFamily: "Inter, Noto Sans Arabic, Segoe UI, Roboto, Arial, sans-serif"
@@ -197,6 +199,12 @@ d'enseignants. L'interface est trilingue (FR / EN / AR) et passe entièrement en
 Rejet confirmé : le tableau de bord SaaS anonyme à cartes grises. Le monde précédemment tiré (« tableau de l'amphi »,
 sombre) a été remplacé par l'épinglage du logo et ne fait pas partie du système.
 
+Deux registres partagent ces valeurs. **L'outil** (pages Cours et Quiz, puis le frontend React) reste clair, dense et
+calme : c'est la règle par défaut de tout ce document. **La vitrine** (landing `docs/maquettes/accueil/`, demandée
+« créative, marketing, animée ») a le droit de parler plus fort : bandes marine, dégradé vivant, très grands titres,
+mouvement d'auteur. Les exceptions de la vitrine sont listées dans « La landing (vitrine) » ; elles ne s'appliquent
+jamais à l'outil.
+
 **Key Characteristics:**
 - Les valeurs de la charte D1 (Both, `docs/charte.md`) reprises telles quelles dans les variables `--mat-*`.
 - Le logo officiel en en-tête ; la mascotte SVG à quatre états (sourit, réfléchit, contente, oups) comme visage du tuteur.
@@ -241,6 +249,8 @@ dans le build pour les grands aplats ; elles ne remplacent jamais une valeur de 
 - **Gris clair** (filet, `--mat-bordure`) : séparateurs, bordures des panneaux, des choix, des vignettes, bulle du tuteur.
 - **Gris appuyé** (filet-fort, dérivé) : bordure du champ de question au repos, pointillé du refus honnête, point de
   maîtrise vide, barre de défilement.
+- **Marine surface** (marine-surface, dérivé de `--mat-texte`) et **bleu pâle sur marine** (sur-marine, dérivé de
+  `--mat-fond-clair`) : réservés aux bandes marine de la landing (boutons de demande, texte secondaire).
 - **Fond** (fond, `--mat-fond`) : fond de page. **Surface** (surface, `--mat-surface`) : panneaux, bouton secondaire,
   cadre de slide, bulle du tuteur.
 
@@ -412,6 +422,30 @@ transformations symétriques (flashcard, pulsations). Durées de 160ms (états d
 formule clé). Sous `prefers-reduced-motion`, les transformations et entrées disparaissent mais les fondus de couleur
 et d'opacité restent.
 
+### La landing (vitrine)
+Fichiers : `docs/maquettes/accueil/index.html`, `accueil.css`, `accueil.js`, `gradient.js`. Mêmes variables `--mat-*`,
+même Inter, mêmes boutons 8px et mêmes pastilles `[Slide N]` que l'outil ; ce qui change :
+- **Bandes marine.** Le hero, la section des agents et la fin de page sont sur `--mat-texte` (#0B1A45), texte blanc
+  `--mat-surface`, texte secondaire en bleu pâle dérivé (#C7D2FE). Ce sont des bandes, pas un thème sombre : le reste
+  de la page est sur `--mat-fond` et l'outil n'a pas de mode sombre.
+- **Dégradé vivant.** Un seul shader WebGL (`gradient.js`) mêle marine, bleu roi, bleu clair, bleu très clair et une
+  petite lueur jaune du pompon, sous les bandes marine uniquement. Il est rendu à résolution réduite, se met en pause
+  hors écran et onglet caché, reste figé sous mouvement réduit, et a un repli CSS en dégradés radiaux. Aucune autre
+  surface ne reçoit de dégradé décoratif (le fondu bleu ciel de la section Preuves est un aplat dérivé, pas un effet).
+- **Titres d'affiche.** Inter 800, de 40 à 86px dans le hero et jusqu'à 100px en fin de page, interlettrage -0.045em ;
+  la seconde moitié des titres de section passe en bleu roi (bleu clair sur marine).
+- **Surligneur.** Un trait jaune tracé sous le dernier mot du hero et de la fin de page : c'est le geste « à retenir »
+  de la Pompon Rule, pas une décoration libre. Un seul par bande, jamais sur un bouton.
+- **Le logo sur marine.** Il n'est jamais posé directement sur le fond foncé : barre de navigation blanche flottante et
+  médaillon blanc rond autour de la mascotte du hero. L'ombre est portée par le médaillon, jamais par le logo.
+- **Mouvement d'auteur.** Entrée du hero une fois (lignes du titre qui montent, 900ms ease-out, décalage 90ms ; trait
+  du surligneur 700ms), apparition des titres au défilement (une fois, depuis 24px), compteurs (1,4s ease-out quartique),
+  tuteur qui se redresse au défilement (`animation-timeline: view()`, sans repli JS), bandeau des matières en boucle
+  linéaire de 38s qui s'arrête au survol, parallaxe légère des bulles du hero et bouton aimanté au pointeur fin, tache
+  de lumière qui suit le curseur dans les cartes (transform sur un enfant). Rien d'autre ne tourne en boucle. Seuls
+  `transform` et `opacity` sont animés ; sous `prefers-reduced-motion`, tout reste à sa place finale et le bandeau
+  devient défilable à la main.
+
 ## Do's and Don'ts
 
 ### Do:
@@ -425,7 +459,8 @@ et d'opacité restent.
 - **Do** composer les formules en STIX Two Text (KaTeX dans le frontend React) et auto-héberger toutes les polices.
 
 ### Don't:
-- **Don't** sortir de la palette de la charte : pas de nouvelle teinte, pas de thème sombre, pas de dégradé décoratif.
+- **Don't** sortir de la palette de la charte : pas de nouvelle teinte, pas de thème sombre, pas de dégradé décoratif dans l'outil (la landing a ses exceptions, voir « La landing (vitrine) »).
+- **Don't** reprendre dans l'outil les effets de la vitrine (dégradé vivant, bandes marine, bandeau défilant, parallaxe) : l'outil est consulté des dizaines de fois par séance.
 - **Don't** utiliser le jaune pour un bouton d'action ou une décoration, ni mettre du texte blanc sur le jaune ou le bleu clair.
 - **Don't** déformer, recolorer ou ombrer le logo, ni le poser sur un fond foncé.
 - **Don't** construire des écrans en tableau de bord SaaS à cartes grises anonymes ; le tuteur a la mascotte pour visage.
