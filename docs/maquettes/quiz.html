@@ -10,6 +10,7 @@
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-depot" viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5"/><path d="M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol>
   <symbol id="i-livre" viewBox="0 0 24 24"><path d="M3 5.5C5.5 4 8.5 4 12 6c3.5-2 6.5-2 9-.5V19c-2.5-1.5-5.5-1.5-9 .5-3.5-2-6.5-2-9-.5z"/><path d="M12 6v13.5"/></symbol>
   <symbol id="i-cours" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
   <symbol id="i-quiz" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><path d="M12 17h.01"/></symbol>
@@ -23,13 +24,14 @@
 </svg>
 
 <header class="barre">
-  <a class="marque" href="cours.html" aria-label="Multi-Agent Tutor, accueil"><img src="img/logo-icone.png" alt="" width="44" height="44"><span class="marque-nom">Multi-Agent <b>Tutor</b></span></a>
+  <a class="marque" href="accueil/index.html" aria-label="Multi-Agent Tutor, accueil"><img src="img/logo-icone.png" alt="" width="44" height="44"><span class="marque-nom">Multi-Agent <b>Tutor</b></span></a>
   <div class="cours-actuel">
     <svg class="icone"><use href="#i-livre"/></svg>
     <span>Optimisation pour le ML ·</span>
     <strong>Ch. 3 — Descente de gradient stochastique</strong>
   </div>
   <nav class="onglets" aria-label="Sections">
+    <a href="depot.html"><svg class="icone"><use href="#i-depot"/></svg><span data-t="depot">Déposer</span></a>
     <a href="cours.html"><svg class="icone"><use href="#i-cours"/></svg><span data-t="cours">Cours</span></a>
     <a href="quiz.html" aria-current="page"><svg class="icone"><use href="#i-quiz"/></svg><span data-t="quiz">Quiz</span></a>
   </nav>
@@ -220,9 +222,9 @@
   $("vers-cartes").addEventListener("click", () => mode("flashcards"));
 
   brancherLangues({
-    fr: { exact: "Exact !", presque: "Pas tout à fait.", "voir-score": "Voir mon score", "tout-acquis": "Tout est acquis sur ce chapitre !", "a-revoir": "Bien joué ! Encore une notion à revoir.", cours: "Cours", quiz: "Quiz", titre: "Vérifie ce que tu as compris", "sous-titre": "Chapitre 3 · questions tirées des slides de ton cours", qcm: "QCM", flash: "Flashcards", source: "Source", suivante: "Question suivante", recommencer: "Recommencer", reviser: "Réviser en flashcards", anki: "Exporter vers Anki", question: "Question", reponse: "Réponse", indice: "Clique ou appuie sur Espace pour voir la réponse", revoir: "À revoir", difficile: "Difficile", bien: "Bien", facile: "Facile", d1: "dans 1 min", d2: "dans 6 min", d3: "demain", d4: "dans 4 jours" },
-    en: { exact: "Correct!", presque: "Not quite.", "voir-score": "See my score", "tout-acquis": "You have mastered this chapter!", "a-revoir": "Well done! One notion left to review.", cours: "Course", quiz: "Quiz", titre: "Check what you understood", "sous-titre": "Chapter 3 · questions drawn from your course slides", qcm: "Multiple choice", flash: "Flashcards", source: "Source", suivante: "Next question", recommencer: "Start again", reviser: "Review as flashcards", anki: "Export to Anki", question: "Question", reponse: "Answer", indice: "Click or press Space to see the answer", revoir: "Again", difficile: "Hard", bien: "Good", facile: "Easy", d1: "in 1 min", d2: "in 6 min", d3: "tomorrow", d4: "in 4 days" },
-    ar: { exact: "صحيح!", presque: "ليس تمامًا.", "voir-score": "عرض نتيجتي", "tout-acquis": "أتقنت هذا الفصل!", "a-revoir": "أحسنت! بقيت فكرة واحدة للمراجعة.", cours: "الدرس", quiz: "اختبار", titre: "تحقّق مما فهمته", "sous-titre": "الفصل 3 · أسئلة مأخوذة من شرائح درسك", qcm: "اختيار من متعدد", flash: "بطاقات", source: "المصدر", suivante: "السؤال التالي", recommencer: "إعادة", reviser: "راجع بالبطاقات", anki: "تصدير إلى Anki", question: "سؤال", reponse: "الجواب", indice: "انقر أو اضغط المسافة لرؤية الجواب", revoir: "أعد", difficile: "صعب", bien: "جيد", facile: "سهل", d1: "بعد دقيقة", d2: "بعد 6 دقائق", d3: "غدًا", d4: "بعد 4 أيام" }
+    fr: { exact: "Exact !", presque: "Pas tout à fait.", "voir-score": "Voir mon score", "tout-acquis": "Tout est acquis sur ce chapitre !", "a-revoir": "Bien joué ! Encore une notion à revoir.", depot: "Déposer", cours: "Cours", quiz: "Quiz", titre: "Vérifie ce que tu as compris", "sous-titre": "Chapitre 3 · questions tirées des slides de ton cours", qcm: "QCM", flash: "Flashcards", source: "Source", suivante: "Question suivante", recommencer: "Recommencer", reviser: "Réviser en flashcards", anki: "Exporter vers Anki", question: "Question", reponse: "Réponse", indice: "Clique ou appuie sur Espace pour voir la réponse", revoir: "À revoir", difficile: "Difficile", bien: "Bien", facile: "Facile", d1: "dans 1 min", d2: "dans 6 min", d3: "demain", d4: "dans 4 jours" },
+    en: { exact: "Correct!", presque: "Not quite.", "voir-score": "See my score", "tout-acquis": "You have mastered this chapter!", "a-revoir": "Well done! One notion left to review.", depot: "Upload", cours: "Course", quiz: "Quiz", titre: "Check what you understood", "sous-titre": "Chapter 3 · questions drawn from your course slides", qcm: "Multiple choice", flash: "Flashcards", source: "Source", suivante: "Next question", recommencer: "Start again", reviser: "Review as flashcards", anki: "Export to Anki", question: "Question", reponse: "Answer", indice: "Click or press Space to see the answer", revoir: "Again", difficile: "Hard", bien: "Good", facile: "Easy", d1: "in 1 min", d2: "in 6 min", d3: "tomorrow", d4: "in 4 days" },
+    ar: { exact: "صحيح!", presque: "ليس تمامًا.", "voir-score": "عرض نتيجتي", "tout-acquis": "أتقنت هذا الفصل!", "a-revoir": "أحسنت! بقيت فكرة واحدة للمراجعة.", depot: "رفع", cours: "الدرس", quiz: "اختبار", titre: "تحقّق مما فهمته", "sous-titre": "الفصل 3 · أسئلة مأخوذة من شرائح درسك", qcm: "اختيار من متعدد", flash: "بطاقات", source: "المصدر", suivante: "السؤال التالي", recommencer: "إعادة", reviser: "راجع بالبطاقات", anki: "تصدير إلى Anki", question: "سؤال", reponse: "الجواب", indice: "انقر أو اضغط المسافة لرؤية الجواب", revoir: "أعد", difficile: "صعب", bien: "جيد", facile: "سهل", d1: "بعد دقيقة", d2: "بعد 6 دقائق", d3: "غدًا", d4: "بعد 4 أيام" }
   });
 
   afficherQuestion();

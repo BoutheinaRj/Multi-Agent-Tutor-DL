@@ -10,6 +10,7 @@
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-depot" viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5"/><path d="M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol>
   <symbol id="i-livre" viewBox="0 0 24 24"><path d="M3 5.5C5.5 4 8.5 4 12 6c3.5-2 6.5-2 9-.5V19c-2.5-1.5-5.5-1.5-9 .5-3.5-2-6.5-2-9-.5z"/><path d="M12 6v13.5"/></symbol>
   <symbol id="i-cours" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
   <symbol id="i-quiz" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><path d="M12 17h.01"/></symbol>
@@ -25,13 +26,14 @@
 </svg>
 
 <header class="barre">
-  <a class="marque" href="cours.html" aria-label="Multi-Agent Tutor, accueil"><img src="img/logo-icone.png" alt="" width="44" height="44"><span class="marque-nom">Multi-Agent <b>Tutor</b></span></a>
+  <a class="marque" href="accueil/index.html" aria-label="Multi-Agent Tutor, accueil"><img src="img/logo-icone.png" alt="" width="44" height="44"><span class="marque-nom">Multi-Agent <b>Tutor</b></span></a>
   <div class="cours-actuel">
     <svg class="icone"><use href="#i-livre"/></svg>
     <span>Optimisation pour le ML ·</span>
     <strong>Ch. 3 — Descente de gradient stochastique</strong>
   </div>
   <nav class="onglets" aria-label="Sections">
+    <a href="depot.html"><svg class="icone"><use href="#i-depot"/></svg><span data-t="depot">Déposer</span></a>
     <a href="cours.html" aria-current="page"><svg class="icone"><use href="#i-cours"/></svg><span data-t="cours">Cours</span></a>
     <a href="quiz.html"><svg class="icone"><use href="#i-quiz"/></svg><span data-t="quiz">Quiz</span></a>
   </nav>
@@ -292,9 +294,9 @@
 
   // ---------- Langue de l'interface ----------
   brancherLangues({
-    fr: { "tester-court": "Me tester", demander: "Demander", cours: "Cours", quiz: "Quiz", slide: "Slide", prec: "Précédente", suiv: "Suivante", vue: "vue", comprise: "comprise", testee: "testée", expl: "Explication", verifie: "Vérifié par le Critic", debutant: "Débutant", intermediaire: "Intermédiaire", avance: "Avancé", tester: "Me tester sur cette slide", ecouter: "Écouter", ress: "Ressources", questions: "Questions sur le cours", "sous-questions": "Réponses tirées de ton cours, avec leurs slides.", envoyer: "Envoyer", ph: "Pose une question sur ce cours…", "h-expl": "En détail", "h-ex": "Exemple", "h-lien": "Lien avec la slide précédente", "h-retenir": "À retenir" },
-    en: { "tester-court": "Test me", demander: "Ask", cours: "Course", quiz: "Quiz", slide: "Slide", prec: "Previous", suiv: "Next", vue: "seen", comprise: "understood", testee: "tested", expl: "Explanation", verifie: "Checked by the Critic", debutant: "Beginner", intermediaire: "Intermediate", avance: "Advanced", tester: "Test me on this slide", ecouter: "Listen", ress: "Resources", questions: "Ask about the course", "sous-questions": "Answers drawn from your course, with their slides.", envoyer: "Send", ph: "Ask a question about this course…", "h-expl": "In detail", "h-ex": "Example", "h-lien": "Link with the previous slide", "h-retenir": "Key takeaway" },
-    ar: { "tester-court": "اختبرني", demander: "اسأل", cours: "الدرس", quiz: "اختبار", slide: "شريحة", prec: "السابقة", suiv: "التالية", vue: "تمت رؤيتها", comprise: "مفهومة", testee: "مختبرة", expl: "الشرح", verifie: "تحقق منه المُراجِع", debutant: "مبتدئ", intermediaire: "متوسط", avance: "متقدم", tester: "اختبرني في هذه الشريحة", ecouter: "استمع", ress: "مصادر", questions: "أسئلة حول الدرس", "sous-questions": "إجابات مأخوذة من درسك مع شرائحها.", envoyer: "إرسال", ph: "اطرح سؤالاً حول هذا الدرس…", "h-expl": "بالتفصيل", "h-ex": "مثال", "h-lien": "الصلة بالشريحة السابقة", "h-retenir": "للتذكّر" }
+    fr: { "tester-court": "Me tester", demander: "Demander", depot: "Déposer", cours: "Cours", quiz: "Quiz", slide: "Slide", prec: "Précédente", suiv: "Suivante", vue: "vue", comprise: "comprise", testee: "testée", expl: "Explication", verifie: "Vérifié par le Critic", debutant: "Débutant", intermediaire: "Intermédiaire", avance: "Avancé", tester: "Me tester sur cette slide", ecouter: "Écouter", ress: "Ressources", questions: "Questions sur le cours", "sous-questions": "Réponses tirées de ton cours, avec leurs slides.", envoyer: "Envoyer", ph: "Pose une question sur ce cours…", "h-expl": "En détail", "h-ex": "Exemple", "h-lien": "Lien avec la slide précédente", "h-retenir": "À retenir" },
+    en: { "tester-court": "Test me", demander: "Ask", depot: "Upload", cours: "Course", quiz: "Quiz", slide: "Slide", prec: "Previous", suiv: "Next", vue: "seen", comprise: "understood", testee: "tested", expl: "Explanation", verifie: "Checked by the Critic", debutant: "Beginner", intermediaire: "Intermediate", avance: "Advanced", tester: "Test me on this slide", ecouter: "Listen", ress: "Resources", questions: "Ask about the course", "sous-questions": "Answers drawn from your course, with their slides.", envoyer: "Send", ph: "Ask a question about this course…", "h-expl": "In detail", "h-ex": "Example", "h-lien": "Link with the previous slide", "h-retenir": "Key takeaway" },
+    ar: { "tester-court": "اختبرني", demander: "اسأل", depot: "رفع", cours: "الدرس", quiz: "اختبار", slide: "شريحة", prec: "السابقة", suiv: "التالية", vue: "تمت رؤيتها", comprise: "مفهومة", testee: "مختبرة", expl: "الشرح", verifie: "تحقق منه المُراجِع", debutant: "مبتدئ", intermediaire: "متوسط", avance: "متقدم", tester: "اختبرني في هذه الشريحة", ecouter: "استمع", ress: "مصادر", questions: "أسئلة حول الدرس", "sous-questions": "إجابات مأخوذة من درسك مع شرائحها.", envoyer: "إرسال", ph: "اطرح سؤالاً حول هذا الدرس…", "h-expl": "بالتفصيل", "h-ex": "مثال", "h-lien": "الصلة بالشريحة السابقة", "h-retenir": "للتذكّر" }
   }, () => { placerCurseur(); aller(numero); });
 </script>
 </body>

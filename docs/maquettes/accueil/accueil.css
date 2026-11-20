@@ -138,7 +138,7 @@ p { margin: 0; text-wrap: pretty; }
 /* Entrée du hero : une fois, au chargement */
 .js .hero__titre .ligne > span { transform: translateY(105%); }
 .js .hero__chapo, .js .hero__actions, .js .hero__local { opacity: 0; transform: translateY(14px); }
-.js .hero__mascotte { opacity: 0; transform: scale(.94); }
+.js .hero__mascotte { transform: scale(.9) translateY(20px); }
 .js .surligne path { stroke-dashoffset: 320; }
 .entree .hero__titre .ligne > span { transform: none; transition: transform 900ms var(--ease-out); }
 .entree .hero__titre .ligne:nth-child(2) > span { transition-delay: 90ms; }
@@ -146,7 +146,7 @@ p { margin: 0; text-wrap: pretty; }
 .entree .surligne path { stroke-dashoffset: 0; transition: stroke-dashoffset 700ms var(--ease-out) 750ms; }
 .entree .hero__chapo, .entree .hero__actions, .entree .hero__local { opacity: 1; transform: none; transition: opacity 600ms ease, transform 700ms var(--ease-out); }
 .entree .hero__chapo { transition-delay: 320ms; } .entree .hero__actions { transition-delay: 420ms; } .entree .hero__local { transition-delay: 520ms; }
-.entree .hero__mascotte { opacity: 1; transform: none; transition: opacity 700ms ease 200ms, transform 1000ms var(--ease-out) 200ms; }
+.entree .hero__mascotte { transform: none; transition: transform 1000ms var(--ease-out) 200ms; }
 
 @media (max-width: 899px) {
   .hero { padding: 112px 0 88px; min-height: auto; }
@@ -281,6 +281,11 @@ p { margin: 0; text-wrap: pretty; }
 .tw .acts a { height: 36px; padding: 0 14px; border-radius: 8px; display: inline-flex; align-items: center; font-size: 14px; font-weight: 600;
   background: var(--mat-primaire); color: var(--mat-surface); text-decoration: none; transition: background-color 180ms ease, transform 160ms var(--ease-out); }
 .tw .acts a:hover { background: var(--mat-primaire-survol); }
+.tw .acts a.acts__second { background: var(--mat-surface); color: var(--mat-primaire); box-shadow: inset 0 0 0 1.5px var(--mat-primaire); }
+.tw .acts a.acts__second:hover { background: var(--bleu-ciel); }
+.tw .acts { flex-wrap: wrap; }
+.fin__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+@media (max-width: 479px) { .fin__actions .bouton { width: 100%; } }
 .tw .acts a:active { transform: scale(.97); }
 @media (max-width: 639px) {
   .tw { font-size: 14px; }

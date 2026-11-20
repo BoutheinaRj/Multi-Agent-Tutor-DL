@@ -6,6 +6,8 @@ Maquettes HTML/CSS cliquables, à ouvrir dans un navigateur (double-clic sur le 
 
 | Fichier | Page |
 |---|---|
+| `accueil/index.html` | Landing (vitrine) : présentation animée, tuteur jouable, boutons « Déposer mon cours » |
+| `depot.html` | Page Dépôt : glisser-déposer PPTX/PDF, analyse en 4 étapes ; appelle `POST /upload` (A1) si l'API tourne sur `localhost:8000`, sinon mode démo |
 | `cours.html` | Page Cours |
 | `quiz.html` | Page Quiz (QCM + flashcards) |
 | `maquettes.css` | Styles communs |
