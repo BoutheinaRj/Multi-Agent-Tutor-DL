@@ -6,7 +6,7 @@ import { Icone } from "../components/Icones";
 import { Mascotte, type EtatMascotte } from "../components/Mascotte";
 import { Citation, Formule, TexteEnLigne, TexteRiche } from "../components/TexteRiche";
 import { useLangue, type CleTexte } from "../i18n";
-import type { AgentResponse, Course, Niveau, Ressource, Slide, Source } from "../types";
+import { MAX_HISTORIQUE, type AgentResponse, type Course, type Message, type Niveau, type Ressource, type Slide, type Source } from "../types";
 import type { Maitrise } from "../maitrise";
 
 const NIVEAUX: Niveau[] = ["debutant", "intermediaire", "avance"];
@@ -497,6 +497,14 @@ interface Tour {
   sources?: Source[];
 }
 
+/** Historique envoyé à /ask : tours terminés (sans erreurs ni bulles vides), les plus récents. */
+function historiqueDe(tours: Tour[]): Message[] {
+  return tours
+    .filter((x) => x.statut === "pret" && x.texte.trim())
+    .map((x): Message => ({ role: x.role === "etudiant" ? "utilisateur" : "tuteur", contenu: x.texte }))
+    .slice(-MAX_HISTORIQUE);
+}
+
 function Questions({
   cours,
   slide,
@@ -529,6 +537,7 @@ function Questions({
 
   async function envoyer(texte: string) {
     if (!texte.trim() || occupe) return;
+    const historique = historiqueDe(tours);
     const idEtudiant = prochainId.current++;
     const id = prochainId.current++;
     setTours((ts) => [
@@ -541,7 +550,7 @@ function Questions({
     annulation.current = ctrl;
     try {
       const res = await api.demander(
-        { course_id: cours.id, slide_courante: slide.numero, question: texte, niveau, langue },
+        { course_id: cours.id, slide_courante: slide.numero, question: texte, niveau, langue, historique },
         ctrl.signal,
       );
       const r = await lireReponseAgent(res, (partiel) => majTuteur(id, { texte: partiel, statut: "ecriture" }), ctrl.signal);

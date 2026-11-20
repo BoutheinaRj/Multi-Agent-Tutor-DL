@@ -1,6 +1,7 @@
 // Client de l'API FastAPI (api/main.py). Aucune autre origine n'est appelée.
 import type {
   AgentResponse,
+  AskRequest,
   CarteSRS,
   Course,
   Flashcard,
@@ -68,10 +69,11 @@ const qs = (params: Record<string, string | number | null | undefined>) => {
 /**
  * Lire la réponse d'un agent texte (Explainer, Q&A) en l'affichant au fil de l'eau.
  *
- * - Réponse `text/event-stream` (SSE, prévu pour A3) : chaque événement `data:` est soit du
+ * - Réponse `text/event-stream` (SSE de l'API) : chaque événement `data:` est soit du
  *   JSON `{"token": "..."}` (morceau de texte), soit le JSON final `AgentResponse`
- *   (`{"reponse": ..., "sources": [...]}`), soit du texte brut ajouté tel quel.
- * - Réponse JSON (API factice actuelle) : le texte est révélé progressivement côté client.
+ *   (`{"reponse": ..., "sources": [...]}`), soit du texte brut ajouté tel quel. Les événements
+ *   `progression` / `erreur` (ni `token` ni `reponse`) n'entrent pas dans le texte.
+ * - Réponse JSON : le texte est révélé progressivement côté client.
  */
 export async function lireReponseAgent(
   res: Response,
@@ -161,10 +163,7 @@ export const api = {
     }),
 
   /** Réponse brute de /ask, à passer à `lireReponseAgent`. */
-  demander: (
-    corps: { course_id: string; slide_courante: number; question: string; niveau: Niveau; langue: LangueUI },
-    signal?: AbortSignal,
-  ) => {
+  demander: (corps: AskRequest, signal?: AbortSignal) => {
     const init = corpsJson(corps, signal);
     (init.headers as Record<string, string>).Accept = "text/event-stream, application/json";
     return requete("/ask", init);

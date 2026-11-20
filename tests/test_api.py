@@ -1,4 +1,4 @@
-"""Tests de l'API factice (A1) : une assertion par route."""
+"""Tests de l'API (A1) : une assertion par route (LLM fake, voir aussi test_api_graphe.py)."""
 
 from __future__ import annotations
 
@@ -7,6 +7,7 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 
+import agents.explainer as ex
 from api.main import app
 from api.models import QCM, Ressource
 from schemas import AgentResponse, Course
@@ -15,6 +16,14 @@ client = TestClient(app)
 
 COURSE_ID = "ml_regression_lineaire_fr"
 SLIDE_ID = f"{COURSE_ID}__s002"
+
+
+@pytest.fixture(autouse=True)
+def _llm_fake(monkeypatch: pytest.MonkeyPatch) -> None:
+    """/explain et /ask passent par le graphe (A3) : jamais le vrai modèle dans ces tests."""
+    monkeypatch.setenv("LLM_BACKEND", "fake")
+    monkeypatch.delenv("LLM_FAKE_REPONSE", raising=False)
+    monkeypatch.setattr(ex, "_prerequis_h3", lambda: None)
 
 
 def test_upload() -> None:

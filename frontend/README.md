@@ -69,18 +69,30 @@ application l'occupe déjà, Vite s'arrête au lieu de prendre un autre port : l
 
 ## LLM local lent et streaming (A3)
 
-`/explain` et `/ask` sont encore factices (A3 viendra après O2). Le LLM local peut mettre 30 à 120 s : pendant la
-génération, la mascotte « réfléchit », un compteur affiche le temps écoulé (avec un avertissement après 15 s) et un
-bouton permet d'annuler. Les explications déjà reçues sont gardées en cache (slide × niveau) et un délai de 300 ms
-évite de lancer une génération à chaque slide quand on navigue vite.
+`/slide/{id}/explain` et `/ask` ne sont plus factices : ils passent par le graphe LangGraph de l'API (Explainer O2,
+Q&A, Critic O3) et le LLM local. Sur CPU, une explication prend environ 2 min sans Critic et 3 à 5 min avec
+(mesuré sur la slide `ml_regression_lineaire_fr__s002`, niveau débutant, Qwen2.5-3B Q4). Pendant la génération,
+la mascotte « réfléchit », un compteur affiche le temps écoulé (avec un avertissement après 15 s) et un bouton
+permet d'annuler. Les explications déjà reçues sont gardées en cache (slide × niveau) et un délai de 300 ms évite
+de lancer une génération à chaque slide quand on navigue vite.
 
-L'affichage est déjà progressif. `lireReponseAgent` (`src/api.ts`) accepte deux formats, sans changement côté
-frontend le jour où A3 passe au streaming :
+Le frontend envoie `Accept: text/event-stream, application/json` : l'API répond alors en **SSE** (format détaillé
+dans [`api/README.md`](../api/README.md#streaming-sse-slideidexplain-ask)). `lireReponseAgent` (`src/api.ts`) lit :
 
-- **JSON** (`application/json`, actuel) : `AgentResponse`, dont le texte est révélé mot à mot ;
-- **SSE** (`text/event-stream`, prévu) : chaque événement `data:` est soit `{"token": "…"}` (morceau de texte),
-  soit l'`AgentResponse` final (`{"agent": …, "reponse": …, "sources": […]}`), soit du texte brut. Le frontend
-  envoie `Accept: text/event-stream, application/json`.
+- **SSE** (`text/event-stream`) : les événements `progression` (`debut`, `generation`, `verification`,
+  `correction`), `erreur` (`{statut, detail}`) et les `: ping` toutes les 15 s n'ont ni `token` ni `reponse` et
+  n'entrent pas dans le texte ; le dernier `data:` est l'`AgentResponse` final
+  (`{"agent": …, "reponse": …, "sources": […], "score_fidelite": …}`), puis `data: [DONE]`. Les agents
+  produisent du JSON structuré : la réponse arrive d'un bloc, pas jeton par jeton (`{"token": "…"}` reste
+  accepté) ;
+- **JSON** (`application/json`, si l'API ne streame pas) : `AgentResponse`, dont le texte est révélé mot à mot.
+
+**`API_CRITIC`** (`.env` de l'API, à redémarrer après changement) :
+
+- `on` (défaut) : la réponse est relue par le Critic (étape SSE `verification`, `score_fidelite` renseigné, jusqu'à
+  2 corrections). `API_TIMEOUT_LLM` vaut 400 s par défaut (Explainer + Critic : ~290 s sur CPU) : au-delà,
+  l'API envoie `event: erreur` (504) puis l'explication non vérifiée, suivie d'un avertissement ;
+- `off` : réponse livrée sans vérification, `score_fidelite` à `null` (démo sur CPU lent).
 
 ## Arborescence
 

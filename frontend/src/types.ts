@@ -40,6 +40,26 @@ export interface Source {
   extrait: string;
 }
 
+/** Un tour de conversation (schemas/models.py : Message). */
+export interface Message {
+  role: "utilisateur" | "tuteur";
+  contenu: string;
+}
+
+/** Nombre maximal de messages d'historique acceptés par POST /ask (api/models.py : MAX_HISTORIQUE). */
+export const MAX_HISTORIQUE = 40;
+
+/** Corps de POST /ask (api/models.py : AskRequest). */
+export interface AskRequest {
+  course_id: string;
+  slide_courante: number;
+  question: string;
+  niveau?: Niveau;
+  langue?: Langue;
+  /** Tours précédents, du plus ancien au plus récent (sans la question en cours). */
+  historique?: Message[];
+}
+
 export interface AgentResponse {
   agent: "explainer" | "qa" | "quiz" | "resources" | "critic";
   reponse: string;
