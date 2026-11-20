@@ -90,6 +90,14 @@ def test_score_llm_part_des_affirmations_appuyees(monkeypatch: pytest.MonkeyPatc
     assert ev.acceptee()
 
 
+def test_affirmations_rejetees_sans_delimiteurs_latex(monkeypatch: pytest.MonkeyPatch) -> None:
+    # Les corrections repartent dans le prompt de l'agent : LaTeX réparé, jamais entouré de $…$.
+    _imposer(monkeypatch, {"affirmations": [{"affirmation": "\theta_{k+1} = \\frac{1}{k}", "appuyee": False}]})
+    ev = cr.evaluer("La MSE est la fonction de coût. [Slide 2]", [_src(2)])
+    assert ev is not None and ev.non_appuyees == ["\\theta_{k+1} = \\frac{1}{k}"]
+    assert "$" not in ev.non_appuyees[0]
+
+
 def test_citation_orpheline_compte_comme_non_appuyee(monkeypatch: pytest.MonkeyPatch) -> None:
     _imposer(monkeypatch, _jugement(True))
     ev = cr.evaluer("La MSE est la fonction de coût. [Slide 8]", [_src(2)])

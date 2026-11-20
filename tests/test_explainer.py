@@ -205,6 +205,18 @@ def test_repli_sans_llm(sans_llm: None) -> None:
     assert e.a_retenir == ["fonction d'activation", "ReLU"]
 
 
+def test_repli_formules_delimitees_pour_katex(sans_llm: None) -> None:
+    r = ex.expliquer_slide(TEST_ID, 2, charger=_charger)
+    assert r is not None and "Formule : $\\sigma(x) = 1 / (1 + e^{-x})$" in r.explication.explication
+    # Le prompt, lui, garde la formule brute.
+    assert "Formule : \\sigma(x)" in ex.construire_prompt(COURS, 2, "fr", [])
+
+
+@pytest.mark.parametrize("brut,attendu", [("x^2", "$x^2$"), ("$x^2$", "$x^2$"), ("\\(a\\)", "\\(a\\)"), ("  ", "")])
+def test_formule_affichable(brut: str, attendu: str) -> None:
+    assert ex.formule_affichable(brut) == attendu
+
+
 def test_slide_ou_cours_absents() -> None:
     assert ex.expliquer_slide(TEST_ID, 9, charger=_charger) is None
     assert ex.expliquer_slide("cours_inconnu", 1, charger=_charger) is None

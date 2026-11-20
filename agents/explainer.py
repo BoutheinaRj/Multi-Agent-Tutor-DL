@@ -192,10 +192,19 @@ def prerequis(cours: Course, numero: int, source: Prerequis | None = None) -> li
 # --------------------------------------------------------------------------- contexte de la slide
 
 
-def _corps(slide: Slide, limite: int) -> str:
+def formule_affichable(formule: str) -> str:
+    """Entourer de ``$…$`` une formule LaTeX de la slide pour KaTeX (A5), sauf si elle l'est déjà."""
+    f = formule.strip()
+    if not f or f.startswith("$") or f.startswith("\\(") or f.startswith("\\["):
+        return f
+    return f"${f}$"
+
+
+def _corps(slide: Slide, limite: int, *, affichage: bool = False) -> str:
+    """Texte de la slide ; ``affichage`` délimite les formules pour l'interface (pas pour le prompt)."""
     morceaux = [slide.texte, slide.notes]
     morceaux += [f"Figure : {d}" for d in slide.description_figures]
-    morceaux += [f"Formule : {f}" for f in slide.formules_latex]
+    morceaux += [f"Formule : {formule_affichable(f) if affichage else f}" for f in slide.formules_latex]
     corps = "\n".join(m.strip() for m in morceaux if m and m.strip())
     return corps[:limite]
 
@@ -243,7 +252,7 @@ def explication_sans_llm(cours: Course, numero: int) -> Explication:
     """Repli extractif : la slide reformatée dans les mêmes rubriques, sans rien inventer."""
     slide = cours.slides[numero - 1]
     titre = slide.titre.strip() or f"Slide {numero}"
-    corps = _corps(slide, MAX_EXPLICATION).strip()
+    corps = _corps(slide, MAX_EXPLICATION, affichage=True).strip()
     precedente = cours.slides[numero - 2] if numero > 1 else None
     lien = ""
     if precedente is not None and precedente.titre.strip():

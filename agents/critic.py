@@ -146,6 +146,20 @@ def texte_sources(sources: list[Source], charger: ChargerCours = qz.charger_cour
     return textes
 
 
+# Le modèle écrit parfois du LaTeX non échappé dans son JSON : « \theta » devient tabulation + « heta ».
+_LATEX_CASSE = str.maketrans({"\t": "\\t", "\b": "\\b", "\f": "\\f", "\r": "\\r"})
+
+
+def reparer_latex(texte: str) -> str:
+    """Réparer le LaTeX abîmé sans ajouter de délimiteurs ``$…$``.
+
+    Les affirmations du Critic ne sont pas affichées : elles repartent dans le prompt de l'agent
+    (``corrections``). Elles ne passent donc pas par ``agents.quiz.nettoyer``, qui délimite les
+    formules pour KaTeX (A5).
+    """
+    return texte.translate(_LATEX_CASSE).strip()
+
+
 _CITATION = re.compile(r"\[Slide (\d+)\]")
 _RUBRIQUE = re.compile(r"\*\*[^*]{1,60}\*\*\s*:?")
 
@@ -223,7 +237,7 @@ def juger(reponse: str, textes: dict[int, str]) -> Evaluation:
     jugees = [a for a in jugement.affirmations if a.affirmation.strip()][:MAX_AFFIRMATIONS]
     if not jugees:
         return Evaluation(1.0, [], 0)
-    rejetees = [qz.nettoyer(a.affirmation) for a in jugees if not a.appuyee]
+    rejetees = [reparer_latex(a.affirmation) for a in jugees if not a.appuyee]
     return Evaluation(1 - len(rejetees) / len(jugees), rejetees, len(jugees))
 
 
