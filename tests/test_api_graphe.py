@@ -36,6 +36,8 @@ def _isoler(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("LLM_FAKE_REPONSE", raising=False)
     monkeypatch.delenv("API_TIMEOUT_LLM", raising=False)
     monkeypatch.setattr(ex, "_prerequis_h3", lambda: None)
+    monkeypatch.setenv("API_QA", "bouchon")  # jamais bge-m3 / reranker / index Qdrant ici
+    tuteur.graphe.cache_clear()
     connect = socket.socket.connect
 
     def _local_seulement(sock: socket.socket, adresse: Any, *args: Any) -> Any:
@@ -367,6 +369,7 @@ def _faux_modules(monkeypatch: pytest.MonkeyPatch, *, store_ko: bool = False) ->
 
 
 def test_qa_branche_quand_agents_qa_existe(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("API_QA", "auto")
     _faux_modules(monkeypatch)
     agent, origine = tuteur.construire_agent_qa()
     assert origine == "qa"
@@ -375,5 +378,46 @@ def test_qa_branche_quand_agents_qa_existe(monkeypatch: pytest.MonkeyPatch) -> N
 
 
 def test_qa_repli_bouchon_si_construction_echoue(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("API_QA", "auto")
     _faux_modules(monkeypatch, store_ko=True)
-    assert tuteur.construire_agent_qa()[1] == "bouchon"
+    agent, origine = tuteur.construire_agent_qa()
+    assert origine == "bouchon"
+    etat = TutorState(course_id=COURSE_ID, slide_courante=2, question="Que minimise-t-on ?")
+    assert agent(etat)["reponse"] == tuteur.MESSAGE_QA_INDISPONIBLE
+
+
+@pytest.mark.parametrize(("valeur", "attendu"), [
+    (None, "auto"), ("auto", "auto"), ("bouchon", "bouchon"), ("BOUCHON", "bouchon"), ("n'importe", "auto"),
+])
+def test_api_qa_lecture(monkeypatch: pytest.MonkeyPatch, valeur: str | None, attendu: str) -> None:
+    if valeur is None:
+        monkeypatch.delenv("API_QA", raising=False)
+    else:
+        monkeypatch.setenv("API_QA", valeur)
+    assert tuteur.mode_qa() == attendu
+
+
+def test_api_qa_bouchon_force(monkeypatch: pytest.MonkeyPatch) -> None:
+    _faux_modules(monkeypatch)  # agents.qa « présent »
+    monkeypatch.setenv("API_QA", "bouchon")
+    agent, origine = tuteur.construire_agent_qa()
+    assert origine == "bouchon" and agent is AGENTS_BOUCHONS["question"]
+
+
+@pytest.mark.usefixtures("graphe_neuf")
+def test_ask_repli_si_qa_leve_oserror(monkeypatch: pytest.MonkeyPatch) -> None:
+    """bge-m3 non téléchargé : OSError au premier appel → /ask 200 avec le message de repli, sans réessai."""
+    appels: list[str] = []
+
+    def qa_en_panne(state: TutorState) -> dict:
+        appels.append(state.question)
+        raise OSError("bge-m3 introuvable dans le cache Hugging Face")
+
+    monkeypatch.setenv("API_CRITIC", "off")
+    monkeypatch.setattr(tuteur, "construire_agent_qa", lambda: (tuteur.AgentQAProtege(qa_en_panne), "qa"))
+    for _ in range(2):
+        r = client.post("/ask", json=QUESTION)
+        rep = AgentResponse.model_validate(r.json())
+        assert r.status_code == 200 and rep.agent == "qa"
+        assert rep.reponse == tuteur.MESSAGE_QA_INDISPONIBLE and rep.sources[0].numero == 2
+    assert appels == [QUESTION["question"]]  # indisponibilité mémorisée après le premier échec

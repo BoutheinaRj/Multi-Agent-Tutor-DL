@@ -8,6 +8,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 import agents.explainer as ex
+from api import graphe as tuteur
 from api.main import app
 from api.models import QCM, Ressource
 from schemas import AgentResponse, Course
@@ -24,6 +25,8 @@ def _llm_fake(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("LLM_BACKEND", "fake")
     monkeypatch.delenv("LLM_FAKE_REPONSE", raising=False)
     monkeypatch.setattr(ex, "_prerequis_h3", lambda: None)
+    monkeypatch.setenv("API_QA", "bouchon")  # jamais bge-m3 / reranker / index Qdrant ici
+    tuteur.graphe.cache_clear()
 
 
 def test_upload() -> None:

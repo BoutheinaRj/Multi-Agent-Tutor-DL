@@ -44,8 +44,8 @@ construire_graphe({"expliquer": explainer_agent, "quiz": quiz_verifie_agent,
 ```
 
 - `question` : `AgentQA(RechercheReranked(RechercheHybride(store), BgeReranker()))` si `agents/qa.py` (B3)
-  existe (index Qdrant : `QDRANT_PATH`, `qdrant_storage` par défaut) ; sinon, ou si sa construction échoue,
-  le bouchon d'O1 (TODO [B3] : brancher agents.qa quand la PR #13 est mergée).
+  existe et `API_QA=auto` (index Qdrant : `QDRANT_PATH`, `qdrant_storage` par défaut), enveloppé dans
+  `AgentQAProtege` ; sinon le bouchon d'O1 (voir `API_QA` ci-dessous).
 - `GET /slide/{id}/explain?niveau=&langue=` : intention `expliquer` imposée → Explainer (O2) ⇄ Critic (O3).
 - `POST /ask` (body : `course_id`, `slide_courante`, `question`, `niveau`, `langue`, `historique` optionnel,
   liste de `{"role": "utilisateur" | "tuteur", "contenu": "…"}`, 40 messages au plus, envoyée par la page Cours) :
@@ -62,6 +62,20 @@ construire_graphe({"expliquer": explainer_agent, "quiz": quiz_verifie_agent,
 
 Lue à la construction du graphe (premier appel) : redémarrer l'API après l'avoir changée. Le quiz reste
 vérifié par `verifier_qcm` dans les deux modes.
+
+### `API_QA` (`.env`)
+
+| Valeur | Agent `question` | Usage |
+|---|---|---|
+| `auto` (défaut) | vrai Q&A (B3) si `agents/qa.py` existe, sinon bouchon d'O1 | normal |
+| `bouchon` | bouchon d'O1, même si `agents/qa.py` existe | tests, démo sans modèles RAG |
+
+En mode `auto`, le Q&A charge bge-m3, le reranker et l'index Qdrant au premier appel. Si sa construction
+ou un appel échoue (`OSError` modèle non téléchargé, `ImportError`, index vide ou absent…), l'erreur est
+journalisée et `/ask` répond quand même (200, `agent: "qa"`) : « Le Q&A n'est pas disponible : modèles RAG
+non installés ou cours non indexé. », avec la slide courante en source. L'indisponibilité est mémorisée :
+les requêtes suivantes ne retentent pas le chargement. Après avoir téléchargé les modèles ou indexé le
+cours, redémarrer l'API. Lue à la construction du graphe (premier appel).
 
 ### Streaming SSE (`/slide/{id}/explain`, `/ask`)
 

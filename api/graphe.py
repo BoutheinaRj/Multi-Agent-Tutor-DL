@@ -13,6 +13,11 @@ est levée (504 côté API).
 
 ``API_CRITIC`` (``.env``) : ``on`` (défaut) insère la boucle Critic (O3) ; ``off`` construit le
 graphe sans Critic, pour une démo sur CPU lent (une explication = un seul appel au LLM).
+
+``API_QA`` (``.env``) : ``auto`` (défaut) branche le vrai Q&A (B3) si ``agents/qa.py`` existe,
+protégé par ``AgentQAProtege`` (toute erreur pendant l'appel — modèles RAG absents, index Qdrant
+vide… — donne une réponse de repli au lieu de faire échouer ``/ask``) ; ``bouchon`` force le
+bouchon d'O1 (tests, démo sans modèles RAG).
 """
 
 from __future__ import annotations
@@ -35,7 +40,7 @@ from agents.explainer import explainer_agent
 from agents.graph import AGENTS_BOUCHONS, INTENTIONS_CRITIQUEES, NOEUD_PAR_INTENTION, Agent, construire_graphe
 from agents.resources import resources_agent
 from api.models import NiveauBloom
-from schemas.models import AgentResponse, Intention, Langue, TutorState
+from schemas.models import AgentResponse, Intention, Langue, Message, TutorState
 
 log = logging.getLogger(__name__)
 
@@ -84,7 +89,62 @@ def timeout_llm() -> float:
     return valeur if valeur > 0 else TIMEOUT_LLM_PAR_DEFAUT
 
 
+def mode_qa() -> str:
+    """Agent Q&A voulu (``.env`` : ``API_QA=auto|bouchon``, défaut ``auto``)."""
+    valeur = os.getenv("API_QA", "auto").strip().lower()
+    if valeur in ("bouchon", "stub", "off"):
+        return "bouchon"
+    if valeur not in ("auto", ""):
+        log.warning("API_QA=%r inconnu, mode auto (valeurs : auto | bouchon)", valeur)
+    return "auto"
+
+
 # --------------------------------------------------------------------------- construction
+
+MESSAGE_QA_INDISPONIBLE = "Le Q&A n'est pas disponible : modèles RAG non installés ou cours non indexé."
+
+
+def repli_qa(state: TutorState) -> dict[str, Any]:
+    """Réponse du bouchon d'O1, avec un message clair à la place du texte provisoire."""
+    sortie = AGENTS_BOUCHONS["question"](state)
+    historique = list(sortie.get("historique", []))
+    if historique and historique[-1].role == "tuteur":
+        historique[-1] = Message(role="tuteur", contenu=MESSAGE_QA_INDISPONIBLE)
+    return {**sortie, "reponse": MESSAGE_QA_INDISPONIBLE, "historique": historique}
+
+
+class AgentQAProtege:
+    """Vrai agent Q&A (B3) qui ne fait jamais échouer ``/ask``.
+
+    Le Q&A charge bge-m3, le reranker et l'index Qdrant au premier appel : si l'appel lève
+    (``OSError`` modèle non téléchargé, ``ImportError``, index absent…), l'erreur est journalisée
+    et ``repli_qa`` répond. L'indisponibilité est mémorisée : les requêtes suivantes vont
+    directement au repli (redémarrer l'API après avoir installé les modèles / indexé le cours).
+    """
+
+    def __init__(self, agent: Agent | None, *, raison: str | None = None) -> None:
+        self.agent = agent
+        self.indisponible: str | None = raison or (None if agent is not None else "agent absent")
+        self._verrou = threading.Lock()
+
+    def __getattr__(self, nom: str) -> Any:  # attributs de l'agent réel (ex. ``recherche``)
+        agent = self.__dict__.get("agent")
+        if agent is None:
+            raise AttributeError(nom)
+        return getattr(agent, nom)
+
+    def __call__(self, state: TutorState) -> dict[str, Any]:
+        if self.indisponible is None and self.agent is not None:
+            try:
+                return self.agent(state)
+            except Exception as e:  # noqa: BLE001 — /ask doit toujours répondre
+                with self._verrou:
+                    if self.indisponible is None:
+                        log.error("agent Q&A indisponible, repli sur le bouchon jusqu'au redémarrage : %r",
+                                  e, exc_info=True)
+                    self.indisponible = repr(e)
+        return repli_qa(state)
+
 
 
 def agent_qa_disponible() -> bool:
@@ -93,10 +153,12 @@ def agent_qa_disponible() -> bool:
 
 
 def construire_agent_qa() -> tuple[Agent, str]:
-    """Agent Q&A (B3) s'il existe et se construit, sinon le bouchon d'O1 ; renvoie ``(agent, origine)``."""
-    if not agent_qa_disponible():
-        # TODO [B3] brancher agents.qa quand la PR #13 est mergée (la construction ci-dessous
-        # suit agents/README.md de la branche both et s'activera automatiquement).
+    """Agent Q&A (B3) protégé s'il existe et se construit, sinon un bouchon ; renvoie ``(agent, origine)``.
+
+    ``API_QA=bouchon`` ou ``agents/qa.py`` absent : bouchon d'O1. Construction en échec : repli
+    avec ``MESSAGE_QA_INDISPONIBLE`` (origine ``bouchon``).
+    """
+    if mode_qa() == "bouchon" or not agent_qa_disponible():
         return AGENTS_BOUCHONS["question"], "bouchon"
     try:
         qa = importlib.import_module("agents.qa")
@@ -105,10 +167,10 @@ def construire_agent_qa() -> tuple[Agent, str]:
         store_mod = importlib.import_module("rag.store")
         store = store_mod.VectorStore(store_mod.BgeM3Embedder(), chemin=os.getenv("QDRANT_PATH", "qdrant_storage"))
         recherche = rerank.RechercheReranked(search.RechercheHybride(store), rerank.BgeReranker())
-        return qa.AgentQA(recherche), "qa"
+        return AgentQAProtege(qa.AgentQA(recherche)), "qa"
     except Exception as e:  # modèles d'embedding ou index absents : on garde l'API utilisable
-        log.warning("agents.qa présent mais non construit (%s) : bouchon Q&A", e)
-        return AGENTS_BOUCHONS["question"], "bouchon"
+        log.warning("agents.qa présent mais non construit (%r) : repli Q&A", e)
+        return AgentQAProtege(None, raison=repr(e)), "bouchon"
 
 
 @lru_cache(maxsize=1)
@@ -268,7 +330,9 @@ def quiz_verifie(
 
 
 __all__ = [
+    "AgentQAProtege",
     "DelaiDepasse",
+    "MESSAGE_QA_INDISPONIBLE",
     "Evenement",
     "MESSAGES_ETAPES",
     "agent_qa_disponible",
@@ -277,6 +341,8 @@ __all__ = [
     "executer_avec_progression",
     "executer_tour",
     "graphe",
+    "mode_qa",
+    "repli_qa",
     "quiz_verifie",
     "timeout_llm",
     "vers_reponse",
