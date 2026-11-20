@@ -232,3 +232,109 @@ brancherTuteur();
 brancherParcours();
 brancherRouteur();
 brancherQCM();
+
+/* ================================================================== couche « agence créative » */
+const pointeurFin = matchMedia("(hover: hover) and (pointer: fine)");
+
+// Entrée du hero : une fois, dès que la première image est prête.
+requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.add("entree")));
+
+// Apparition au défilement (une seule fois par élément).
+const observateurRevele = new IntersectionObserver((entrees, obs) => {
+  entrees.forEach(e => { if (e.isIntersecting) { e.target.classList.add("vu"); obs.unobserve(e.target); } });
+}, { threshold: 0.2, rootMargin: "0px 0px -8% 0px" });
+document.querySelectorAll(".revele").forEach(el => observateurRevele.observe(el));
+
+// Compteurs : comptent jusqu'à leur valeur à l'arrivée à l'écran (texte final déjà dans le HTML).
+function compter(el) {
+  const cible = Number(el.dataset.compte);
+  if (reduireMouvement() || cible === 0) { el.textContent = String(cible); return; }
+  const debut = performance.now(), duree = 1400;
+  const pas = maintenant => {
+    const x = Math.min(1, (maintenant - debut) / duree);
+    el.textContent = String(Math.round(cible * (1 - Math.pow(1 - x, 4))));
+    if (x < 1) requestAnimationFrame(pas);
+  };
+  el.textContent = "0";
+  requestAnimationFrame(pas);
+}
+const observateurCompte = new IntersectionObserver((entrees, obs) => {
+  entrees.forEach(e => { if (e.isIntersecting) { compter(e.target); obs.unobserve(e.target); } });
+}, { threshold: 0.6 });
+document.querySelectorAll("[data-compte]").forEach(el => observateurCompte.observe(el));
+
+// Bouton aimanté : suit légèrement le curseur, revient en place en douceur.
+if (pointeurFin.matches && !reduireMouvement()) {
+  document.querySelectorAll(".aimant").forEach(b => {
+    b.addEventListener("pointermove", e => {
+      const r = b.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width / 2) * 0.22, y = (e.clientY - r.top - r.height / 2) * 0.3;
+      b.style.transform = `translate(${x}px, ${y}px)`;
+    });
+    b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+  });
+}
+
+// Parallaxe du hero : la mascotte et ses bulles suivent le curseur à des profondeurs différentes.
+const hero = document.querySelector(".hero");
+if (hero && pointeurFin.matches && !reduireMouvement()) {
+  const couches = [...hero.querySelectorAll("[data-parallaxe]")].map(el => ({ el, k: Number(el.dataset.parallaxe || 1) }));
+  let image = 0;
+  hero.addEventListener("pointermove", e => {
+    if (image) return;
+    image = requestAnimationFrame(() => {
+      image = 0;
+      const r = hero.getBoundingClientRect();
+      const dx = (e.clientX - r.left) / r.width - 0.5, dy = (e.clientY - r.top) / r.height - 0.5;
+      couches.forEach(({ el, k }) => { el.style.transform = `translate(${dx * 18 * k}px, ${dy * 14 * k}px)`; });
+    });
+  });
+  hero.addEventListener("pointerleave", () => couches.forEach(({ el }) => { el.style.transform = ""; }));
+}
+
+// Projecteur : une tache de lumière suit le curseur dans les cartes (transform sur un enfant, pas de variable héritée).
+if (pointeurFin.matches) {
+  document.querySelectorAll(".projecteur").forEach(carte => {
+    const spot = document.createElement("span");
+    spot.className = "spot";
+    spot.setAttribute("aria-hidden", "true");
+    carte.prepend(spot);
+    carte.addEventListener("pointermove", e => {
+      const r = carte.getBoundingClientRect();
+      spot.style.transform = `translate(${e.clientX - r.left}px, ${e.clientY - r.top}px)`;
+    });
+  });
+}
+
+// Navigation : se cache en descendant, revient en remontant ; lien de la section courante marqué.
+const nav = document.querySelector("[data-nav]");
+const barre = document.querySelector(".barre-action");
+let dernierY = scrollY, ticket = 0;
+addEventListener("scroll", () => {
+  if (ticket) return;
+  ticket = requestAnimationFrame(() => {
+    ticket = 0;
+    const y = scrollY;
+    nav.classList.toggle("cachee", y > 240 && y > dernierY + 4);
+    if (y < dernierY - 4 || y < 240) nav.classList.remove("cachee");
+    dernierY = y;
+    if (barre) barre.classList.toggle("visible", y > innerHeight * 0.7);
+    // Un saut de défilement (lien d'ancre, molette rapide) peut passer par-dessus un titre sans qu'il croise l'écran.
+    document.querySelectorAll(".revele:not(.vu)").forEach(el => { if (el.getBoundingClientRect().bottom < 0) el.classList.add("vu"); });
+  });
+}, { passive: true });
+const liens = new Map([...document.querySelectorAll(".nav__liens a")].map(a => [a.getAttribute("href").slice(1), a]));
+new IntersectionObserver(entrees => {
+  entrees.forEach(e => {
+    if (!e.isIntersecting) return;
+    liens.forEach(a => a.classList.remove("ici"));
+    liens.get(e.target.id)?.classList.add("ici");
+  });
+}, { rootMargin: "-45% 0px -50% 0px" }).observe(document.querySelector("#essai"));
+["#agents", "#parcours", "#preuves"].forEach(s => document.querySelector(s) && (function (el) {
+  new IntersectionObserver(entrees => entrees.forEach(e => {
+    if (!e.isIntersecting) return;
+    liens.forEach(a => a.classList.remove("ici"));
+    liens.get(el.id)?.classList.add("ici");
+  }), { rootMargin: "-45% 0px -50% 0px" }).observe(el);
+})(document.querySelector(s)));
